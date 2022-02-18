@@ -1,14 +1,5 @@
-import java.awt.EventQueue;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 public class EmployeeDashboard {
 
@@ -36,8 +27,6 @@ public class EmployeeDashboard {
 	public EmployeeDashboard() {
 		initialize();
 	}
-	
-	public static String path;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -45,15 +34,9 @@ public class EmployeeDashboard {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1024, 576);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JLabel lbl1 = new JLabel("INMA Theatre");
-		lbl1.setFont(new Font("Poppins", Font.BOLD, 16));
-		lbl1.setForeground(new Color(255, 255, 255));
-		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl1.setBounds(66, 12, 120, 25);
-		frame.getContentPane().add(lbl1);
 		
 		JLabel lbl2 = new JLabel("Online Movie Tickets Booking");
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -75,17 +58,6 @@ public class EmployeeDashboard {
 		lbl4.setFont(new Font("Poppins SemiBold", Font.PLAIN, 16));
 		lbl4.setBounds(40, 156, 154, 38);
 		frame.getContentPane().add(lbl4);
-		
-		JLabel lbllogo = new JLabel("");
-		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbllogo.setBounds(10, 4, 55, 37);
-		path = "C:\\Users\\niel\\OneDrive\\Pictures\\mtrs-inma\\logo.png";
-		ImageIcon background = new ImageIcon(path);
-        Image imgl = background.getImage();
-        Image newImage = imgl.getScaledInstance(lbllogo.getWidth(), lbllogo.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImage);
-        lbllogo.setIcon(image); 
-		frame.getContentPane().add(lbllogo);
 		
 		JLabel lblfirstm = new JLabel("");
 		lblfirstm.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,7 +86,36 @@ public class EmployeeDashboard {
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1010, 43);
 		panel.setBackground(new Color(247, 165, 35));
+		panel.setLayout(null);
 		frame.getContentPane().add(panel);
+		
+		JLabel lbllogo = new JLabel("");
+		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbllogo.setBounds(32, 0, 55, 43);
+		panel.add(lbllogo);
+		lbllogo.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
+		
+		JLabel lbl1 = new JLabel("INMA Theatre");
+		lbl1.setBounds(95, 11, 131, 25);
+		panel.add(lbl1);
+		lbl1.setFont(new Font("Poppins Black", Font.BOLD, 16));
+		lbl1.setForeground(new Color(255, 255, 255));
+		
+		JButton user_account = new JButton("Employee");
+		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
+		user_account.setOpaque(false);
+		user_account.setContentAreaFilled(false);
+		user_account.setFocusPainted(false);
+		user_account.setForeground(Color.WHITE);
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setBounds(872, 6, 107, 32);
+		panel.add(user_account);
+		
+		JLabel user_profpic = new JLabel("");
+		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setBounds(832, 0, 63, 43);
+		panel.add(user_profpic);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

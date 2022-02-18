@@ -1,14 +1,5 @@
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
+import java.awt.*;
+import javax.swing.*;
 
 public class PickASeat {
 
@@ -45,21 +36,49 @@ public class PickASeat {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1024, 576);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 1010, 43);
+		panel.setBackground(new Color(247, 165, 35));
+		panel.setLayout(null);
+		frame.getContentPane().add(panel);
+		
+		JLabel lbllogo = new JLabel("");
+		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbllogo.setBounds(32, 0, 55, 43);
+		panel.add(lbllogo);
+		lbllogo.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
+		
 		JLabel lbl1 = new JLabel("INMA Theatre");
-		lbl1.setFont(new Font("Poppins", Font.BOLD, 16));
+		lbl1.setBounds(95, 11, 131, 25);
+		panel.add(lbl1);
+		lbl1.setFont(new Font("Poppins Black", Font.BOLD, 16));
 		lbl1.setForeground(new Color(255, 255, 255));
-		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl1.setBounds(66, 12, 120, 25);
-		frame.getContentPane().add(lbl1);
+		
+		JButton user_account = new JButton("Employee");
+		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
+		user_account.setOpaque(false);
+		user_account.setContentAreaFilled(false);
+		user_account.setFocusPainted(false);
+		user_account.setForeground(Color.WHITE);
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setBounds(872, 6, 107, 32);
+		panel.add(user_account);
+		
+		JLabel user_profpic = new JLabel("");
+		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setBounds(832, 0, 63, 43);
+		panel.add(user_profpic);
 		
 		JLabel lbl2 = new JLabel("2:45PM");
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl2.setForeground(new Color(255, 255, 255));
 		lbl2.setFont(new Font("Poppins", Font.BOLD, 35));
-		lbl2.setBounds(99, 72, 142, 37);
+		lbl2.setBounds(90, 72, 142, 37);
 		frame.getContentPane().add(lbl2);
 		
 		JLabel lbl3 = new JLabel("The Adam Project");
@@ -76,26 +95,9 @@ public class PickASeat {
 		lbl4.setBounds(881, 92, 88, 22);
 		frame.getContentPane().add(lbl4);
 		
-		JLabel lbllogo = new JLabel("");
-		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbllogo.setBounds(10, 4, 55, 37);
-		path = "C:\\Users\\niel\\OneDrive\\Pictures\\mtrs-inma\\logo.png";
-		ImageIcon logo = new ImageIcon(path);
-        Image imgl = logo.getImage();
-        Image newImage = imgl.getScaledInstance(lbllogo.getWidth(), lbllogo.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImage);
-        lbllogo.setIcon(image); 
-		frame.getContentPane().add(lbllogo);
-		
 		JLabel lblback = new JLabel("");
-		lblback.setHorizontalAlignment(SwingConstants.CENTER);
 		lblback.setBounds(44, 71, 40, 39);
-		path = "C:\\Users\\niel\\OneDrive\\Pictures\\mtrs-inma\\back.png";
-		ImageIcon back = new ImageIcon(path);
-        Image imgb = back.getImage();
-        Image newImage1 = imgb.getScaledInstance(lblback.getWidth(), lblback.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image1 = new ImageIcon(newImage1);
-        lblback.setIcon(image1); 
+		lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
 		frame.getContentPane().add(lblback);
 		
 		JPanel panelw = new JPanel();
@@ -118,416 +120,412 @@ public class PickASeat {
 		frame.getContentPane().add(lbl6);
 		
 		JButton btn1 = new JButton("");
-		btn1.setBounds(50, 59, 33, 21);
+		btn1.setBounds(45, 60, 33, 21);
 		panelw.add(btn1);
 		
 		JButton btn2 = new JButton("");
-		btn2.setBounds(93, 59, 33, 21);
+		btn2.setBounds(88, 60, 33, 21);
 		panelw.add(btn2);
 		
 		JButton btn3 = new JButton("");
-		btn3.setBounds(136, 59, 33, 21);
+		btn3.setBounds(131, 60, 33, 21);
 		panelw.add(btn3);
 		
 		JButton btn4 = new JButton("");
-		btn4.setBounds(179, 59, 33, 21);
+		btn4.setBounds(174, 60, 33, 21);
 		panelw.add(btn4);
 		
 		JButton btn5 = new JButton("");
-		btn5.setBounds(222, 59, 33, 21);
+		btn5.setBounds(217, 60, 33, 21);
 		panelw.add(btn5);
 		
 		JButton btn6 = new JButton("");
-		btn6.setBounds(296, 59, 33, 21);
+		btn6.setBounds(291, 60, 33, 21);
 		panelw.add(btn6);
 		
 		JButton btn7 = new JButton("");
-		btn7.setBounds(339, 59, 33, 21);
+		btn7.setBounds(334, 60, 33, 21);
 		panelw.add(btn7);
 		
 		JButton btn8 = new JButton("");
-		btn8.setBounds(382, 59, 33, 21);
+		btn8.setBounds(377, 60, 33, 21);
 		panelw.add(btn8);
 		
 		JButton btn9 = new JButton("");
-		btn9.setBounds(423, 59, 33, 21);
+		btn9.setBounds(418, 60, 33, 21);
 		panelw.add(btn9);
 		
 		JButton btn10 = new JButton("");
-		btn10.setBounds(466, 59, 33, 21);
+		btn10.setBounds(461, 60, 33, 21);
 		panelw.add(btn10);
 		
 		JButton btn11 = new JButton("");
-		btn11.setBounds(509, 59, 33, 21);
+		btn11.setBounds(504, 60, 33, 21);
 		panelw.add(btn11);
 		
 		JButton btn12 = new JButton("");
-		btn12.setBounds(552, 59, 33, 21);
+		btn12.setBounds(547, 60, 33, 21);
 		panelw.add(btn12);
 		
 		JButton btn13 = new JButton("");
-		btn13.setBounds(595, 59, 33, 21);
+		btn13.setBounds(590, 60, 33, 21);
 		panelw.add(btn13);
 		
 		JButton btn14 = new JButton("");
-		btn14.setBounds(668, 59, 33, 21);
+		btn14.setBounds(663, 60, 33, 21);
 		panelw.add(btn14);
 		
 		JButton btn15 = new JButton("");
-		btn15.setBounds(711, 59, 33, 21);
+		btn15.setBounds(706, 60, 33, 21);
 		panelw.add(btn15);
 		
 		JButton btn16 = new JButton("");
-		btn16.setBounds(754, 59, 33, 21);
+		btn16.setBounds(749, 60, 33, 21);
 		panelw.add(btn16);
 		
 		JButton btn17 = new JButton("");
-		btn17.setBounds(797, 59, 33, 21);
+		btn17.setBounds(792, 60, 33, 21);
 		panelw.add(btn17);
 		
 		JButton btn18 = new JButton("");
-		btn18.setBounds(840, 59, 33, 21);
+		btn18.setBounds(835, 60, 33, 21);
 		panelw.add(btn18);
 		
 		JButton btn19 = new JButton("");
-		btn19.setBounds(50, 90, 33, 21);
+		btn19.setBounds(45, 91, 33, 21);
 		panelw.add(btn19);
 		
 		JButton btn20 = new JButton("");
-		btn20.setBounds(93, 90, 33, 21);
+		btn20.setBounds(88, 91, 33, 21);
 		panelw.add(btn20);
 		
 		JButton btn21 = new JButton("");
-		btn21.setBounds(136, 90, 33, 21);
+		btn21.setBounds(131, 91, 33, 21);
 		panelw.add(btn21);
 		
 		JButton btn22 = new JButton("");
-		btn22.setBounds(179, 90, 33, 21);
+		btn22.setBounds(174, 91, 33, 21);
 		panelw.add(btn22);
 		
 		JButton btn23 = new JButton("");
-		btn23.setBounds(222, 90, 33, 21);
+		btn23.setBounds(217, 91, 33, 21);
 		panelw.add(btn23);
 		
 		JButton btn24 = new JButton("");
-		btn24.setBounds(296, 90, 33, 21);
+		btn24.setBounds(291, 91, 33, 21);
 		panelw.add(btn24);
 		
 		JButton btn25 = new JButton("");
-		btn25.setBounds(339, 90, 33, 21);
+		btn25.setBounds(334, 91, 33, 21);
 		panelw.add(btn25);
 		
 		JButton btn26 = new JButton("");
-		btn26.setBounds(382, 90, 33, 21);
+		btn26.setBounds(377, 91, 33, 21);
 		panelw.add(btn26);
 		
 		JButton btn27 = new JButton("");
-		btn27.setBounds(423, 90, 33, 21);
+		btn27.setBounds(418, 91, 33, 21);
 		panelw.add(btn27);
 		
 		JButton btn28 = new JButton("");
-		btn28.setBounds(466, 90, 33, 21);
+		btn28.setBounds(461, 91, 33, 21);
 		panelw.add(btn28);
 		
 		JButton btn29 = new JButton("");
-		btn29.setBounds(509, 90, 33, 21);
+		btn29.setBounds(504, 91, 33, 21);
 		panelw.add(btn29);
 		
 		JButton btn30 = new JButton("");
-		btn30.setBounds(552, 90, 33, 21);
+		btn30.setBounds(547, 91, 33, 21);
 		panelw.add(btn30);
 		
 		JButton btn31 = new JButton("");
-		btn31.setBounds(595, 90, 33, 21);
+		btn31.setBounds(590, 91, 33, 21);
 		panelw.add(btn31);
 		
 		JButton btn32 = new JButton("");
-		btn32.setBounds(668, 90, 33, 21);
+		btn32.setBounds(663, 91, 33, 21);
 		panelw.add(btn32);
 		
 		JButton btn33 = new JButton("");
-		btn33.setBounds(711, 90, 33, 21);
+		btn33.setBounds(706, 91, 33, 21);
 		panelw.add(btn33);
 		
 		JButton btn34 = new JButton("");
-		btn34.setBounds(754, 90, 33, 21);
+		btn34.setBounds(749, 91, 33, 21);
 		panelw.add(btn34);
 		
 		JButton btn35 = new JButton("");
-		btn35.setBounds(797, 90, 33, 21);
+		btn35.setBounds(792, 91, 33, 21);
 		panelw.add(btn35);
 		
 		JButton btn36 = new JButton("");
-		btn36.setBounds(840, 90, 33, 21);
+		btn36.setBounds(835, 91, 33, 21);
 		panelw.add(btn36);
 		
 		JButton btn37 = new JButton("");
-		btn37.setBounds(50, 121, 33, 21);
+		btn37.setBounds(45, 122, 33, 21);
 		panelw.add(btn37);
 		
 		JButton btn38 = new JButton("");
-		btn38.setBounds(93, 121, 33, 21);
+		btn38.setBounds(88, 122, 33, 21);
 		panelw.add(btn38);
 		
 		JButton btn39 = new JButton("");
-		btn39.setBounds(136, 121, 33, 21);
+		btn39.setBounds(131, 122, 33, 21);
 		panelw.add(btn39);
 		
 		JButton btn40 = new JButton("");
-		btn40.setBounds(179, 121, 33, 21);
+		btn40.setBounds(174, 122, 33, 21);
 		panelw.add(btn40);
 		
 		JButton btn41 = new JButton("");
-		btn41.setBounds(222, 121, 33, 21);
+		btn41.setBounds(217, 122, 33, 21);
 		panelw.add(btn41);
 		
 		JButton btn42 = new JButton("");
-		btn42.setBounds(296, 121, 33, 21);
+		btn42.setBounds(291, 122, 33, 21);
 		panelw.add(btn42);
 		
 		JButton btn43 = new JButton("");
-		btn43.setBounds(339, 121, 33, 21);
+		btn43.setBounds(334, 122, 33, 21);
 		panelw.add(btn43);
 		
 		JButton btn44 = new JButton("");
-		btn44.setBounds(382, 121, 33, 21);
+		btn44.setBounds(377, 122, 33, 21);
 		panelw.add(btn44);
 		
 		JButton btn45 = new JButton("");
-		btn45.setBounds(423, 121, 33, 21);
+		btn45.setBounds(418, 122, 33, 21);
 		panelw.add(btn45);
 		
 		JButton btn46 = new JButton("");
-		btn46.setBounds(466, 121, 33, 21);
+		btn46.setBounds(461, 122, 33, 21);
 		panelw.add(btn46);
 		
 		JButton btn47 = new JButton("");
-		btn47.setBounds(509, 121, 33, 21);
+		btn47.setBounds(504, 122, 33, 21);
 		panelw.add(btn47);
 		
 		JButton btn48 = new JButton("");
-		btn48.setBounds(552, 121, 33, 21);
+		btn48.setBounds(547, 122, 33, 21);
 		panelw.add(btn48);
 		
 		JButton btn49 = new JButton("");
-		btn49.setBounds(595, 121, 33, 21);
+		btn49.setBounds(590, 122, 33, 21);
 		panelw.add(btn49);
 		
 		JButton btn50 = new JButton("");
-		btn50.setBounds(668, 121, 33, 21);
+		btn50.setBounds(663, 122, 33, 21);
 		panelw.add(btn50);
 		
 		JButton btn51 = new JButton("");
-		btn51.setBounds(711, 121, 33, 21);
+		btn51.setBounds(706, 122, 33, 21);
 		panelw.add(btn51);
 		
 		JButton btn52 = new JButton("");
-		btn52.setBounds(754, 121, 33, 21);
+		btn52.setBounds(749, 122, 33, 21);
 		panelw.add(btn52);
 		
 		JButton btn53 = new JButton("");
-		btn53.setBounds(797, 121, 33, 21);
+		btn53.setBounds(792, 122, 33, 21);
 		panelw.add(btn53);
 		
 		JButton btn54 = new JButton("");
-		btn54.setBounds(840, 121, 33, 21);
+		btn54.setBounds(835, 122, 33, 21);
 		panelw.add(btn54);
 		
 		JButton btn55 = new JButton("");
-		btn55.setBounds(50, 152, 33, 21);
+		btn55.setBounds(45, 153, 33, 21);
 		panelw.add(btn55);
 		
 		JButton btn56 = new JButton("");
-		btn56.setBounds(93, 152, 33, 21);
+		btn56.setBounds(88, 153, 33, 21);
 		panelw.add(btn56);
 		
 		JButton btn57 = new JButton("");
-		btn57.setBounds(136, 152, 33, 21);
+		btn57.setBounds(131, 153, 33, 21);
 		panelw.add(btn57);
 		
 		JButton btn58 = new JButton("");
-		btn58.setBounds(179, 152, 33, 21);
+		btn58.setBounds(174, 153, 33, 21);
 		panelw.add(btn58);
 		
 		JButton btn59 = new JButton("");
-		btn59.setBounds(222, 152, 33, 21);
+		btn59.setBounds(217, 153, 33, 21);
 		panelw.add(btn59);
 		
 		JButton btn60 = new JButton("");
-		btn60.setBounds(296, 152, 33, 21);
+		btn60.setBounds(291, 153, 33, 21);
 		panelw.add(btn60);
 		
 		JButton btn61 = new JButton("");
-		btn61.setBounds(339, 152, 33, 21);
+		btn61.setBounds(334, 153, 33, 21);
 		panelw.add(btn61);
 		
 		JButton btn62 = new JButton("");
-		btn62.setBounds(382, 152, 33, 21);
+		btn62.setBounds(377, 153, 33, 21);
 		panelw.add(btn62);
 		
 		JButton btn63 = new JButton("");
-		btn63.setBounds(423, 152, 33, 21);
+		btn63.setBounds(418, 153, 33, 21);
 		panelw.add(btn63);
 		
 		JButton btn64 = new JButton("");
-		btn64.setBounds(466, 152, 33, 21);
+		btn64.setBounds(461, 153, 33, 21);
 		panelw.add(btn64);
 		
 		JButton btn65 = new JButton("");
-		btn65.setBounds(509, 152, 33, 21);
+		btn65.setBounds(504, 153, 33, 21);
 		panelw.add(btn65);
 		
 		JButton btn66 = new JButton("");
-		btn66.setBounds(552, 152, 33, 21);
+		btn66.setBounds(547, 153, 33, 21);
 		panelw.add(btn66);
 		
 		JButton btn67 = new JButton("");
-		btn67.setBounds(595, 152, 33, 21);
+		btn67.setBounds(590, 153, 33, 21);
 		panelw.add(btn67);
 		
 		JButton btn68 = new JButton("");
-		btn68.setBounds(668, 152, 33, 21);
+		btn68.setBounds(663, 153, 33, 21);
 		panelw.add(btn68);
 		
 		JButton btn69 = new JButton("");
-		btn69.setBounds(711, 152, 33, 21);
+		btn69.setBounds(706, 153, 33, 21);
 		panelw.add(btn69);
 		
 		JButton btn70 = new JButton("");
-		btn70.setBounds(754, 152, 33, 21);
+		btn70.setBounds(749, 153, 33, 21);
 		panelw.add(btn70);
 		
 		JButton btn71 = new JButton("");
-		btn71.setBounds(797, 152, 33, 21);
+		btn71.setBounds(792, 153, 33, 21);
 		panelw.add(btn71);
 		
 		JButton btn72s = new JButton("");
-		btn72s.setBounds(840, 152, 33, 21);
+		btn72s.setBounds(835, 153, 33, 21);
 		panelw.add(btn72s);
 		
 		JButton btn73 = new JButton("");
-		btn73.setBounds(50, 183, 33, 21);
+		btn73.setBounds(45, 184, 33, 21);
 		panelw.add(btn73);
 		
 		JButton btn74 = new JButton("");
-		btn74.setBounds(93, 183, 33, 21);
+		btn74.setBounds(88, 184, 33, 21);
 		panelw.add(btn74);
 		
 		JButton btn75 = new JButton("");
-		btn75.setBounds(136, 183, 33, 21);
+		btn75.setBounds(131, 184, 33, 21);
 		panelw.add(btn75);
 		
 		JButton btn76 = new JButton("");
-		btn76.setBounds(179, 183, 33, 21);
+		btn76.setBounds(174, 184, 33, 21);
 		panelw.add(btn76);
 		
 		JButton btn77 = new JButton("");
-		btn77.setBounds(222, 183, 33, 21);
+		btn77.setBounds(217, 184, 33, 21);
 		panelw.add(btn77);
 		
 		JButton btn78 = new JButton("");
-		btn78.setBounds(296, 183, 33, 21);
+		btn78.setBounds(291, 184, 33, 21);
 		panelw.add(btn78);
 		
 		JButton btn79 = new JButton("");
-		btn79.setBounds(339, 183, 33, 21);
+		btn79.setBounds(334, 184, 33, 21);
 		panelw.add(btn79);
 		
 		JButton btn80 = new JButton("");
-		btn80.setBounds(382, 183, 33, 21);
+		btn80.setBounds(377, 184, 33, 21);
 		panelw.add(btn80);
 		
 		JButton btn81 = new JButton("");
-		btn81.setBounds(423, 183, 33, 21);
+		btn81.setBounds(418, 184, 33, 21);
 		panelw.add(btn81);
 		
 		JButton btn82 = new JButton("");
-		btn82.setBounds(466, 183, 33, 21);
+		btn82.setBounds(461, 184, 33, 21);
 		panelw.add(btn82);
 		
 		JButton btn83 = new JButton("");
-		btn83.setBounds(509, 183, 33, 21);
+		btn83.setBounds(504, 184, 33, 21);
 		panelw.add(btn83);
 		
 		JButton btn84 = new JButton("");
-		btn84.setBounds(552, 183, 33, 21);
+		btn84.setBounds(547, 184, 33, 21);
 		panelw.add(btn84);
 		
 		JButton btn85 = new JButton("");
-		btn85.setBounds(595, 183, 33, 21);
+		btn85.setBounds(590, 184, 33, 21);
 		panelw.add(btn85);
 		
 		JButton btn86 = new JButton("");
-		btn86.setBounds(668, 183, 33, 21);
+		btn86.setBounds(663, 184, 33, 21);
 		panelw.add(btn86);
 		
 		JButton btn87 = new JButton("");
-		btn87.setBounds(711, 183, 33, 21);
+		btn87.setBounds(706, 184, 33, 21);
 		panelw.add(btn87);
 		
 		JButton btn88 = new JButton("");
-		btn88.setBounds(754, 183, 33, 21);
+		btn88.setBounds(749, 184, 33, 21);
 		panelw.add(btn88);
 		
 		JButton btn89 = new JButton("");
-		btn89.setBounds(797, 183, 33, 21);
+		btn89.setBounds(792, 184, 33, 21);
 		panelw.add(btn89);
 		
 		JButton btn90 = new JButton("");
-		btn90.setBounds(840, 183, 33, 21);
+		btn90.setBounds(835, 184, 33, 21);
 		panelw.add(btn90);
 		
 		JButton btn92 = new JButton("");
-		btn92.setBounds(296, 227, 33, 21);
+		btn92.setBounds(291, 228, 33, 21);
 		panelw.add(btn92);
 		
 		JButton btn93 = new JButton("");
-		btn93.setBounds(339, 227, 33, 21);
+		btn93.setBounds(334, 228, 33, 21);
 		panelw.add(btn93);
 		
 		JButton btn94 = new JButton("");
-		btn94.setBounds(382, 227, 33, 21);
+		btn94.setBounds(377, 228, 33, 21);
 		panelw.add(btn94);
 		
 		JButton btn95 = new JButton("");
-		btn95.setBounds(423, 227, 33, 21);
+		btn95.setBounds(418, 228, 33, 21);
 		panelw.add(btn95);
 		
 		JButton btn96 = new JButton("");
-		btn96.setBounds(466, 227, 33, 21);
+		btn96.setBounds(461, 228, 33, 21);
 		panelw.add(btn96);
 		
 		JButton btn97 = new JButton("");
-		btn97.setBounds(509, 227, 33, 21);
+		btn97.setBounds(504, 228, 33, 21);
 		panelw.add(btn97);
 		
 		JButton btn98 = new JButton("");
-		btn98.setBounds(552, 227, 33, 21);
+		btn98.setBounds(547, 228, 33, 21);
 		panelw.add(btn98);
 		
 		JButton btn99 = new JButton("");
-		btn99.setBounds(595, 227, 33, 21);
+		btn99.setBounds(590, 228, 33, 21);
 		panelw.add(btn99);
 		
 		JButton btn100 = new JButton("");
-		btn100.setBounds(638, 227, 33, 21);
+		btn100.setBounds(633, 228, 33, 21);
 		panelw.add(btn100);
 		
 		JButton btn91 = new JButton("");
-		btn91.setBounds(253, 227, 33, 21);
+		btn91.setBounds(248, 228, 33, 21);
 		panelw.add(btn91);
 		
 		JButton btn_reserve = new JButton("Reserve");
-		btn_reserve.setForeground(new Color(255, 255, 255));
-		btn_reserve.setFont(new Font("Poppins", Font.BOLD, 10));
-		btn_reserve.setBounds(866, 479, 101, 25);
-		btn_reserve.setBackground(new Color(247, 165, 35));
+		btn_reserve.setBorder(null);
+		btn_reserve.setForeground(new Color(17, 34, 44));
+		btn_reserve.setFont(new Font("Poppins", Font.BOLD, 13));
+		btn_reserve.setBounds(838, 467, 129, 37);
+		btn_reserve.setBackground(new Color(246, 198, 36));
 		frame.getContentPane().add(btn_reserve);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1010, 43);
-		panel.setBackground(new Color(247, 165, 35));
-		frame.getContentPane().add(panel);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

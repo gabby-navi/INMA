@@ -530,9 +530,8 @@ public class PickASeat {
 		frame.getContentPane().add(panel);
 		
 		JLabel lblrectangle = new JLabel("");
-		lblrectangle.setBounds(0, 0, 1010, 539);
-		Image imgr = new ImageIcon(this.getClass().getResource("Rectangle 2.png")).getImage();
-		lblrectangle.setIcon(new ImageIcon(imgr));
+		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
+		lblrectangle.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(lblrectangle);
 		
 	}

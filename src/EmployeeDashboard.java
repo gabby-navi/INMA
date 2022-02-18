@@ -90,29 +90,25 @@ public class EmployeeDashboard {
 		JLabel lblfirstm = new JLabel("");
 		lblfirstm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfirstm.setBounds(46, 204, 174, 282);
-		Image img1 = new ImageIcon(this.getClass().getResource("1.png")).getImage();
-		lblfirstm.setIcon(new ImageIcon(img1));
+		lblfirstm.setIcon(new ImageIcon(this.getClass().getResource("/images/1.png")));
 		frame.getContentPane().add(lblfirstm);
 		
 		JLabel lblsecm = new JLabel("");
 		lblsecm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsecm.setBounds(235, 204, 166, 282);
-		Image img2 = new ImageIcon(this.getClass().getResource("2.png")).getImage();
-		lblsecm.setIcon(new ImageIcon(img2));
+		lblsecm.setIcon(new ImageIcon(this.getClass().getResource("/images/2.png")));
 		frame.getContentPane().add(lblsecm);
 		
 		JLabel lblthirdm = new JLabel("");
 		lblthirdm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblthirdm.setBounds(416, 204, 174, 282);
-		Image img3 = new ImageIcon(this.getClass().getResource("3.png")).getImage();
-		lblthirdm.setIcon(new ImageIcon(img3));
+		lblthirdm.setIcon(new ImageIcon(this.getClass().getResource("/images/3.png")));
 		frame.getContentPane().add(lblthirdm);
 		
 		JLabel lblfourthm = new JLabel("");
 		lblfourthm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfourthm.setBounds(602, 204, 174, 282);
-		Image img4 = new ImageIcon(this.getClass().getResource("4.png")).getImage();
-		lblfourthm.setIcon(new ImageIcon(img4));
+		lblfourthm.setIcon(new ImageIcon(this.getClass().getResource("/images/4.png")));
 		frame.getContentPane().add(lblfourthm);
 		
 		JPanel panel = new JPanel();
@@ -121,9 +117,8 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(panel);
 		
 		JLabel lblrectangle = new JLabel("");
-		lblrectangle.setBounds(0, 0, 1010, 539);
-		Image imgr = new ImageIcon(this.getClass().getResource("Rectangle 2.png")).getImage();
-		lblrectangle.setIcon(new ImageIcon(imgr));
+		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
+		lblrectangle.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(lblrectangle);
 		
 	}

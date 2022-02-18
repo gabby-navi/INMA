@@ -110,7 +110,7 @@ public class AdminDash {
 		frame.getContentPane().add(lbl_reservations);
 		
 		JLabel bg = new JLabel("");
-		bg.setIcon(new ImageIcon(AdminDash.class.getResource("/images/background.png")));
+		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
 		

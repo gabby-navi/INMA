@@ -133,7 +133,7 @@ public class SignIn {
 		frame.getContentPane().add(panel);
 				
 		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setIcon(new ImageIcon(SignIn.class.getResource("/images/login.png")));
+		lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("/images/login.png")));
 		lblNewLabel.setBounds(0, 0, 406, 537);
 		frame.getContentPane().add(lblNewLabel);
 				

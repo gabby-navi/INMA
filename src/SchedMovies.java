@@ -88,9 +88,26 @@ public class SchedMovies {
 		lbl_schedmovies.setBounds(233, 49, 230, 19);
 		frame.getContentPane().add(lbl_schedmovies);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(233, 78, 747, 2);
-		frame.getContentPane().add(panel_1);
+		JButton user_account = new JButton("Admin");
+		user_account.setBorderPainted(false);
+		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
+		user_account.setOpaque(false);
+		user_account.setContentAreaFilled(false);
+		user_account.setFocusPainted(false);
+		user_account.setForeground(Color.WHITE);
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setBounds(905, 17, 79, 32);
+		frame.getContentPane().add(user_account);
+		
+		JLabel user_profpic = new JLabel("");
+		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setBounds(859, 10, 63, 43);
+		frame.getContentPane().add(user_profpic);
+		
+		JPanel hr = new JPanel();
+		hr.setBounds(233, 78, 747, 2);
+		frame.getContentPane().add(hr);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

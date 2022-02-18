@@ -29,9 +29,6 @@ public class AdminDash {
 	public AdminDash() {
 		initialize();
 	}
-	
-	public static String path;
-	private JTable table;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -93,15 +90,32 @@ public class AdminDash {
 		lbl_dash.setBounds(233, 49, 159, 19);
 		frame.getContentPane().add(lbl_dash);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(233, 78, 747, 2);
-		frame.getContentPane().add(panel_1);
+		JButton user_account = new JButton("Admin");
+		user_account.setBorderPainted(false);
+		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
+		user_account.setOpaque(false);
+		user_account.setContentAreaFilled(false);
+		user_account.setFocusPainted(false);
+		user_account.setForeground(Color.WHITE);
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setBounds(905, 17, 79, 32);
+		frame.getContentPane().add(user_account);
 		
-		JLabel lblNewLabel = new JLabel("Scheduled Movies");
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Poppins", Font.BOLD, 16));
-		lblNewLabel.setBounds(235, 103, 159, 14);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel user_profpic = new JLabel("");
+		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setBounds(859, 10, 63, 43);
+		frame.getContentPane().add(user_profpic);
+		
+		JPanel hr = new JPanel();
+		hr.setBounds(233, 78, 747, 2);
+		frame.getContentPane().add(hr);
+		
+		JLabel lbl_schedmovies = new JLabel("Scheduled Movies");
+		lbl_schedmovies.setForeground(Color.WHITE);
+		lbl_schedmovies.setFont(new Font("Poppins", Font.BOLD, 16));
+		lbl_schedmovies.setBounds(235, 103, 159, 14);
+		frame.getContentPane().add(lbl_schedmovies);
 		
 		JLabel lbl_reservations = new JLabel("Reservations");
 		lbl_reservations.setForeground(Color.WHITE);
@@ -113,17 +127,6 @@ public class AdminDash {
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
-		
-//		JLabel label = new JLabel("");
-//		path = "D:\\kolehiyo\\c_second year\\second term\\INMA\\New folder\\AdminDashboard.png";
-//		label.setBounds(0, 0, 1008, 537);
-//		frame.getContentPane().add(label);
-//		
-//		ImageIcon background = new ImageIcon(path);
-//		Image img = background.getImage();
-//		Image newImage = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-//		ImageIcon image = new ImageIcon(newImage);
-//		label.setIcon(image);
 		
 	}
 }

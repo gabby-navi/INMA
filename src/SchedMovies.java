@@ -109,6 +109,14 @@ public class SchedMovies {
 		hr.setBounds(233, 78, 747, 2);
 		frame.getContentPane().add(hr);
 		
+		JButton add_movie = new JButton("Add Movie");
+		add_movie.setBorderPainted(false);
+		add_movie.setFont(new Font("Poppins", Font.BOLD, 10));
+		add_movie.setForeground(new Color(17, 34, 44));
+		add_movie.setBackground(new Color(246, 198, 36));
+		add_movie.setBounds(859, 90, 121, 29);
+		frame.getContentPane().add(add_movie);
+		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);

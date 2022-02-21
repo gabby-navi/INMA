@@ -27,8 +27,6 @@ public class PickASeat {
 	public PickASeat() {
 		initialize();
 	}
-	
-	public static String path;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -59,6 +57,7 @@ public class PickASeat {
 		lbl1.setForeground(new Color(255, 255, 255));
 		
 		JButton user_account = new JButton("Employee");
+		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
 		user_account.setContentAreaFilled(false);

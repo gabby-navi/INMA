@@ -39,47 +39,44 @@ public class EmployeeDashboard {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lbl2 = new JLabel("Online Movie Tickets Booking");
-		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl2.setFont(new Font("Poppins", Font.BOLD, 35));
 		lbl2.setForeground(new Color(255, 255, 255));
-		lbl2.setBounds(38, 59, 531, 53);
+		lbl2.setBounds(45, 72, 531, 53);
 		frame.getContentPane().add(lbl2);
 		
 		JLabel lbl3 = new JLabel("Today");
-		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl3.setForeground(new Color(255, 255, 255));
-		lbl3.setFont(new Font("Poppins", Font.PLAIN, 23));
-		lbl3.setBounds(38, 122, 95, 43);
+		lbl3.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 23));
+		lbl3.setBounds(45, 135, 95, 43);
 		frame.getContentPane().add(lbl3);
 		
 		JLabel lbl4 = new JLabel("February 16, 2022");
-		lbl4.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl4.setForeground(new Color(255, 255, 255));
 		lbl4.setFont(new Font("Poppins SemiBold", Font.PLAIN, 16));
-		lbl4.setBounds(40, 156, 154, 38);
+		lbl4.setBounds(47, 163, 154, 38);
 		frame.getContentPane().add(lbl4);
 		
 		JLabel lblfirstm = new JLabel("");
 		lblfirstm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblfirstm.setBounds(46, 204, 174, 282);
+		lblfirstm.setBounds(45, 218, 174, 282);
 		lblfirstm.setIcon(new ImageIcon(this.getClass().getResource("/images/1.png")));
 		frame.getContentPane().add(lblfirstm);
 		
 		JLabel lblsecm = new JLabel("");
 		lblsecm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblsecm.setBounds(235, 204, 166, 282);
+		lblsecm.setBounds(234, 218, 166, 282);
 		lblsecm.setIcon(new ImageIcon(this.getClass().getResource("/images/2.png")));
 		frame.getContentPane().add(lblsecm);
 		
 		JLabel lblthirdm = new JLabel("");
 		lblthirdm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthirdm.setBounds(416, 204, 174, 282);
+		lblthirdm.setBounds(415, 218, 174, 282);
 		lblthirdm.setIcon(new ImageIcon(this.getClass().getResource("/images/3.png")));
 		frame.getContentPane().add(lblthirdm);
 		
 		JLabel lblfourthm = new JLabel("");
 		lblfourthm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblfourthm.setBounds(602, 204, 174, 282);
+		lblfourthm.setBounds(601, 218, 174, 282);
 		lblfourthm.setIcon(new ImageIcon(this.getClass().getResource("/images/4.png")));
 		frame.getContentPane().add(lblfourthm);
 		
@@ -102,6 +99,7 @@ public class EmployeeDashboard {
 		lbl1.setForeground(new Color(255, 255, 255));
 		
 		JButton user_account = new JButton("Employee");
+		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
 		user_account.setContentAreaFilled(false);

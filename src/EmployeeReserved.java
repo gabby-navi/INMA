@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EmployeeReserved {
 
@@ -41,8 +43,16 @@ public class EmployeeReserved {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btn_dash = new JButton("Dashboard");
+		btn_dash.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AdminDash admin_dash = new AdminDash();
+				admin_dash.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(246, 198, 36));
+		btn_dash.setBackground(new Color(247, 165, 35));
 		btn_dash.setBorderPainted(false);
 		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_dash.setFocusPainted(false);
@@ -52,6 +62,14 @@ public class EmployeeReserved {
 		frame.getContentPane().add(btn_dash);
 		
 		JButton btn_sched = new JButton("Scheduled Movies");
+		btn_sched.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SchedMovies sched_movies = new SchedMovies();
+				sched_movies.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_sched.setForeground(Color.WHITE);
@@ -63,13 +81,21 @@ public class EmployeeReserved {
 		frame.getContentPane().add(btn_sched);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Reservations reserve = new Reservations();
+				reserve.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_reservations.setForeground(Color.WHITE);
 		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_reservations.setFocusPainted(false);
 		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBackground(new Color(246, 198, 36));
 		btn_reservations.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_reservations);
 		
@@ -85,6 +111,14 @@ public class EmployeeReserved {
 		sidenav.setLayout(null);
 		
 		JLabel lblback = new JLabel("");
+		lblback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Reservations reserve = new Reservations();
+				reserve.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblback.setBounds(234, 37, 40, 39);
 		lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));

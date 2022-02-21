@@ -37,6 +37,7 @@ public class AdminOverview {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1024, 576);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

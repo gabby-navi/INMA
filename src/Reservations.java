@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Reservations {
 
@@ -39,6 +41,14 @@ public class Reservations {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btn_dash = new JButton("Dashboard");
+		btn_dash.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AdminDash admin_dash = new AdminDash();
+				admin_dash.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_dash.setForeground(Color.WHITE);
 		btn_dash.setBackground(new Color(247, 165, 35));
 		btn_dash.setBorderPainted(false);
@@ -50,6 +60,14 @@ public class Reservations {
 		frame.getContentPane().add(btn_dash);
 		
 		JButton btn_sched = new JButton("Scheduled Movies");
+		btn_sched.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SchedMovies sched_movies = new SchedMovies();
+				sched_movies.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_sched.setForeground(Color.WHITE);

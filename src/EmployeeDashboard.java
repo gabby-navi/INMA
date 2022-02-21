@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class EmployeeDashboard {
 
-	private JFrame frame;
+	JFrame frame;
 
 	/**
 	 * Launch the application.

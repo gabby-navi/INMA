@@ -1,13 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+import java.awt.event.*;
 
 public class AdminDash {
 
 	JFrame frame;
-	private JLabel label;
+
 
 	/**
 	 * Launch the application.

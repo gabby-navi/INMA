@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SignIn {
 
@@ -44,12 +46,12 @@ public class SignIn {
 		frame.getContentPane().setLayout(null);
 		
 		txt_username = new JTextField();
-		txt_username.setBounds(510, 179, 418, 35);
+		txt_username.setBounds(510, 206, 418, 35);
 		frame.getContentPane().add(txt_username);
 		txt_username.setColumns(10);
 		
 		txt_password = new JTextField();
-		txt_password.setBounds(510, 265, 418, 35);
+		txt_password.setBounds(510, 292, 418, 35);
 		frame.getContentPane().add(txt_password);
 		txt_password.setColumns(10);
 		
@@ -57,43 +59,33 @@ public class SignIn {
 		lbl_welcome.setForeground(new Color(17, 34, 44));
 		lbl_welcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_welcome.setFont(new Font("Poppins", Font.BOLD, 35));
-		lbl_welcome.setBounds(571, 64, 295, 45);
+		lbl_welcome.setBounds(571, 91, 295, 45);
 		frame.getContentPane().add(lbl_welcome);
 		
 		JLabel lbl_username = new JLabel("USERNAME");
 		lbl_username.setFont(new Font("Poppins", Font.PLAIN, 13));
-		lbl_username.setBounds(510, 161, 73, 14);
+		lbl_username.setBounds(510, 188, 73, 14);
 		frame.getContentPane().add(lbl_username);
 		
 		JLabel lbl_password = new JLabel("PASSWORD");
 		lbl_password.setFont(new Font("Poppins", Font.PLAIN, 13));
-		lbl_password.setBounds(510, 247, 73, 14);
+		lbl_password.setBounds(510, 274, 73, 14);
 		frame.getContentPane().add(lbl_password);
 		
-		JLabel lbl_account = new JLabel("Don't have an account?");
-		lbl_account.setFont(new Font("Poppins", Font.ITALIC, 12));
-		lbl_account.setBounds(607, 463, 147, 14);
-		frame.getContentPane().add(lbl_account);
-		
-		JButton btn_create = new JButton("Create one!");
-		btn_create.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_create.setFocusPainted(false);
-		btn_create.setContentAreaFilled(false);
-		btn_create.setBorderPainted(false);
-		btn_create.setOpaque(false);
-		btn_create.setForeground(new Color(246, 144, 0));
-		btn_create.setFont(new Font("Poppins", Font.ITALIC, 12));
-		btn_create.setBounds(736, 459, 111, 23);
-		frame.getContentPane().add(btn_create);
-		
 		JButton btn_sign = new JButton("Sign in");
+		btn_sign.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 
+			}
+		});
 		btn_sign.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sign.setFocusPainted(false);
 		btn_sign.setBorderPainted(false);
 		btn_sign.setFont(new Font("Poppins", Font.BOLD, 14));
 		btn_sign.setForeground(new Color(17, 34, 44));
 		btn_sign.setBackground(new Color(246, 198, 36));
-		btn_sign.setBounds(645, 361, 147, 42);
+		btn_sign.setBounds(645, 388, 147, 42);
 		frame.getContentPane().add(btn_sign);
 		
 		JButton forgot_pass = new JButton("<html><u>Forgot Password?</u></html>");
@@ -104,7 +96,7 @@ public class SignIn {
 		forgot_pass.setOpaque(false);
 		forgot_pass.setContentAreaFilled(false);
 		forgot_pass.setBorderPainted(false);
-		forgot_pass.setBounds(788, 304, 156, 23);
+		forgot_pass.setBounds(788, 331, 156, 23);
 		frame.getContentPane().add(forgot_pass);
 		
 		JLabel mall_name = new JLabel("INMA Theatre");

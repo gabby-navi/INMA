@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class DetailsEdit {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField textField_title;
 	private JTextField textField_desc;
 	private JTextField textField_date;
@@ -42,6 +42,7 @@ public class DetailsEdit {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame = new JFrame();

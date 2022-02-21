@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class SchedMovies {
 
@@ -39,6 +40,14 @@ public class SchedMovies {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btn_dash = new JButton("Dashboard");
+		btn_dash.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AdminDash admin_dash = new AdminDash();
+				admin_dash.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_dash.setForeground(Color.WHITE);
 		btn_dash.setBackground(new Color(247, 165, 35));
 		btn_dash.setBorderPainted(false);
@@ -61,6 +70,14 @@ public class SchedMovies {
 		frame.getContentPane().add(btn_sched);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Reservations reserve = new Reservations();
+				reserve.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_reservations.setForeground(Color.WHITE);
@@ -112,6 +129,14 @@ public class SchedMovies {
 		frame.getContentPane().add(hr);
 		
 		JButton add_movie = new JButton("Add Movie");
+		add_movie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DetailsEdit details_edit = new DetailsEdit();
+				details_edit.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		add_movie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add_movie.setBorderPainted(false);
 		add_movie.setFont(new Font("Poppins", Font.BOLD, 10));

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 public class DetailOverview {
 
-	private JFrame frame;
+	JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -37,6 +37,7 @@ public class DetailOverview {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1024, 576);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -59,6 +60,7 @@ public class DetailOverview {
 		lbl1.setForeground(new Color(255, 255, 255));
 		
 		JButton user_account = new JButton("Employee");
+		user_account.setBorderPainted(false);
 		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);

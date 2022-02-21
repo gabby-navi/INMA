@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MovieTimes {
 
@@ -75,6 +77,14 @@ public class MovieTimes {
 		panel.add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
+		lblback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EmployeeDashboard emp_dash = new EmployeeDashboard();
+				emp_dash.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblback.setBounds(44, 71, 40, 39);
 		lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
@@ -121,6 +131,14 @@ public class MovieTimes {
 		time1.add(lbl_available1);
 		
 		JButton btn_reserve1 = new JButton("Reserve Seats");
+		btn_reserve1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PickASeat pickseat = new PickASeat();
+				pickseat.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reserve1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reserve1.setBorder(null);
 		btn_reserve1.setBackground(new Color(246, 198, 36));
@@ -165,6 +183,14 @@ public class MovieTimes {
 		time2.add(lbl_available2);
 		
 		JButton btn_reserve2 = new JButton("Reserve Seats");
+		btn_reserve2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PickASeat pickseat = new PickASeat();
+				pickseat.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reserve2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reserve2.setBorder(null);
 		btn_reserve2.setBackground(new Color(246, 198, 36));
@@ -209,6 +235,14 @@ public class MovieTimes {
 		time3.add(lbl_available3);
 		
 		JButton btn_reserve3 = new JButton("Reserve Seats");
+		btn_reserve3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PickASeat pickseat = new PickASeat();
+				pickseat.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reserve3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reserve3.setBorder(null);
 		btn_reserve3.setBackground(new Color(246, 198, 36));
@@ -253,6 +287,14 @@ public class MovieTimes {
 		time4.add(lbl_available4);
 		
 		JButton btn_reserve4 = new JButton("Reserve Seats");
+		btn_reserve4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PickASeat pickseat = new PickASeat();
+				pickseat.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reserve4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reserve4.setBorder(null);
 		btn_reserve4.setBackground(new Color(246, 198, 36));
@@ -297,6 +339,14 @@ public class MovieTimes {
 		time5.add(lbl_available5);
 		
 		JButton btn_reserve5 = new JButton("Reserve Seats");
+		btn_reserve5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PickASeat pickseat = new PickASeat();
+				pickseat.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btn_reserve5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reserve5.setBorder(null);
 		btn_reserve5.setBackground(new Color(246, 198, 36));

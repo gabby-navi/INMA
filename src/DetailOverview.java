@@ -57,6 +57,7 @@ public class DetailOverview {
 		lbl1.setForeground(new Color(255, 255, 255));
 		
 		JButton user_account = new JButton("Employee");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
 		user_account.setContentAreaFilled(false);
@@ -169,6 +170,7 @@ public class DetailOverview {
 		panelw.add(lbltotal);
 		
 		JButton btn_confirm = new JButton("Confirm");
+		btn_confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_confirm.setBorderPainted(false);
 		btn_confirm.setBounds(842, 480, 121, 29);
 		btn_confirm.setFont(new Font("Poppins", Font.BOLD, 10));
@@ -176,6 +178,7 @@ public class DetailOverview {
 		frame.getContentPane().add(btn_confirm);
 		
 		JButton btn_cancel = new JButton("Cancel");
+		btn_cancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_cancel.setBorderPainted(false);
 		btn_cancel.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_cancel.setBackground(new Color(246, 198, 36));

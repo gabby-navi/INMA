@@ -83,6 +83,7 @@ public class AdminOverview {
 		panelo.add(lbl_logo);
 		
 		JButton user_account = new JButton("Admin");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
 		user_account.setContentAreaFilled(false);
@@ -114,6 +115,7 @@ public class AdminOverview {
 		frame.getContentPane().add(line);
 		
 		JButton btn_edit = new JButton("Edit");
+		btn_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit.setBorderPainted(false);
 		btn_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_edit.setBackground(new Color(246, 198, 36));
@@ -126,6 +128,7 @@ public class AdminOverview {
 		panelw.setLayout(null);
 		
 		JButton btn_change = new JButton("Change");
+		btn_change.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_change.setBorderPainted(false);
 		btn_change.setBounds(48, 240, 87, 19);
 		btn_change.setFont(new Font("Poppins", Font.BOLD, 10));

@@ -89,6 +89,7 @@ public class Reservations {
 		frame.getContentPane().add(lbl_reservations);
 		
 		JButton user_account = new JButton("Admin");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);

@@ -57,24 +57,28 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(lbl4);
 		
 		JLabel lblfirstm = new JLabel("");
+		lblfirstm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblfirstm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfirstm.setBounds(45, 218, 174, 282);
 		lblfirstm.setIcon(new ImageIcon(this.getClass().getResource("/images/1.png")));
 		frame.getContentPane().add(lblfirstm);
 		
 		JLabel lblsecm = new JLabel("");
+		lblsecm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblsecm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsecm.setBounds(234, 218, 166, 282);
 		lblsecm.setIcon(new ImageIcon(this.getClass().getResource("/images/2.png")));
 		frame.getContentPane().add(lblsecm);
 		
 		JLabel lblthirdm = new JLabel("");
+		lblthirdm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblthirdm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblthirdm.setBounds(415, 218, 174, 282);
 		lblthirdm.setIcon(new ImageIcon(this.getClass().getResource("/images/3.png")));
 		frame.getContentPane().add(lblthirdm);
 		
 		JLabel lblfourthm = new JLabel("");
+		lblfourthm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblfourthm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfourthm.setBounds(601, 218, 174, 282);
 		lblfourthm.setIcon(new ImageIcon(this.getClass().getResource("/images/4.png")));
@@ -99,6 +103,7 @@ public class EmployeeDashboard {
 		lbl1.setForeground(new Color(255, 255, 255));
 		
 		JButton user_account = new JButton("Employee");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);

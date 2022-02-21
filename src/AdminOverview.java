@@ -1,18 +1,6 @@
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JCheckBox;
 
 public class AdminOverview {
 
@@ -90,7 +78,7 @@ public class AdminOverview {
 		panelo.add(btn_reservations);
 		
 		JLabel lbl_logo = new JLabel("");
-		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("logo.png")));
+		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("/images/logo.png")));
 		lbl_logo.setBounds(20, 18, 67, 46);
 		panelo.add(lbl_logo);
 		
@@ -106,13 +94,13 @@ public class AdminOverview {
 		
 		JLabel user_profpic = new JLabel("");
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("user.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(878, 12, 44, 35);
 		frame.getContentPane().add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
         lblback.setBounds(234, 37, 40, 39);
-        lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback); 
 		
 		JLabel lbl_schedmovies = new JLabel("Uncharted");
@@ -126,6 +114,7 @@ public class AdminOverview {
 		frame.getContentPane().add(line);
 		
 		JButton btn_edit = new JButton("Edit");
+		btn_edit.setBorderPainted(false);
 		btn_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_edit.setBackground(new Color(246, 198, 36));
 		btn_edit.setBounds(859, 90, 121, 29);
@@ -137,14 +126,15 @@ public class AdminOverview {
 		panelw.setLayout(null);
 		
 		JButton btn_change = new JButton("Change");
+		btn_change.setBorderPainted(false);
 		btn_change.setBounds(48, 240, 87, 19);
 		btn_change.setFont(new Font("Poppins", Font.BOLD, 10));
-		btn_change.setBackground(new Color(247, 165, 35));
+		btn_change.setBackground(new Color(246, 198, 36));
 		panelw.add(btn_change);
 		
 		JLabel lblposter = new JLabel("");
 		lblposter.setBounds(18, 10, 150, 229);
-		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("UN poster.png")).getImage().getScaledInstance(150, 220, Image.SCALE_DEFAULT)));
+		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/UN poster.png")).getImage().getScaledInstance(150, 220, Image.SCALE_DEFAULT)));
 		panelw.add(lblposter);
 		
 		JLabel lblmt = new JLabel("Movie Title:");
@@ -244,12 +234,12 @@ public class AdminOverview {
 		
 		JLabel lblprice = new JLabel("P350.00");
 		lblprice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblprice.setBounds(300, 292, 45, 19);
+		lblprice.setBounds(300, 292, 81, 19);
 		panelw.add(lblprice);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setBounds(0, 0, 1010, 539);
-		lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("Rectangle 2.png")));
+		lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("/images/background.png")));
 		frame.getContentPane().add(lblrectangle);
 	}
 }

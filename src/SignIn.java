@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 
-
 public class SignIn {
 
 	private JFrame frame;
@@ -123,7 +122,7 @@ public class SignIn {
 		frame.getContentPane().add(theatre_desc);
 		
 		JLabel logo = new JLabel();
-		logo.setIcon(new ImageIcon(SignUp.class.getResource("/images/itu.png")));
+		logo.setIcon(new ImageIcon(this.getClass().getResource("/images/itu.png")));
 		logo.setBounds(103, 48, 198, 183);
 		frame.getContentPane().add(logo);
 		

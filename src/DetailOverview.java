@@ -1,14 +1,6 @@
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class DetailOverview {
 
@@ -56,7 +48,7 @@ public class DetailOverview {
 		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lbllogo.setBounds(32, 0, 55, 43);
 		panelo.add(lbllogo);
-		lbllogo.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
+		lbllogo.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
 		
 		JLabel lbl1 = new JLabel("INMA Theatre");
 		lbl1.setBounds(95, 11, 131, 25);
@@ -76,7 +68,7 @@ public class DetailOverview {
 		
 		JLabel user_profpic = new JLabel("");
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("user.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(832, 0, 63, 43);
 		panelo.add(user_profpic);
 		
@@ -92,8 +84,8 @@ public class DetailOverview {
 		panelw.setLayout(null);
 		
 		JLabel lblposter = new JLabel("");
+		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/TAP poster.png")).getImage().getScaledInstance(210, 310, Image.SCALE_DEFAULT)));
 		lblposter.setBounds(20, 10, 210, 318);
-		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("TAP poster.png")).getImage().getScaledInstance(210, 310, Image.SCALE_DEFAULT)));
 		panelw.add(lblposter);
 		
 		JLabel lblmt = new JLabel("Movie Title:");
@@ -177,12 +169,14 @@ public class DetailOverview {
 		panelw.add(lbltotal);
 		
 		JButton btn_confirm = new JButton("Confirm");
+		btn_confirm.setBorderPainted(false);
 		btn_confirm.setBounds(842, 480, 121, 29);
 		btn_confirm.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_confirm.setBackground(new Color(246, 198, 36));
 		frame.getContentPane().add(btn_confirm);
 		
 		JButton btn_cancel = new JButton("Cancel");
+		btn_cancel.setBorderPainted(false);
 		btn_cancel.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_cancel.setBackground(new Color(246, 198, 36));
 		btn_cancel.setBounds(711, 480, 121, 29);
@@ -190,7 +184,7 @@ public class DetailOverview {
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setBounds(0, 0, 1010, 539);
-		lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("Rectangle 2.png")));
+		lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("/images/background.png")));
 		frame.getContentPane().add(lblrectangle);
 	}
 }

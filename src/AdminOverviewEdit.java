@@ -1,18 +1,11 @@
-
-
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
+import javax.swing.border.*;
 
 public class AdminOverviewEdit {
 
 	private JFrame frame;
 	private JTextField movie_title;
-	private JTextField txtNathanDrakeAnd;
 	private JTextField date_avail;
 	private JTextField times_1f;
 	private JTextField times_2f;
@@ -94,7 +87,7 @@ public class AdminOverviewEdit {
 		panelo.add(btn_reservations);
 		
 		JLabel lbl_logo = new JLabel("");
-		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("logo.png")));
+		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("/images/logo.png")));
 		lbl_logo.setBounds(20, 18, 67, 46);
 		panelo.add(lbl_logo);
 		
@@ -111,13 +104,13 @@ public class AdminOverviewEdit {
 		
 		JLabel user_profpic = new JLabel("");
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(878, 12, 44, 35);
 		frame.getContentPane().add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
         lblback.setBounds(234, 37, 40, 39);
-        lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback); 
 		
 		JLabel lbl_schedmovies = new JLabel("Uncharted");

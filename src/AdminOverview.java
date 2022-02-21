@@ -1,10 +1,12 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class AdminOverview {
 
-	private JFrame frame;
+	JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -45,8 +47,17 @@ public class AdminOverview {
 		panelo.setLayout(null);
 		
 		JButton btn_dash = new JButton("Dashboard");
+		btn_dash.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				AdminDash ad = new AdminDash();
+                ad.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(246, 198, 36));
+		btn_dash.setBackground(new Color(247, 165, 35));
 		btn_dash.setBorderPainted(false);
 		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_dash.setFocusPainted(false);
@@ -57,7 +68,7 @@ public class AdminOverview {
 		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.setForeground(Color.WHITE);
-		btn_sched.setBackground(new Color(247, 165, 35));
+		btn_sched.setBackground(new Color(246, 198, 36));
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_sched.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -67,6 +78,15 @@ public class AdminOverview {
 		panelo.add(btn_sched);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Reservations r = new Reservations();
+                r.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_reservations.setForeground(Color.WHITE);
 		btn_reservations.setBackground(new Color(247, 165, 35));
 		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -100,6 +120,15 @@ public class AdminOverview {
 		frame.getContentPane().add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
+		lblback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				SchedMovies sm = new SchedMovies();
+                sm.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblback.setBounds(234, 37, 40, 39);
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
@@ -116,6 +145,15 @@ public class AdminOverview {
 		frame.getContentPane().add(line);
 		
 		JButton btn_edit = new JButton("Edit");
+		btn_edit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				AdminOverviewEdit aoe = new AdminOverviewEdit();
+                aoe.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit.setBorderPainted(false);
 		btn_edit.setFont(new Font("Poppins", Font.BOLD, 10));

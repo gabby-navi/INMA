@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EmployeeDashboard {
 
@@ -57,6 +59,15 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(lbl4);
 		
 		JLabel lblfirstm = new JLabel("");
+		lblfirstm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				MovieTimes mt = new MovieTimes();
+                mt.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblfirstm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblfirstm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfirstm.setBounds(45, 218, 174, 282);
@@ -64,6 +75,15 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(lblfirstm);
 		
 		JLabel lblsecm = new JLabel("");
+		lblsecm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				MovieTimes mt = new MovieTimes();
+                mt.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblsecm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblsecm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblsecm.setBounds(234, 218, 166, 282);
@@ -71,6 +91,15 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(lblsecm);
 		
 		JLabel lblthirdm = new JLabel("");
+		lblthirdm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				MovieTimes mt = new MovieTimes();
+                mt.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblthirdm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblthirdm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblthirdm.setBounds(415, 218, 174, 282);
@@ -78,6 +107,15 @@ public class EmployeeDashboard {
 		frame.getContentPane().add(lblthirdm);
 		
 		JLabel lblfourthm = new JLabel("");
+		lblfourthm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				MovieTimes mt = new MovieTimes();
+                mt.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblfourthm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblfourthm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblfourthm.setBounds(601, 218, 174, 282);

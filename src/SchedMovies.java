@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class SchedMovies {
 
-	private JFrame frame;
+	JFrame frame;
 
 	/**
 	 * Launch the application.

@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class DetailOverview {
@@ -178,6 +180,15 @@ public class DetailOverview {
 		frame.getContentPane().add(btn_confirm);
 		
 		JButton btn_cancel = new JButton("Cancel");
+		btn_cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				PickASeat pas = new PickASeat();
+                pas.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_cancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_cancel.setBorderPainted(false);
 		btn_cancel.setFont(new Font("Poppins", Font.BOLD, 10));

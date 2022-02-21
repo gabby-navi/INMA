@@ -1,10 +1,12 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AdminOverviewEdit {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField movie_title;
 	private JTextField date_avail;
 	private JTextField times_1f;
@@ -54,8 +56,17 @@ public class AdminOverviewEdit {
 		panelo.setLayout(null);
 		
 		JButton btn_dash = new JButton("Dashboard");
+		btn_dash.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				AdminDash ad = new AdminDash();
+                ad.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(246, 198, 36));
+		btn_dash.setBackground(new Color(247, 165, 35));
 		btn_dash.setBorderPainted(false);
 		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_dash.setFocusPainted(false);
@@ -66,7 +77,7 @@ public class AdminOverviewEdit {
 		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.setForeground(Color.WHITE);
-		btn_sched.setBackground(new Color(247, 165, 35));
+		btn_sched.setBackground(new Color(246, 198, 36));
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_sched.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -76,6 +87,15 @@ public class AdminOverviewEdit {
 		panelo.add(btn_sched);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Reservations r = new Reservations();
+                r.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_reservations.setForeground(Color.WHITE);
 		btn_reservations.setBackground(new Color(247, 165, 35));
 		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -104,13 +124,22 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(user_account);
 		
 		JLabel user_profpic = new JLabel("");
-		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(878, 12, 44, 35);
 		frame.getContentPane().add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
+		lblback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				SchedMovies sm = new SchedMovies();
+                sm.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblback.setBounds(234, 37, 40, 39);
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
@@ -137,6 +166,15 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(btn_edit);
 		
 		JButton btn_edit_1 = new JButton("Cancel");
+		btn_edit_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				AdminOverview ao = new AdminOverview();
+                ao.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_edit_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit_1.setForeground(new Color(17, 34, 44));
 		btn_edit_1.setFont(new Font("Poppins", Font.BOLD, 10));

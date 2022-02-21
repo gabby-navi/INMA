@@ -1,10 +1,12 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class AdminDash {
 
-	private JFrame frame;
+	JFrame frame;
 	private JLabel label;
 
 	/**
@@ -52,6 +54,15 @@ public class AdminDash {
 		frame.getContentPane().add(btn_dash);
 		
 		JButton btn_sched = new JButton("Scheduled Movies");
+		btn_sched.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				SchedMovies sm = new SchedMovies();
+                sm.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_sched.setForeground(Color.WHITE);
@@ -63,6 +74,15 @@ public class AdminDash {
 		frame.getContentPane().add(btn_sched);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Reservations r = new Reservations();
+                r.frame.setVisible(true);
+                frame.dispose();
+			}
+		});
 		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_reservations.setForeground(Color.WHITE);
@@ -91,7 +111,6 @@ public class AdminDash {
 		frame.getContentPane().add(lbl_dash);
 		
 		JButton user_account = new JButton("Admin");
-		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
@@ -103,7 +122,7 @@ public class AdminDash {
 		frame.getContentPane().add(user_account);
 		
 		JLabel user_profpic = new JLabel("");
-		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(859, 10, 63, 43);

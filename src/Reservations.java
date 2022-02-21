@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class Reservations {
 
-	private JFrame frame;
+	JFrame frame;
 
 	/**
 	 * Launch the application.

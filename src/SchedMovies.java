@@ -89,6 +89,7 @@ public class SchedMovies {
 		frame.getContentPane().add(lbl_schedmovies);
 		
 		JButton user_account = new JButton("Admin");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
@@ -100,6 +101,7 @@ public class SchedMovies {
 		frame.getContentPane().add(user_account);
 		
 		JLabel user_profpic = new JLabel("");
+		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(859, 10, 63, 43);
@@ -110,6 +112,7 @@ public class SchedMovies {
 		frame.getContentPane().add(hr);
 		
 		JButton add_movie = new JButton("Add Movie");
+		add_movie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add_movie.setBorderPainted(false);
 		add_movie.setFont(new Font("Poppins", Font.BOLD, 10));
 		add_movie.setForeground(new Color(17, 34, 44));

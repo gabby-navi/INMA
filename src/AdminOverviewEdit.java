@@ -92,6 +92,7 @@ public class AdminOverviewEdit {
 		panelo.add(lbl_logo);
 		
 		JButton user_account = new JButton("Admin");
+		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_account.setBorderPainted(false);
 		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
 		user_account.setOpaque(false);
@@ -103,12 +104,14 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(user_account);
 		
 		JLabel user_profpic = new JLabel("");
+		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_profpic.setBounds(878, 12, 44, 35);
 		frame.getContentPane().add(user_profpic);
 		
 		JLabel lblback = new JLabel("");
+		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblback.setBounds(234, 37, 40, 39);
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback); 
@@ -134,6 +137,7 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(btn_edit);
 		
 		JButton btn_edit_1 = new JButton("Cancel");
+		btn_edit_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit_1.setForeground(new Color(17, 34, 44));
 		btn_edit_1.setFont(new Font("Poppins", Font.BOLD, 10));
 		btn_edit_1.setFocusPainted(false);
@@ -278,6 +282,7 @@ public class AdminOverviewEdit {
 		panelw.add(lblcm1_1);
 		
 		JButton cinemaa_1s = new JButton("1");
+		cinemaa_1s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaa_1s.setForeground(new Color(17, 34, 44));
 		cinemaa_1s.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinemaa_1s.setFocusPainted(false);
@@ -287,6 +292,7 @@ public class AdminOverviewEdit {
 		panelw.add(cinemaa_1s);
 		
 		JButton cinema_2s = new JButton("2");
+		cinema_2s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_2s.setForeground(new Color(17, 34, 44));
 		cinema_2s.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_2s.setFocusPainted(false);
@@ -296,6 +302,7 @@ public class AdminOverviewEdit {
 		panelw.add(cinema_2s);
 		
 		JButton cinema_3s = new JButton("3");
+		cinema_3s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_3s.setForeground(new Color(17, 34, 44));
 		cinema_3s.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_3s.setFocusPainted(false);
@@ -305,6 +312,7 @@ public class AdminOverviewEdit {
 		panelw.add(cinema_3s);
 		
 		JButton cinema_4s = new JButton("4");
+		cinema_4s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_4s.setForeground(new Color(17, 34, 44));
 		cinema_4s.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_4s.setFocusPainted(false);

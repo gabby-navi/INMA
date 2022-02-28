@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class SignIn {
@@ -88,6 +90,10 @@ public class SignIn {
 		frame.getContentPane().add(btn_create);
 		
 		JButton btn_sign = new JButton("Sign in");
+		btn_sign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btn_sign.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sign.setFocusPainted(false);
 		btn_sign.setBorderPainted(false);

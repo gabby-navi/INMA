@@ -79,6 +79,10 @@ public class SignIn {
 		frame.getContentPane().add(lbl_account);
 		
 		JButton btn_create = new JButton("Create one!");
+		btn_create.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btn_create.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_create.setFocusPainted(false);
 		btn_create.setContentAreaFilled(false);
@@ -90,10 +94,6 @@ public class SignIn {
 		frame.getContentPane().add(btn_create);
 		
 		JButton btn_sign = new JButton("Sign in");
-		btn_sign.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn_sign.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sign.setFocusPainted(false);
 		btn_sign.setBorderPainted(false);

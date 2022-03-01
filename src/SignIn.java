@@ -89,11 +89,6 @@ public class SignIn {
 		frame.getContentPane().add(btn_sign);
 		
 		JButton forgot_pass = new JButton("<html><u>Forgot Password?</u></html>");
-		forgot_pass.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		forgot_pass.setFocusPainted(false);
 		forgot_pass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		forgot_pass.setHorizontalAlignment(SwingConstants.TRAILING);

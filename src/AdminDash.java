@@ -116,7 +116,7 @@ public class AdminDash {
 		user_account.setFocusPainted(false);
 		user_account.setForeground(Color.WHITE);
 		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
-		user_account.setBounds(905, 17, 79, 32);
+		user_account.setBounds(897, 17, 87, 32);
 		frame.getContentPane().add(user_account);
 		
 		JLabel user_profpic = new JLabel("");

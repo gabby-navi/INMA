@@ -1,16 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
+import java.sql.*;
+
 
 public class SignIn {
 
@@ -71,11 +63,23 @@ public class SignIn {
 		lbl_password.setBounds(510, 274, 73, 14);
 		frame.getContentPane().add(lbl_password);
 		
+		JLabel checker_email = new JLabel("");
+		checker_email.setForeground(Color.RED);
+		checker_email.setFont(new Font("Poppins", Font.PLAIN, 11));
+		checker_email.setBounds(510, 245, 418, 14);
+		frame.getContentPane().add(checker_email);
+		
+		JLabel checker_pass = new JLabel("");
+		checker_pass.setFont(new Font("Poppins", Font.PLAIN, 11));
+		checker_pass.setForeground(Color.RED);
+		checker_pass.setBounds(510, 330, 307, 14);
+		frame.getContentPane().add(checker_pass);
+		
 		txt_email = new JTextField();
 		txt_email.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				
+				checker_email.setText("");
 			}
 		});
 		txt_email.setBounds(510, 206, 418, 35);
@@ -100,21 +104,15 @@ public class SignIn {
         frame.getContentPane().add(CBpass);
 		
 		txt_password = new JPasswordField();
+		txt_password.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				checker_pass.setText("");
+			}
+		});
 		txt_password.setOpaque(false);
 		txt_password.setBounds(510, 292, 418, 35);
 		frame.getContentPane().add(txt_password);
-		
-		JLabel checker_email = new JLabel("");
-		checker_email.setForeground(Color.RED);
-		checker_email.setFont(new Font("Poppins", Font.PLAIN, 11));
-		checker_email.setBounds(510, 245, 418, 14);
-		frame.getContentPane().add(checker_email);
-		
-		JLabel checker_pass = new JLabel("");
-		checker_pass.setFont(new Font("Poppins", Font.PLAIN, 11));
-		checker_pass.setForeground(Color.RED);
-		checker_pass.setBounds(510, 330, 307, 14);
-		frame.getContentPane().add(checker_pass);
 		
 		JButton btn_sign = new JButton("Sign in");
 		btn_sign.addMouseListener(new MouseAdapter() {
@@ -167,15 +165,15 @@ public class SignIn {
 						}
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "oh naur", "hala", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "This user does not exist!", "Message Error", JOptionPane.WARNING_MESSAGE);
 					}
 					
 	                if (txt_email.getText().equals("")) {
-	                	checker_email.setText("Username Field cannot be empty");
+	                	checker_email.setText("This field cannot be empty.");
 	                }
 	                
 	                if (txt_password.getText().equals("")) {
-	                	checker_pass.setText("Password Field cannot be empty");
+	                	checker_pass.setText("This field cannot be empty.");
 	                }
 					
 				}

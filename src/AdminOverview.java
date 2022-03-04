@@ -1,5 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -103,22 +106,38 @@ public class AdminOverview {
 		lbl_logo.setBounds(20, 18, 67, 46);
 		panelo.add(lbl_logo);
 		
-		JButton user_account = new JButton("Admin");
-		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
-		user_account.setOpaque(false);
-		user_account.setContentAreaFilled(false);
-		user_account.setFocusPainted(false);
-		user_account.setForeground(Color.WHITE);
-		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
-		user_account.setBounds(907, 15, 87, 32);
-		frame.getContentPane().add(user_account);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setOpaque(false);
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(new Color(247, 165, 35));
+		menuBar.setBounds(735, 10, 263, 43);
+		frame.getContentPane().add(menuBar);
 		
-		JLabel user_profpic = new JLabel("");
-		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		user_profpic.setBounds(878, 12, 44, 35);
-		frame.getContentPane().add(user_profpic);
+		JMenu user_account = new JMenu("   Admin   ");
+		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_account.setHorizontalAlignment(SwingConstants.CENTER);
+		user_account.setBounds(new Rectangle(0, 0, 10, 0));
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setForeground(Color.WHITE);
+		user_account.setContentAreaFilled(false);
+		user_account.setBackground(new Color(247, 165, 35));
+		menuBar.add(Box.createHorizontalGlue());
+		menuBar.add(user_account);
+		
+		JMenuItem logout_item = new JMenuItem("Logout");
+		logout_item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int exitconfirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "", JOptionPane.YES_NO_OPTION);
+				if (exitconfirmation == JOptionPane.YES_OPTION) {
+					SignIn signIn = new SignIn();
+					signIn.frame.setVisible(true);
+					frame.dispose();
+				}			
+			}
+		});
+		logout_item.setBackground(Color.WHITE);
+		logout_item.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.add(logout_item);
 		
 		JLabel lblback = new JLabel("");
 		lblback.addMouseListener(new MouseAdapter() {

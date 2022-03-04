@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EmployeeDashboard {
 
@@ -122,41 +124,43 @@ public class EmployeeDashboard {
 		lblfourthm.setIcon(new ImageIcon(this.getClass().getResource("/images/4.png")));
 		frame.getContentPane().add(lblfourthm);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1010, 43);
-		panel.setBackground(new Color(247, 165, 35));
-		panel.setLayout(null);
-		frame.getContentPane().add(panel);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(new Color(247, 165, 35));
+		menuBar.setBounds(0, 0, 1008, 43);
+		frame.getContentPane().add(menuBar);
 		
-		JLabel lbllogo = new JLabel("");
-		lbllogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbllogo.setBounds(32, 0, 55, 43);
-		panel.add(lbllogo);
-		lbllogo.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
+		JMenu lbl_company = new JMenu("  INMA Theatre  ");
+		lbl_company.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")).getImage().getScaledInstance(45, 33, Image.SCALE_DEFAULT)));
+		lbl_company.setFont(new Font("Poppins Black", Font.BOLD, 16));
+		lbl_company.setForeground(new Color(255, 255, 255));
+		menuBar.add(lbl_company);
 		
-		JLabel lbl1 = new JLabel("INMA Theatre");
-		lbl1.setBounds(95, 11, 131, 25);
-		panel.add(lbl1);
-		lbl1.setFont(new Font("Poppins Black", Font.BOLD, 16));
-		lbl1.setForeground(new Color(255, 255, 255));
-		
-		JButton user_account = new JButton("Employee");
-		user_account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		user_account.setBorderPainted(false);
-		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
-		user_account.setOpaque(false);
-		user_account.setContentAreaFilled(false);
-		user_account.setFocusPainted(false);
-		user_account.setForeground(Color.WHITE);
+		JMenu user_account = new JMenu("   Employee   ");
+		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_account.setHorizontalAlignment(SwingConstants.CENTER);
+		user_account.setBounds(new Rectangle(0, 0, 10, 0));
 		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
-		user_account.setBounds(872, 6, 107, 32);
-		panel.add(user_account);
+		user_account.setForeground(Color.WHITE);
+		user_account.setContentAreaFilled(false);
+		user_account.setBackground(new Color(247, 165, 35));
+		menuBar.add(Box.createHorizontalGlue());
+		menuBar.add(user_account);
 		
-		JLabel user_profpic = new JLabel("");
-		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		user_profpic.setBounds(832, 0, 63, 43);
-		panel.add(user_profpic);
+		JMenuItem logout_item = new JMenuItem("Logout");
+		logout_item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int exitconfirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "", JOptionPane.YES_NO_OPTION);
+				if (exitconfirmation == JOptionPane.YES_OPTION) {
+					SignIn signIn = new SignIn();
+					signIn.frame.setVisible(true);
+					frame.dispose();
+				}			
+			}
+		});
+		logout_item.setBackground(Color.WHITE);
+		logout_item.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.add(logout_item);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

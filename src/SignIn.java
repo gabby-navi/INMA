@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 
 public class SignIn {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField txt_email;
 	private JLabel lbl_welcome;
 	private JPasswordField txt_password;
@@ -54,10 +54,28 @@ public class SignIn {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		lbl_welcome = new JLabel("WELCOME");
+		lbl_welcome.setForeground(new Color(17, 34, 44));
+		lbl_welcome.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_welcome.setFont(new Font("Poppins", Font.BOLD, 35));
+		lbl_welcome.setBounds(571, 91, 295, 45);
+		frame.getContentPane().add(lbl_welcome);
+		
+		JLabel lbl_email = new JLabel("EMAIL");
+		lbl_email.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lbl_email.setBounds(510, 188, 73, 14);
+		frame.getContentPane().add(lbl_email);
+		
+		JLabel lbl_password = new JLabel("PASSWORD");
+		lbl_password.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lbl_password.setBounds(510, 274, 73, 14);
+		frame.getContentPane().add(lbl_password);
+		
 		txt_email = new JTextField();
 		txt_email.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
+				
 			}
 		});
 		txt_email.setBounds(510, 206, 418, 35);
@@ -85,23 +103,6 @@ public class SignIn {
 		txt_password.setOpaque(false);
 		txt_password.setBounds(510, 292, 418, 35);
 		frame.getContentPane().add(txt_password);
-		
-		lbl_welcome = new JLabel("WELCOME");
-		lbl_welcome.setForeground(new Color(17, 34, 44));
-		lbl_welcome.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_welcome.setFont(new Font("Poppins", Font.BOLD, 35));
-		lbl_welcome.setBounds(571, 91, 295, 45);
-		frame.getContentPane().add(lbl_welcome);
-		
-		JLabel lbl_email = new JLabel("EMAIL");
-		lbl_email.setFont(new Font("Poppins", Font.PLAIN, 13));
-		lbl_email.setBounds(510, 188, 73, 14);
-		frame.getContentPane().add(lbl_email);
-		
-		JLabel lbl_password = new JLabel("PASSWORD");
-		lbl_password.setFont(new Font("Poppins", Font.PLAIN, 13));
-		lbl_password.setBounds(510, 274, 73, 14);
-		frame.getContentPane().add(lbl_password);
 		
 		JLabel checker_email = new JLabel("");
 		checker_email.setForeground(Color.RED);
@@ -169,14 +170,11 @@ public class SignIn {
 						JOptionPane.showMessageDialog(null, "oh naur", "hala", JOptionPane.WARNING_MESSAGE);
 					}
 					
-					if (txt_email.getText().equals("") && (txt_password.getText().equals(""))) {
-	                    checker_email.setText("Username Field cannot be empty");    
-	                    checker_pass.setText("Password Field cannot be empty");
-	                }
-	                else if (txt_email.getText().equals("")) {
+	                if (txt_email.getText().equals("")) {
 	                	checker_email.setText("Username Field cannot be empty");
 	                }
-	                else if(txt_password.getText().equals("")) {
+	                
+	                if (txt_password.getText().equals("")) {
 	                	checker_pass.setText("Password Field cannot be empty");
 	                }
 					

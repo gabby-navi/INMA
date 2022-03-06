@@ -162,6 +162,23 @@ public class EmployeeDashboard {
 		logout_item.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
 		user_account.add(logout_item);
 		
+		JButton add_movie = new JButton("See Reservations");
+		add_movie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DetailsEdit details_edit = new DetailsEdit();
+				details_edit.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		add_movie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		add_movie.setBorderPainted(false);
+		add_movie.setFont(new Font("Poppins", Font.BOLD, 10));
+		add_movie.setForeground(new Color(17, 34, 44));
+		add_movie.setBackground(new Color(246, 198, 36));
+		add_movie.setBounds(859, 72, 121, 29);
+		frame.getContentPane().add(add_movie);
+		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		lblrectangle.setBounds(0, 0, 1008, 537);

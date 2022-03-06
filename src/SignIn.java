@@ -40,6 +40,7 @@ public class SignIn {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("INMA Theatres");
 		frame.setBounds(100, 100, 1024, 576);
 		frame.getContentPane().setBackground(Color.white);
 		frame.setLocationRelativeTo(null);
@@ -195,6 +196,8 @@ public class SignIn {
 		forgot_pass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ForgotPass fp = new ForgotPass();
+				fp.frame.setVisible(true);				
 			}
 		});
 		forgot_pass.setFocusPainted(false);

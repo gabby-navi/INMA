@@ -34,6 +34,12 @@ public class SignIn {
 	public SignIn() {
 		initialize();
 	}
+	
+	String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = ForLogin;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -119,12 +125,6 @@ public class SignIn {
 		btn_sign.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
-						+ "databaseName = ForLogin;"
-						+ "username = sa;"
-						+ "password = inmainmainma;"
-						+ ";encrypt = true;trustServerCertificate = true;";
-
 				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 					
 					String email = txt_email.getText();
@@ -166,7 +166,7 @@ public class SignIn {
 						}
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "This user does not exist!", "Message Error", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Email or password is incorrect!", "Message Error", JOptionPane.WARNING_MESSAGE);
 					}
 					
 	                if (txt_email.getText().equals("")) {
@@ -197,7 +197,7 @@ public class SignIn {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ForgotPass fp = new ForgotPass();
-				fp.frame.setVisible(true);				
+				fp.frame.setVisible(true);	
 			}
 		});
 		forgot_pass.setFocusPainted(false);

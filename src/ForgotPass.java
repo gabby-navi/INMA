@@ -100,41 +100,41 @@ public class ForgotPass {
 		btn_save.setBounds(255, 245, 135, 30);
 		frame.getContentPane().add(btn_save);
 		
-		JCheckBox CBpass1 = new JCheckBox("");
-		CBpass1.setContentAreaFilled(false);
-		CBpass1.setOpaque(false);
-		CBpass1.setBounds(361, 122, 29, 23);
+		JCheckBox CBnewpass = new JCheckBox("");
+		CBnewpass.setContentAreaFilled(false);
+		CBnewpass.setOpaque(false);
+		CBnewpass.setBounds(361, 122, 29, 23);
 		Image unchecked = new ImageIcon(this.getClass().getResource("/images/unchecked.png")).getImage();
-        CBpass1.setIcon(new ImageIcon(unchecked));
+		CBnewpass.setIcon(new ImageIcon(unchecked));
         Image checked = new ImageIcon(this.getClass().getResource("/images/checked.png")).getImage();
-        CBpass1.setSelectedIcon(new ImageIcon(checked));
-        CBpass1.addActionListener(new ActionListener() {
+        CBnewpass.setSelectedIcon(new ImageIcon(checked));
+        CBnewpass.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(CBpass1.isSelected())
+                if(CBnewpass.isSelected())
                 	txt_newpass.setEchoChar((char)0);
                 else
                 	txt_newpass.setEchoChar('•');
             }
         });
-        frame.getContentPane().add(CBpass1);
+        frame.getContentPane().add(CBnewpass);
         
-        JCheckBox CBpass2 = new JCheckBox("");
-		CBpass2.setContentAreaFilled(false);
-		CBpass2.setOpaque(false);
-		CBpass2.setBounds(361, 193, 29, 23);
+        JCheckBox CBreppass = new JCheckBox("");
+        CBreppass.setContentAreaFilled(false);
+        CBreppass.setOpaque(false);
+        CBreppass.setBounds(361, 193, 29, 23);
 		Image unchecked1 = new ImageIcon(this.getClass().getResource("/images/unchecked.png")).getImage();
-        CBpass2.setIcon(new ImageIcon(unchecked1));
+		CBreppass.setIcon(new ImageIcon(unchecked1));
         Image checked1 = new ImageIcon(this.getClass().getResource("/images/checked.png")).getImage();
-        CBpass2.setSelectedIcon(new ImageIcon(checked1));
-        CBpass2.addActionListener(new ActionListener() {
+        CBreppass.setSelectedIcon(new ImageIcon(checked1));
+        CBreppass.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(CBpass1.isSelected())
+                if(CBreppass.isSelected())
                 	txt_reppass.setEchoChar((char)0);
                 else
                 	txt_reppass.setEchoChar('•');
             }
         });
-        frame.getContentPane().add(CBpass2);
+        frame.getContentPane().add(CBreppass);
 		
 		txt_newpass = new JPasswordField();
 		txt_newpass.setOpaque(false);
@@ -172,9 +172,5 @@ public class ForgotPass {
 		btn_cancel.setBounds(40, 245, 135, 30);
 		frame.getContentPane().add(btn_cancel);
 		
-//		JLabel bg = new JLabel("");
-//		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
-//		bg.setBounds(0, 0, 434, 311);
-//		frame.getContentPane().add(bg);
 	}
 }

@@ -3,6 +3,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class AdminOverviewEdit {
 
@@ -156,6 +159,23 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(line);
 		
 		JButton btn_edit = new JButton("Save");
+		btn_edit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			               +"databaseName = addMovie;"
+                        +"username = sa;"
+			               +"password = markangelo12;"
+			               + ";encrypt=true;trustServerCertificate=true;";
+	try (Connection connection = DriverManager.getConnection(connectionUrl)){
+		System.out.println("Connected Successfully!");
+	} catch (SQLException x) {
+		x.printStackTrace();
+	}
+				
+			}
+		});
 		btn_edit.setFocusPainted(false);
 		btn_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit.setBorderPainted(false);
@@ -260,6 +280,14 @@ public class AdminOverviewEdit {
 		panelw.add(date_avail);
 		
 		JButton cinema_1f = new JButton("1");
+		cinema_1f.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String Cinema_Num = "1";
+				
+			}
+		});
 		cinema_1f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_1f.setForeground(new Color(17, 34, 44));
 		cinema_1f.setFont(new Font("Poppins", Font.BOLD, 12));

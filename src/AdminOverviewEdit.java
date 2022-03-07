@@ -358,6 +358,14 @@ public class AdminOverviewEdit {
 		panelw.add(cinemaa_1s);
 		
 		JButton cinema_2s = new JButton("2");
+		cinema_2s.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String Cinema_Num2 = "2";
+				
+			}
+		});
 		cinema_2s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_2s.setForeground(new Color(17, 34, 44));
 		cinema_2s.setFont(new Font("Poppins", Font.BOLD, 12));

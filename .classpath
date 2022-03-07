@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/Mark/Downloads/sqljdbc_10.2/enu/mssql-jdbc-10.2.0.jre8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

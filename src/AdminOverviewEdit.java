@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import com.toedter.calendar.JDateChooser;
 
 public class AdminOverviewEdit {
@@ -173,6 +177,23 @@ public class AdminOverviewEdit {
 		frame.getContentPane().add(line);
 		
 		JButton btn_edit = new JButton("Save");
+		btn_edit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			               +"databaseName = addMovie;"
+                        +"username = sa;"
+			               +"password = markangelo12;"
+			               + ";encrypt=true;trustServerCertificate=true;";
+	try (Connection connection = DriverManager.getConnection(connectionUrl)){
+		System.out.println("Connected Successfully!");
+	} catch (SQLException x) {
+		x.printStackTrace();
+	}
+				
+			}
+		});
 		btn_edit.setFocusPainted(false);
 		btn_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_edit.setBorderPainted(false);

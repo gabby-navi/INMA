@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.calendar.JDateChooser;
 
 
 public class AdminOverview {
@@ -209,34 +210,29 @@ public class AdminOverview {
 		lbld.setBounds(185, 52, 87, 17);
 		panelw.add(lbld);
 		
-		JLabel lblda = new JLabel("Date Available:");
-		lblda.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblda.setBounds(185, 112, 116, 17);
-		panelw.add(lblda);
-		
 		JLabel lblcm1 = new JLabel("Cinema Number:");
 		lblcm1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm1.setBounds(186, 142, 112, 19);
+		lblcm1.setBounds(186, 165, 112, 19);
 		panelw.add(lblcm1);
 		
 		JLabel lblcm2 = new JLabel("Cinema Number:");
 		lblcm2.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm2.setBounds(186, 202, 114, 19);
+		lblcm2.setBounds(186, 225, 114, 19);
 		panelw.add(lblcm2);
 		
 		JLabel lblta1 = new JLabel("Times Available:");
 		lblta1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta1.setBounds(186, 172, 106, 19);
+		lblta1.setBounds(186, 195, 106, 19);
 		panelw.add(lblta1);
 		
 		JLabel lblta2 = new JLabel("Times Available:");
 		lblta2.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta2.setBounds(186, 232, 108, 19);
+		lblta2.setBounds(186, 255, 108, 19);
 		panelw.add(lblta2);
 		
 		JLabel lblp = new JLabel("Price:");
 		lblp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblp.setBounds(185, 292, 45, 19);
+		lblp.setBounds(185, 315, 45, 19);
 		panelw.add(lblp);
 		
 		JLabel lbltitle = new JLabel("Uncharted");
@@ -259,45 +255,60 @@ public class AdminOverview {
 		lbldesc3.setBounds(300, 79, 437, 19);
 		panelw.add(lbldesc3);
 		
-		JLabel lbldate = new JLabel("February 16, 2022 - February 18, 2022");
-		lbldate.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lbldate.setBounds(300, 112, 232, 19);
-		panelw.add(lbldate);
-		
 		JLabel lblcno1 = new JLabel("1");
 		lblcno1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblcno1.setBounds(300, 142, 18, 19);
+		lblcno1.setBounds(300, 165, 18, 19);
 		panelw.add(lblcno1);
 		
 		JLabel lblcno2 = new JLabel("2");
 		lblcno2.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblcno2.setBounds(300, 202, 21, 19);
+		lblcno2.setBounds(300, 225, 21, 19);
 		panelw.add(lblcno2);
 		
 		JLabel lblt1 = new JLabel("8:00PM");
 		lblt1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt1.setBounds(300, 172, 51, 19);
+		lblt1.setBounds(300, 195, 51, 19);
 		panelw.add(lblt1);
 		
 		JLabel lblt2 = new JLabel("2:30PM");
 		lblt2.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt2.setBounds(300, 232, 45, 19);
+		lblt2.setBounds(300, 255, 45, 19);
 		panelw.add(lblt2);
 		
 		JLabel lblt3 = new JLabel("5:30PM");
 		lblt3.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt3.setBounds(300, 246, 45, 19);
+		lblt3.setBounds(300, 269, 45, 19);
 		panelw.add(lblt3);
 		
 		JLabel lblt4 = new JLabel("8:30PM");
 		lblt4.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt4.setBounds(300, 260, 45, 19);
+		lblt4.setBounds(300, 283, 45, 19);
 		panelw.add(lblt4);
 		
 		JLabel lblprice = new JLabel("P350.00");
 		lblprice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblprice.setBounds(300, 292, 81, 19);
+		lblprice.setBounds(300, 315, 81, 19);
 		panelw.add(lblprice);
+		
+		JLabel lblstart = new JLabel("Start Showing:");
+		lblstart.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lblstart.setBounds(185, 108, 116, 17);
+		panelw.add(lblstart);
+		
+		JLabel lblend = new JLabel("End Showing:");
+		lblend.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lblend.setBounds(185, 137, 116, 17);
+		panelw.add(lblend);
+		
+		JLabel startDate = new JLabel("February 16, 2022");
+		startDate.setFont(new Font("Poppins", Font.PLAIN, 12));
+		startDate.setBounds(300, 109, 116, 19);
+		panelw.add(startDate);
+		
+		JLabel endDate = new JLabel("Febraury 18, 2022");
+		endDate.setFont(new Font("Poppins", Font.PLAIN, 12));
+		endDate.setBounds(300, 135, 116, 19);
+		panelw.add(endDate);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setBounds(0, 0, 1010, 539);

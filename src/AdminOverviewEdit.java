@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class AdminOverviewEdit {
 
 	JFrame frame;
 	private JTextField movie_title;
-	private JTextField date_avail;
 	private JTextField times_1f;
 	private JTextField times_2f;
 	private JTextField times_1s;
@@ -230,24 +230,19 @@ public class AdminOverviewEdit {
 		lbld.setBounds(185, 60, 87, 17);
 		panelw.add(lbld);
 		
-		JLabel lblda = new JLabel("Date Available:");
-		lblda.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblda.setBounds(185, 125, 116, 17);
-		panelw.add(lblda);
-		
 		JLabel lblcm1 = new JLabel("Cinema Number:");
 		lblcm1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm1.setBounds(185, 161, 112, 19);
+		lblcm1.setBounds(185, 191, 112, 19);
 		panelw.add(lblcm1);
 		
 		JLabel lblta1 = new JLabel("Times Available:");
 		lblta1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta1.setBounds(185, 199, 106, 19);
+		lblta1.setBounds(185, 229, 106, 19);
 		panelw.add(lblta1);
 		
 		JLabel lblp = new JLabel("Price:");
 		lblp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblp.setBounds(185, 309, 45, 19);
+		lblp.setBounds(185, 339, 45, 19);
 		panelw.add(lblp);
 		
 		movie_title = new JTextField();
@@ -268,14 +263,6 @@ public class AdminOverviewEdit {
 		txt_area.setBounds(296, 54, 437, 57);
 		panelw.add(txt_area);
 		
-		date_avail = new JTextField();
-		date_avail.setText("February 16, 2022 - February 18, 2022");
-		date_avail.setMargin(new Insets(3, 7, 3, 3));
-		date_avail.setFont(new Font("Poppins", Font.PLAIN, 12));
-		date_avail.setColumns(10);
-		date_avail.setBounds(296, 124, 428, 20);
-		panelw.add(date_avail);
-		
 		JButton cinema_1f = new JButton("1");
 		cinema_1f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_1f.setForeground(new Color(17, 34, 44));
@@ -283,7 +270,7 @@ public class AdminOverviewEdit {
 		cinema_1f.setBorderPainted(false);
 		cinema_1f.setBackground(new Color(247, 165, 35));
 		cinema_1f.setFocusPainted(false);
-		cinema_1f.setBounds(296, 156, 45, 30);
+		cinema_1f.setBounds(296, 186, 45, 30);
 		panelw.add(cinema_1f);
 		
 		JButton cinema_2f = new JButton("2");
@@ -293,7 +280,7 @@ public class AdminOverviewEdit {
 		cinema_2f.setFocusPainted(false);
 		cinema_2f.setBorderPainted(false);
 		cinema_2f.setBackground(new Color(246, 198, 36));
-		cinema_2f.setBounds(345, 156, 45, 30);
+		cinema_2f.setBounds(345, 186, 45, 30);
 		panelw.add(cinema_2f);
 		
 		JButton cinema_3f = new JButton("3");
@@ -303,7 +290,7 @@ public class AdminOverviewEdit {
 		cinema_3f.setFocusPainted(false);
 		cinema_3f.setBorderPainted(false);
 		cinema_3f.setBackground(new Color(246, 198, 36));
-		cinema_3f.setBounds(394, 156, 45, 30);
+		cinema_3f.setBounds(394, 186, 45, 30);
 		panelw.add(cinema_3f);
 		
 		JButton cinema_4f = new JButton("4");
@@ -313,7 +300,7 @@ public class AdminOverviewEdit {
 		cinema_4f.setFocusPainted(false);
 		cinema_4f.setBorderPainted(false);
 		cinema_4f.setBackground(new Color(246, 198, 36));
-		cinema_4f.setBounds(443, 156, 45, 30);
+		cinema_4f.setBounds(443, 186, 45, 30);
 		panelw.add(cinema_4f);
 		
 		times_1f = new JTextField();
@@ -321,19 +308,19 @@ public class AdminOverviewEdit {
 		times_1f.setMargin(new Insets(3, 7, 3, 3));
 		times_1f.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_1f.setColumns(10);
-		times_1f.setBounds(296, 198, 63, 20);
+		times_1f.setBounds(296, 228, 63, 20);
 		panelw.add(times_1f);
 		
 		times_2f = new JTextField();
 		times_2f.setMargin(new Insets(3, 7, 3, 3));
 		times_2f.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_2f.setColumns(10);
-		times_2f.setBounds(363, 198, 63, 20);
+		times_2f.setBounds(363, 228, 63, 20);
 		panelw.add(times_2f);
 		
 		JLabel lblcm1_1 = new JLabel("Cinema Number:");
 		lblcm1_1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm1_1.setBounds(185, 236, 112, 19);
+		lblcm1_1.setBounds(185, 266, 112, 19);
 		panelw.add(lblcm1_1);
 		
 		JButton cinemaa_1s = new JButton("1");
@@ -343,7 +330,7 @@ public class AdminOverviewEdit {
 		cinemaa_1s.setFocusPainted(false);
 		cinemaa_1s.setBorderPainted(false);
 		cinemaa_1s.setBackground(new Color(246, 198, 36));
-		cinemaa_1s.setBounds(296, 230, 45, 30);
+		cinemaa_1s.setBounds(296, 260, 45, 30);
 		panelw.add(cinemaa_1s);
 		
 		JButton cinema_2s = new JButton("2");
@@ -353,7 +340,7 @@ public class AdminOverviewEdit {
 		cinema_2s.setFocusPainted(false);
 		cinema_2s.setBorderPainted(false);
 		cinema_2s.setBackground(new Color(247, 165, 35));
-		cinema_2s.setBounds(345, 230, 45, 30);
+		cinema_2s.setBounds(345, 260, 45, 30);
 		panelw.add(cinema_2s);
 		
 		JButton cinema_3s = new JButton("3");
@@ -363,7 +350,7 @@ public class AdminOverviewEdit {
 		cinema_3s.setFocusPainted(false);
 		cinema_3s.setBorderPainted(false);
 		cinema_3s.setBackground(new Color(246, 198, 36));
-		cinema_3s.setBounds(394, 230, 45, 30);
+		cinema_3s.setBounds(394, 260, 45, 30);
 		panelw.add(cinema_3s);
 		
 		JButton cinema_4s = new JButton("4");
@@ -373,12 +360,12 @@ public class AdminOverviewEdit {
 		cinema_4s.setFocusPainted(false);
 		cinema_4s.setBorderPainted(false);
 		cinema_4s.setBackground(new Color(246, 198, 36));
-		cinema_4s.setBounds(443, 230, 45, 30);
+		cinema_4s.setBounds(443, 260, 45, 30);
 		panelw.add(cinema_4s);
 		
 		JLabel lblta1_1 = new JLabel("Times Available:");
 		lblta1_1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta1_1.setBounds(185, 275, 106, 19);
+		lblta1_1.setBounds(185, 305, 106, 19);
 		panelw.add(lblta1_1);
 		
 		times_1s = new JTextField();
@@ -386,7 +373,7 @@ public class AdminOverviewEdit {
 		times_1s.setMargin(new Insets(3, 7, 3, 3));
 		times_1s.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_1s.setColumns(10);
-		times_1s.setBounds(296, 274, 63, 20);
+		times_1s.setBounds(296, 304, 63, 20);
 		panelw.add(times_1s);
 		
 		times_2s = new JTextField();
@@ -394,7 +381,7 @@ public class AdminOverviewEdit {
 		times_2s.setMargin(new Insets(3, 7, 3, 3));
 		times_2s.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_2s.setColumns(10);
-		times_2s.setBounds(363, 274, 63, 20);
+		times_2s.setBounds(363, 304, 63, 20);
 		panelw.add(times_2s);
 		
 		times_3s = new JTextField();
@@ -402,7 +389,7 @@ public class AdminOverviewEdit {
 		times_3s.setMargin(new Insets(3, 7, 3, 3));
 		times_3s.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_3s.setColumns(10);
-		times_3s.setBounds(430, 274, 63, 20);
+		times_3s.setBounds(430, 304, 63, 20);
 		panelw.add(times_3s);
 		
 		txt_price = new JTextField();
@@ -410,7 +397,7 @@ public class AdminOverviewEdit {
 		txt_price.setMargin(new Insets(3, 7, 3, 3));
 		txt_price.setFont(new Font("Poppins", Font.PLAIN, 12));
 		txt_price.setColumns(10);
-		txt_price.setBounds(296, 306, 428, 20);
+		txt_price.setBounds(296, 336, 428, 20);
 		panelw.add(txt_price);
 		
 		JButton add_time = new JButton("+");
@@ -419,8 +406,26 @@ public class AdminOverviewEdit {
 		add_time.setFocusPainted(false);
 		add_time.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add_time.setBorderPainted(false);
-		add_time.setBounds(431, 198, 47, 19);
+		add_time.setBounds(431, 228, 47, 19);
 		panelw.add(add_time);
+		
+		JLabel lblstart = new JLabel("Start Showing:");
+		lblstart.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lblstart.setBounds(185, 128, 116, 17);
+		panelw.add(lblstart);
+		
+		JDateChooser startDate = new JDateChooser();
+		startDate.setBounds(296, 125, 437, 20);
+		panelw.add(startDate);
+		
+		JLabel lblend = new JLabel("End Showing:");
+		lblend.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lblend.setBounds(185, 157, 116, 17);
+		panelw.add(lblend);
+		
+		JDateChooser endDate = new JDateChooser();
+		endDate.setBounds(296, 154, 437, 20);
+		panelw.add(endDate);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

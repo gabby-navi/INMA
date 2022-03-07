@@ -1,14 +1,15 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.sql.*;
+
 
 public class SignIn {
 
-	private JFrame frame;
-	private JTextField txt_username;
-	private JTextField txt_password;
+	JFrame frame;
+	private JTextField txt_email;
 	private JLabel lbl_welcome;
+	private JPasswordField txt_password;
 
 	/**
 	 * Launch the application.
@@ -39,21 +40,12 @@ public class SignIn {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("INMA Theatres");
 		frame.setBounds(100, 100, 1024, 576);
 		frame.getContentPane().setBackground(Color.white);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		txt_username = new JTextField();
-		txt_username.setBounds(510, 206, 418, 35);
-		frame.getContentPane().add(txt_username);
-		txt_username.setColumns(10);
-		
-		txt_password = new JTextField();
-		txt_password.setBounds(510, 292, 418, 35);
-		frame.getContentPane().add(txt_password);
-		txt_password.setColumns(10);
 		
 		lbl_welcome = new JLabel("WELCOME");
 		lbl_welcome.setForeground(new Color(17, 34, 44));
@@ -62,21 +54,133 @@ public class SignIn {
 		lbl_welcome.setBounds(571, 91, 295, 45);
 		frame.getContentPane().add(lbl_welcome);
 		
-		JLabel lbl_username = new JLabel("USERNAME");
-		lbl_username.setFont(new Font("Poppins", Font.PLAIN, 13));
-		lbl_username.setBounds(510, 188, 73, 14);
-		frame.getContentPane().add(lbl_username);
+		JLabel lbl_email = new JLabel("EMAIL");
+		lbl_email.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lbl_email.setBounds(510, 188, 73, 14);
+		frame.getContentPane().add(lbl_email);
 		
 		JLabel lbl_password = new JLabel("PASSWORD");
 		lbl_password.setFont(new Font("Poppins", Font.PLAIN, 13));
 		lbl_password.setBounds(510, 274, 73, 14);
 		frame.getContentPane().add(lbl_password);
 		
+		JLabel checker_email = new JLabel("");
+		checker_email.setForeground(Color.RED);
+		checker_email.setFont(new Font("Poppins", Font.PLAIN, 11));
+		checker_email.setBounds(510, 245, 418, 14);
+		frame.getContentPane().add(checker_email);
+		
+		JLabel checker_pass = new JLabel("");
+		checker_pass.setFont(new Font("Poppins", Font.PLAIN, 11));
+		checker_pass.setForeground(Color.RED);
+		checker_pass.setBounds(510, 330, 307, 14);
+		frame.getContentPane().add(checker_pass);
+		
+		txt_email = new JTextField();
+		txt_email.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				checker_email.setText("");
+			}
+		});
+		txt_email.setBounds(510, 206, 418, 35);
+		frame.getContentPane().add(txt_email);
+		
+		JCheckBox CBpass = new JCheckBox("");
+		CBpass.setContentAreaFilled(false);
+		CBpass.setOpaque(false);
+		CBpass.setBounds(894, 298, 29, 23);
+		Image unchecked = new ImageIcon(this.getClass().getResource("/images/unchecked.png")).getImage();
+        CBpass.setIcon(new ImageIcon(unchecked));
+        Image checked = new ImageIcon(this.getClass().getResource("/images/checked.png")).getImage();
+        CBpass.setSelectedIcon(new ImageIcon(checked));
+        CBpass.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(CBpass.isSelected())
+                	txt_password.setEchoChar((char)0);
+                else
+                	txt_password.setEchoChar('•');
+            }
+        });
+        frame.getContentPane().add(CBpass);
+		
+		txt_password = new JPasswordField();
+		txt_password.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				checker_pass.setText("");
+			}
+		});
+		txt_password.setOpaque(false);
+		txt_password.setBounds(510, 292, 418, 35);
+		frame.getContentPane().add(txt_password);
+		
 		JButton btn_sign = new JButton("Sign in");
 		btn_sign.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 
+				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+						+ "databaseName = ForLogin;"
+						+ "username = sa;"
+						+ "password = inmainmainma;"
+						+ ";encrypt = true;trustServerCertificate = true;";
+
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String email = txt_email.getText();
+					String pass = txt_password.getText();
+					
+					String sqlQuery = "SELECT * FROM LoginE WHERE Employee_Email=? and Employee_Password=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, txt_email.getText());
+					ps.setString(2, txt_password.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String EmailD = "";
+					String PassD = "";
+					String PositionD = "";
+					
+					while (rs.next()) {
+						EmailD = rs.getString("Employee_Email");
+						PassD = rs.getString("Employee_Password");
+						PositionD = rs.getString("Position");
+					}
+					
+					// query for position
+					String query1 = "SELECT * FROM LoginE WHERE Position = ?";
+					PreparedStatement ps1 = connection.prepareStatement(query1);
+					ps1.setString(1, PositionD);
+					ResultSet rs1 = ps1.executeQuery();
+					
+					if (EmailD.equals(email) && PassD.equals(pass)) {
+						if (PositionD.equals("Admin")) {
+							AdminDash adminD = new AdminDash();
+							adminD.frame.setVisible(true);
+							frame.dispose();
+						}
+						else if (PositionD.equals("Employee")) {
+							EmployeeDashboard employeeD = new EmployeeDashboard();
+							employeeD.frame.setVisible(true);
+							frame.dispose();
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "This user does not exist!", "Message Error", JOptionPane.WARNING_MESSAGE);
+					}
+					
+	                if (txt_email.getText().equals("")) {
+	                	checker_email.setText("This field cannot be empty.");
+	                }
+	                
+	                if (txt_password.getText().equals("")) {
+	                	checker_pass.setText("This field cannot be empty.");
+	                }
+					
+				}
+				catch (SQLException x) {
+					x.printStackTrace();
+				}
 			}
 		});
 		btn_sign.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -92,6 +196,8 @@ public class SignIn {
 		forgot_pass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ForgotPass fp = new ForgotPass();
+				fp.frame.setVisible(true);				
 			}
 		});
 		forgot_pass.setFocusPainted(false);

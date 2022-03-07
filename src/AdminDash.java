@@ -108,23 +108,38 @@ public class AdminDash {
 		lbl_dash.setBounds(233, 49, 159, 19);
 		frame.getContentPane().add(lbl_dash);
 		
-		JButton user_account = new JButton("Admin");
-		user_account.setBorderPainted(false);
-		user_account.setHorizontalAlignment(SwingConstants.TRAILING);
-		user_account.setOpaque(false);
-		user_account.setContentAreaFilled(false);
-		user_account.setFocusPainted(false);
-		user_account.setForeground(Color.WHITE);
-		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
-		user_account.setBounds(905, 17, 79, 32);
-		frame.getContentPane().add(user_account);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setOpaque(false);
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(new Color(247, 165, 35));
+		menuBar.setBounds(735, 10, 263, 43);
+		frame.getContentPane().add(menuBar);
 		
-		JLabel user_profpic = new JLabel("");
-		user_profpic.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		user_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		user_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		user_profpic.setBounds(859, 10, 63, 43);
-		frame.getContentPane().add(user_profpic);
+		JMenu user_account = new JMenu("   Admin   ");
+		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		user_account.setHorizontalAlignment(SwingConstants.CENTER);
+		user_account.setBounds(new Rectangle(0, 0, 10, 0));
+		user_account.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.setForeground(Color.WHITE);
+		user_account.setContentAreaFilled(false);
+		user_account.setBackground(new Color(247, 165, 35));
+		menuBar.add(Box.createHorizontalGlue());
+		menuBar.add(user_account);
+		
+		JMenuItem logout_item = new JMenuItem("Logout");
+		logout_item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int exitconfirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "", JOptionPane.YES_NO_OPTION);
+				if (exitconfirmation == JOptionPane.YES_OPTION) {
+					SignIn signIn = new SignIn();
+					signIn.frame.setVisible(true);
+					frame.dispose();
+				}			
+			}
+		});
+		logout_item.setBackground(Color.WHITE);
+		logout_item.setFont(new Font("Poppins SemiBold", Font.PLAIN, 14));
+		user_account.add(logout_item);
 		
 		JPanel hr = new JPanel();
 		hr.setBounds(233, 78, 747, 2);

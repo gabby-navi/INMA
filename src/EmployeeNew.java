@@ -1,15 +1,22 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class EmployeeNew {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField txt_empName;
 	private JTextField txt_number;
 	private JTextField txt_email;
-	private JTextField txt_pass;
-	private JTextField txt_confirmpass;
 
 	/**
 	 * Launch the application.
@@ -30,9 +37,17 @@ public class EmployeeNew {
 	/**
 	 * Create the application.
 	 */
+	
 	public EmployeeNew() {
 		initialize();
+		EmployeeDetails.updateDB();
 	}
+	
+	String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -128,9 +143,8 @@ public class EmployeeNew {
 		lblback.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
+				EmployeeDetails empDeets = new EmployeeDetails();
+                empDeets.frame.setVisible(true);
                 frame.dispose();
 			}
 		});
@@ -183,12 +197,61 @@ public class EmployeeNew {
 		frame.getContentPane().add(hr);
 		
 		JButton save_btn = new JButton("Save");
-		save_btn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				DetailsEdit details_edit = new DetailsEdit();
-				details_edit.frame.setVisible(true);
-				frame.dispose();
+		save_btn.setFocusPainted(false);
+		save_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String lcases = "qwertyuiopasdfghjklzxcvbnm";
+	                String ucases = "QWERTYUIOPASDFGHJKLZXCVBNM";
+	                String num = "123456789";
+	                
+	                String password = "";
+	                
+	                for(int i = 0; i < 5; i++) {
+	                    int rand = (int)(3 * Math.random());
+	                    
+	                    switch(rand) {
+	                    case 0:
+	                        password += String.valueOf((int)(0 * Math.random()));
+	                        break;
+	                        
+	                    case 1:
+	                        rand = (int)(lcases.length() * Math.random());
+	                        password += String.valueOf(lcases.charAt(rand));
+	                        
+	                    case 2:
+	                        rand = (int)(ucases.length() * Math.random());
+	                        password += String.valueOf(ucases.charAt(rand));
+	                        
+	                    case 3:
+	                        rand = (int)(num.length() * Math.random());
+	                        password += String.valueOf(num.charAt(rand));
+	                    }
+	                }	            
+					
+					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword) VALUES (?, ?, ?, ?)";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, txt_empName.getText());
+					ps.setString(2, txt_number.getText());
+					ps.setString(3, txt_email.getText());
+					ps.setString(4, password);
+					
+									
+					ps.executeUpdate();	
+					
+					JOptionPane.showMessageDialog(null, "Added Successfully!");
+					EmployeeDetails.updateDB();
+					
+					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.frame.setVisible(true);
+					frame.dispose();
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
 			}
 		});
 		save_btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -229,53 +292,33 @@ public class EmployeeNew {
 		
 		JLabel lbl_empName = new JLabel("Employee Name:");
 		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empName.setBounds(258, 43, 112, 17);
+		lbl_empName.setBounds(258, 72, 112, 17);
 		white_bg.add(lbl_empName);
 		
 		JLabel lbl_number = new JLabel("Contact Number:");
 		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(258, 74, 116, 17);
+		lbl_number.setBounds(258, 103, 116, 17);
 		white_bg.add(lbl_number);
 		
 		JLabel emp_email = new JLabel("Email:");
 		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(258, 107, 116, 17);
+		emp_email.setBounds(258, 136, 116, 17);
 		white_bg.add(emp_email);
 		
-		JLabel emp_pass = new JLabel("Password:");
-		emp_pass.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_pass.setBounds(258, 137, 112, 19);
-		white_bg.add(emp_pass);
-		
-		JLabel emp_confirmpass = new JLabel("Confirm Password:");
-		emp_confirmpass.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_confirmpass.setBounds(258, 167, 131, 19);
-		white_bg.add(emp_confirmpass);
-		
 		txt_empName = new JTextField();
-		txt_empName.setBounds(395, 42, 325, 20);
+		txt_empName.setBounds(395, 71, 325, 20);
 		white_bg.add(txt_empName);
 		txt_empName.setColumns(10);
 		
 		txt_number = new JTextField();
 		txt_number.setColumns(10);
-		txt_number.setBounds(395, 73, 325, 20);
+		txt_number.setBounds(395, 102, 325, 20);
 		white_bg.add(txt_number);
 		
 		txt_email = new JTextField();
 		txt_email.setColumns(10);
-		txt_email.setBounds(395, 103, 325, 20);
+		txt_email.setBounds(395, 132, 325, 20);
 		white_bg.add(txt_email);
-		
-		txt_pass = new JTextField();
-		txt_pass.setColumns(10);
-		txt_pass.setBounds(395, 134, 325, 20);
-		white_bg.add(txt_pass);
-		
-		txt_confirmpass = new JTextField();
-		txt_confirmpass.setColumns(10);
-		txt_confirmpass.setBounds(395, 167, 325, 20);
-		white_bg.add(txt_confirmpass);
 		
 		JButton cancel_btn = new JButton("Cancel");
 		cancel_btn.setForeground(new Color(17, 34, 44));

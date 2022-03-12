@@ -4,8 +4,13 @@ import java.awt.event.*;
 
 public class EmployeeDeetsOverview {
 
-	private JFrame frame;
-
+	JFrame frame;
+	public JLabel lbl_ID1;
+	public JLabel lbl_name;
+	public JLabel lbl_num1;
+	public JLabel lbl_email1;
+	public JLabel lbl_pass1;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -123,9 +128,8 @@ public class EmployeeDeetsOverview {
 		lblback.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
+				EmployeeDetails empDeets = new EmployeeDetails();
+                empDeets.frame.setVisible(true);
                 frame.dispose();
 			}
 		});
@@ -181,9 +185,7 @@ public class EmployeeDeetsOverview {
 		remove_employee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DetailsEdit details_edit = new DetailsEdit();
-				details_edit.frame.setVisible(true);
-				frame.dispose();
+				
 			}
 		});
 		remove_employee.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -206,44 +208,54 @@ public class EmployeeDeetsOverview {
 		emp_profpic.setBounds(10, 11, 256, 203);
 		white_bg.add(emp_profpic);
 		
-		JLabel lbl_empID = new JLabel("Employee ID:");
-		lbl_empID.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empID.setBounds(276, 56, 87, 17);
-		white_bg.add(lbl_empID);
+		JLabel lbl_empName = new JLabel("Employee Name:");
+		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empName.setBounds(276, 73, 116, 17);
+		white_bg.add(lbl_empName);
 		
 		JLabel lbl_number = new JLabel("Contact Number:");
 		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(276, 87, 116, 17);
+		lbl_number.setBounds(276, 104, 116, 17);
 		white_bg.add(lbl_number);
 		
 		JLabel emp_email = new JLabel("Email:");
 		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(276, 120, 116, 17);
+		emp_email.setBounds(276, 137, 116, 17);
 		white_bg.add(emp_email);
 		
 		JLabel emp_pass = new JLabel("Password:");
 		emp_pass.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_pass.setBounds(276, 150, 112, 19);
+		emp_pass.setBounds(276, 167, 112, 19);
 		white_bg.add(emp_pass);
 		
-		JLabel lbl_pass1 = new JLabel("passw0rd1");
+		lbl_pass1 = new JLabel("");
 		lbl_pass1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_pass1.setBounds(417, 150, 112, 19);
+		lbl_pass1.setBounds(417, 167, 320, 19);
 		white_bg.add(lbl_pass1);
 		
-		JLabel lbl_email1 = new JLabel("davidg@email.com");
+		lbl_email1 = new JLabel("");
 		lbl_email1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_email1.setBounds(417, 120, 154, 17);
+		lbl_email1.setBounds(417, 137, 320, 17);
 		white_bg.add(lbl_email1);
 		
-		JLabel lbl_num1 = new JLabel("09123456789");
+		lbl_num1 = new JLabel("");
 		lbl_num1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_num1.setBounds(417, 87, 116, 17);
+		lbl_num1.setBounds(417, 104, 320, 17);
 		white_bg.add(lbl_num1);
 		
-		JLabel lbl_ID1 = new JLabel("101-1234");
+		lbl_name = new JLabel("");
+		lbl_name.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		lbl_name.setBounds(417, 73, 320, 17);
+		white_bg.add(lbl_name);
+		
+		JLabel lbl_empID = new JLabel("Employee ID:");
+		lbl_empID.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empID.setBounds(276, 43, 87, 17);
+		white_bg.add(lbl_empID);
+		
+		lbl_ID1 = new JLabel("");
 		lbl_ID1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_ID1.setBounds(417, 56, 87, 17);
+		lbl_ID1.setBounds(417, 43, 320, 17);
 		white_bg.add(lbl_ID1);
 		
 		JButton edit_employee = new JButton("Edit");

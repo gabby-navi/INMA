@@ -36,7 +36,7 @@ public class SignIn {
 	}
 	
 	String connectionUrl = "jdbc:sqlserver://localhost:1433;"
-			+ "databaseName = ForLogin;"
+			+ "databaseName = MTRS;"
 			+ "username = sa;"
 			+ "password = inmainmainma;"
 			+ ";encrypt = true;trustServerCertificate = true;";
@@ -130,7 +130,7 @@ public class SignIn {
 					String email = txt_email.getText();
 					String pass = txt_password.getText();
 					
-					String sqlQuery = "SELECT * FROM LoginE WHERE Employee_Email=? and Employee_Password=?";
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpEmail=? and EmpPassword=?";
 					PreparedStatement ps = connection.prepareStatement(sqlQuery);
 					ps.setString(1, txt_email.getText());
 					ps.setString(2, txt_password.getText());
@@ -142,13 +142,13 @@ public class SignIn {
 					String PositionD = "";
 					
 					while (rs.next()) {
-						EmailD = rs.getString("Employee_Email");
-						PassD = rs.getString("Employee_Password");
+						EmailD = rs.getString("EmpEmail");
+						PassD = rs.getString("EmpPassword");
 						PositionD = rs.getString("Position");
 					}
 					
 					// query for position
-					String query1 = "SELECT * FROM LoginE WHERE Position = ?";
+					String query1 = "SELECT * FROM EmpAccounts WHERE Position=?";
 					PreparedStatement ps1 = connection.prepareStatement(query1);
 					ps1.setString(1, PositionD);
 					ResultSet rs1 = ps1.executeQuery();

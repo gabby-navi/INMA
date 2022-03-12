@@ -35,7 +35,7 @@ public class ForgotPass {
 	}
 	
 	String connectionUrl = "jdbc:sqlserver://localhost:1433;"
-			+ "databaseName = ForLogin;"
+			+ "databaseName = MTRS;"
 			+ "username = sa;"
 			+ "password = inmainmainma;"
 			+ ";encrypt = true;trustServerCertificate = true;";
@@ -73,7 +73,7 @@ public class ForgotPass {
 					String confirm = txt_reppass.getText();
 					
 					if (pass.equals(confirm)) {
-						String sqlQuery = "UPDATE LoginE SET Employee_Password=? WHERE Employee_Email=?";
+						String sqlQuery = "UPDATE EmpAccounts SET EmpPassword=? WHERE EmpEmail=?";
 						PreparedStatement ps = connection.prepareStatement(sqlQuery);
 						ps.setString(1, txt_newpass.getText());
 						ps.setString(2, txt_email.getText());

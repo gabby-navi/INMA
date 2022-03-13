@@ -1,29 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Vector;
-
+import java.sql.*;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-public class EmployeeNew {
+
+public class EmployeeEdit {
 
 	JFrame frame;
-	private JTextField txt_empName;
-	private JTextField txt_number;
-	private JTextField txt_email;
-	public JLabel emp_profpic;
-	String selectedImagePath = null;
+	public static JTextField txt_empName;
+	public static JTextField txt_number;
+	public static JTextField txt_email;
 
 	/**
 	 * Launch the application.
@@ -32,7 +19,7 @@ public class EmployeeNew {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeNew window = new EmployeeNew();
+					EmployeeEdit window = new EmployeeEdit();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,8 +31,7 @@ public class EmployeeNew {
 	/**
 	 * Create the application.
 	 */
-	
-	public EmployeeNew() {
+	public EmployeeEdit() {
 		initialize();
 		EmployeeDetails.updateDB();
 	}
@@ -100,7 +86,6 @@ public class EmployeeNew {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
                 sm.frame.setVisible(true);
                 frame.dispose();
@@ -159,7 +144,7 @@ public class EmployeeNew {
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback);
         
-        JLabel lbl_addNew = new JLabel("Add New Employee");
+        JLabel lbl_addNew = new JLabel("Employee ID");
 		lbl_addNew.setForeground(Color.WHITE);
 		lbl_addNew.setFont(new Font("Poppins Black", Font.PLAIN, 21));
 		lbl_addNew.setBounds(274, 49, 255, 19);
@@ -203,68 +188,31 @@ public class EmployeeNew {
 		frame.getContentPane().add(hr);
 		
 		JButton save_btn = new JButton("Save");
-		save_btn.setFocusPainted(false);
 		save_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.table.getModel();
+				int selectedRow = EmployeeDetails.table.getSelectedRow();
 				
-				File f = new File(selectedImagePath);
+				String selected = model.getValueAt(selectedRow, 0).toString();
 				
-				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+				String sqlQuery = "UPDATE EmpAccounts SET EmpName=?, EmpContactNo=?, EmpEmail=? WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
 					
-					String lcases = "qwertyuiopasdfghjklzxcvbnm";
-	                String ucases = "QWERTYUIOPASDFGHJKLZXCVBNM";
-	                String num = "123456789";
-	                
-	                String password = "";
-	                
-	                for(int i = 0; i < 5; i++) {
-	                    int rand = (int)(3 * Math.random());
-	                    
-	                    switch(rand) {
-	                    case 0:
-	                        password += String.valueOf((int)(0 * Math.random()));
-	                        break;
-	                        
-	                    case 1:
-	                        rand = (int)(lcases.length() * Math.random());
-	                        password += String.valueOf(lcases.charAt(rand));
-	                        
-	                    case 2:
-	                        rand = (int)(ucases.length() * Math.random());
-	                        password += String.valueOf(ucases.charAt(rand));
-	                        
-	                    case 3:
-	                        rand = (int)(num.length() * Math.random());
-	                        password += String.valueOf(num.charAt(rand));
-	                    }
-	                }
-	                
-	                InputStream inputS = new FileInputStream(selectedImagePath);
-					
-					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg) VALUES (?, ?, ?, ?, ?)";
 					PreparedStatement ps = connection.prepareStatement(sqlQuery);
 					ps.setString(1, txt_empName.getText());
 					ps.setString(2, txt_number.getText());
 					ps.setString(3, txt_email.getText());
-					ps.setString(4, password);
-					ps.setBlob(5, inputS);
 					
 					ps.executeUpdate();	
-					
-					JOptionPane.showMessageDialog(null, "Added Successfully!");
+			           
+					JOptionPane.showMessageDialog(null, "Updated Successfully!");
 					EmployeeDetails.updateDB();
-					
-					EmployeeDetails empDeets = new EmployeeDetails();
-					empDeets.frame.setVisible(true);
-					frame.dispose();
 				}
 				
 				catch(HeadlessException | SQLException ex){
 		            JOptionPane.showMessageDialog(null, ex);
-		        } catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		        }
 			}
 		});
 		save_btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -281,14 +229,13 @@ public class EmployeeNew {
 		frame.getContentPane().add(white_bg);
 		white_bg.setLayout(null);
 		
-		emp_profpic = new JLabel("");
-		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-		emp_profpic.setBounds(10, 11, 213, 170);
-		white_bg.add(emp_profpic);
+		JLabel emp_name = new JLabel("");
+		emp_name.setHorizontalAlignment(SwingConstants.CENTER);
+		emp_name.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+		emp_name.setBounds(10, 11, 213, 170);
+		white_bg.add(emp_name);
 		
 		JButton btn_change = new JButton("Change");
-		btn_change.setFocusPainted(false);
 		btn_change.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_change.setBorderPainted(false);
 		btn_change.setBounds(123, 184, 72, 19);
@@ -297,26 +244,6 @@ public class EmployeeNew {
 		white_bg.add(btn_change);
 		
 		JButton btn_upload = new JButton("Upload");
-		btn_upload.setFocusPainted(false);
-		btn_upload.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser browseImageFile = new JFileChooser();
-				
-				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
-				browseImageFile.addChoosableFileFilter(fnef);
-				int showOpenDialogue = browseImageFile.showOpenDialog(null);
-				
-				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
-					File selectedImageFile = browseImageFile.getSelectedFile();
-					selectedImagePath = selectedImageFile.getAbsolutePath();
-					JOptionPane.showMessageDialog(null, selectedImagePath);
-					
-					ImageIcon icon = new ImageIcon(selectedImagePath);
-					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-					emp_profpic.setIcon(new ImageIcon(image));
-				}
-			}
-		});
 		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_upload.setBorderPainted(false);
 		btn_upload.setBounds(40, 184, 72, 19);
@@ -326,36 +253,35 @@ public class EmployeeNew {
 		
 		JLabel lbl_empName = new JLabel("Employee Name:");
 		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empName.setBounds(258, 72, 112, 17);
+		lbl_empName.setBounds(258, 67, 112, 17);
 		white_bg.add(lbl_empName);
 		
 		JLabel lbl_number = new JLabel("Contact Number:");
 		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(258, 103, 116, 17);
+		lbl_number.setBounds(258, 98, 116, 17);
 		white_bg.add(lbl_number);
 		
 		JLabel emp_email = new JLabel("Email:");
 		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(258, 136, 116, 17);
+		emp_email.setBounds(258, 131, 116, 17);
 		white_bg.add(emp_email);
 		
 		txt_empName = new JTextField();
-		txt_empName.setBounds(395, 71, 325, 20);
+		txt_empName.setBounds(395, 66, 325, 20);
 		white_bg.add(txt_empName);
 		txt_empName.setColumns(10);
 		
 		txt_number = new JTextField();
 		txt_number.setColumns(10);
-		txt_number.setBounds(395, 102, 325, 20);
+		txt_number.setBounds(395, 97, 325, 20);
 		white_bg.add(txt_number);
 		
 		txt_email = new JTextField();
 		txt_email.setColumns(10);
-		txt_email.setBounds(395, 132, 325, 20);
+		txt_email.setBounds(395, 127, 325, 20);
 		white_bg.add(txt_email);
 		
 		JButton cancel_btn = new JButton("Cancel");
-		cancel_btn.setFocusPainted(false);
 		cancel_btn.setForeground(new Color(17, 34, 44));
 		cancel_btn.setFont(new Font("Poppins", Font.BOLD, 10));
 		cancel_btn.setBorderPainted(false);
@@ -368,4 +294,5 @@ public class EmployeeNew {
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
 	}
+
 }

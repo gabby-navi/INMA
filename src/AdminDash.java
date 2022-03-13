@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.*;
 
 public class AdminDash {
@@ -151,11 +153,39 @@ public class AdminDash {
 		lbl_schedmovies.setBounds(235, 103, 159, 14);
 		frame.getContentPane().add(lbl_schedmovies);
 		
+		JScrollPane moviesPane = new JScrollPane();
+		moviesPane.setBounds(233, 126, 747, 170);
+		frame.getContentPane().add(moviesPane);
+		
+		JTable moviesTable = new JTable();
+		moviesPane.setViewportView(moviesTable);
+		moviesTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Movie", "Start Date", "End Date", "Price"
+			}
+		));
+		
 		JLabel lbl_reservations = new JLabel("Reservations");
 		lbl_reservations.setForeground(Color.WHITE);
 		lbl_reservations.setFont(new Font("Poppins", Font.BOLD, 16));
 		lbl_reservations.setBounds(235, 316, 159, 14);
 		frame.getContentPane().add(lbl_reservations);
+		
+		JScrollPane reservePane = new JScrollPane();
+		reservePane.setBounds(233, 341, 747, 170);
+		frame.getContentPane().add(reservePane);
+		
+		JTable reserveTable = new JTable();
+		reservePane.setViewportView(reserveTable);
+		reserveTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Employee", "Date", "Reserved Seats", "Total"
+			}
+		));
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

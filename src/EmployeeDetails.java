@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,12 +16,8 @@ import javax.swing.table.TableModel;
 public class EmployeeDetails {
 
 	JFrame frame;
-	private static JTable table;
-	private JTextField textFieldID;
-	private JTextField textFieldName;
-	private JTextField textFieldNumber;
-	private JTextField textFieldEmail;
-	private JTextField textFieldPass;
+	static JTable table;
+	private JButton view_deets;
 
 	/**
 	 * Launch the application.
@@ -47,7 +44,39 @@ public class EmployeeDetails {
 		updateDB();
 	}
 	
-//	EmployeeDeetsOverview showDetails = new EmployeeDeetsOverview();
+	EmployeeDeetsOverview edo = new EmployeeDeetsOverview();
+	
+//	public void LoadImage() {
+//		DefaultTableModel model = (DefaultTableModel)table.getModel();
+//		int selectedRow = table.getSelectedRow();
+//		
+//		String selected = model.getValueAt(selectedRow, 0).toString();
+//		
+//		String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpID='" + selected + "'";
+//		
+//		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+//			
+//			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+//			ResultSet rs = ps.executeQuery();
+//			
+//			if (rs.next()) {
+//				byte[] imagedata = rs.getBytes("EmpImg");
+//				ImageIcon format = new ImageIcon(imagedata);
+//				Image image = format.getImage();
+//				Image imageSize = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+//				ImageIcon img = new ImageIcon(imageSize);
+//				
+//				EmployeeDeetsOverview.emp_profpic.setIcon(img);
+//			}
+//			else {
+//				JOptionPane.showMessageDialog(null, "No Data");
+//			}
+//			
+//		} 
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public static void updateDB() {
 		
@@ -136,7 +165,6 @@ public class EmployeeDetails {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
                 sm.frame.setVisible(true);
                 frame.dispose();
@@ -156,7 +184,6 @@ public class EmployeeDetails {
 		btn_reservations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				Reservations r = new Reservations();
                 r.frame.setVisible(true);
                 frame.dispose();
@@ -244,27 +271,12 @@ public class EmployeeDetails {
 		frame.getContentPane().add(add_employee);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Poppins", Font.PLAIN, 12));
 		scrollPane.setBounds(233, 132, 747, 188);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
-//				int SelectedRow = table.getSelectedRow();
-//				
-//				showDetails.lbl_ID1.setText(RecordTable.getValueAt(SelectedRow, 0).toString());
-//				showDetails.lbl_name.setText(RecordTable.getValueAt(SelectedRow, 1).toString());
-//				showDetails.lbl_num1.setText(RecordTable.getValueAt(SelectedRow, 2).toString());
-//				showDetails.lbl_email1.setText(RecordTable.getValueAt(SelectedRow, 3).toString());
-//				showDetails.lbl_pass1.setText(RecordTable.getValueAt(SelectedRow, 4).toString());
-//				
-//				EmployeeDeetsOverview empO = new EmployeeDeetsOverview();
-//				empO.frame.setVisible(true);
-//				frame.dispose();
-			}
-		});
+		table.setFont(new Font("Poppins", Font.PLAIN, 12));
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -275,6 +287,33 @@ public class EmployeeDetails {
 		));
 		
 		JButton remove = new JButton("Remove");
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel)table.getModel();
+				int selectedRow = table.getSelectedRow();
+				
+				String selected = model.getValueAt(selectedRow, 0).toString();
+				
+				String sqlQuery = "DELETE FROM EmpAccounts WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					
+					int deleteItem = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove employee?", "WARNING", JOptionPane.YES_NO_OPTION); {
+						if (deleteItem == JOptionPane.YES_OPTION) {
+							ps.executeUpdate();
+							JOptionPane.showMessageDialog(null, "Deleted successfully.");
+							updateDB();
+						}
+					}
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
+			}
+		});
 		remove.setFocusPainted(false);
 		remove.setForeground(new Color(17, 34, 44));
 		remove.setFont(new Font("Poppins", Font.BOLD, 10));
@@ -283,49 +322,32 @@ public class EmployeeDetails {
 		remove.setBounds(859, 486, 121, 29);
 		frame.getContentPane().add(remove);
 		
-		JButton view_deets = new JButton("View Details");
+		view_deets = new JButton("View Details");
 		view_deets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
-				int selectedRow = table.getSelectedRow();
+				int index = table.getSelectedRow();
+                TableModel model = table.getModel();
 				
-				if (selectedRow == -1) {
+				if (index == -1) {
 					JOptionPane.showMessageDialog(null, "No Row Selected");
 				}
-				else {				
-//					String ID = RecordTable.getValueAt(selectedRow, 0).toString();
-//					String name = RecordTable.getValueAt(selectedRow, 1).toString();
-//					String number = RecordTable.getValueAt(selectedRow, 2).toString();
-//					String email = RecordTable.getValueAt(selectedRow, 3).toString();
-//					String password = RecordTable.getValueAt(selectedRow, 4).toString();
-//					
-//					showDetails.lbl_ID1.setText(RecordTable.getValueAt(selectedRow, 0).toString());
-//					showDetails.lbl_name.setText(name);
-//					showDetails.lbl_num1.setText(number);
-//					showDetails.lbl_email1.setText(email);
-//					showDetails.lbl_pass1.setText(password);
-//					
-					textFieldID.setText(RecordTable.getValueAt(selectedRow, 0).toString());
-					textFieldName.setText(RecordTable.getValueAt(selectedRow, 1).toString());
-					textFieldNumber.setText(RecordTable.getValueAt(selectedRow, 2).toString());
-					textFieldEmail.setText(RecordTable.getValueAt(selectedRow, 3).toString());
-					textFieldPass.setText(RecordTable.getValueAt(selectedRow, 4).toString());
+				else {					
 					
-					String ID = textFieldID.getText();
-					String name = textFieldName.getText();
-					String number = textFieldNumber.getText();
-					String email = textFieldEmail.getText();
-					String password = textFieldPass.getText();
-					
-					EmployeeDeetsOverview empDeetsO = new EmployeeDeetsOverview();
-					empDeetsO.lbl_ID1.setText(ID);
-					empDeetsO.lbl_name.setText(name);
-					empDeetsO.lbl_num1.setText(number);
-					empDeetsO.lbl_email1.setText(email);
-					empDeetsO.lbl_pass1.setText(password);
-	                empDeetsO.frame.setVisible(true);
+	                String id = model.getValueAt(index, 0).toString();
+	                String name = model.getValueAt(index, 1).toString();
+	                String contact = model.getValueAt(index, 2).toString();
+	                String email = model.getValueAt(index, 3).toString();
+	                String password = model.getValueAt(index, 4).toString();
+	                
+	                edo.frame.setVisible(true);
 	                frame.dispose();
-					
+	                
+	                edo.textFieldID.setText(id);
+	                edo.textFieldName.setText(name);
+	                edo.textFieldNum.setText(contact);
+	                edo.textFieldEmail.setText(email);
+	                edo.textFieldPass.setText(password);
+	                edo.lbl_employee.setText(name);
 				}
 			}
 		});
@@ -336,36 +358,6 @@ public class EmployeeDetails {
 		view_deets.setBackground(new Color(246, 198, 36));
 		view_deets.setBounds(728, 486, 121, 29);
 		frame.getContentPane().add(view_deets);
-		
-		textFieldID = new JTextField();
-		textFieldID.setVisible(false);
-		textFieldID.setBounds(233, 331, 86, 20);
-		frame.getContentPane().add(textFieldID);
-		textFieldID.setColumns(10);
-		
-		textFieldName = new JTextField();
-		textFieldName.setVisible(false);
-		textFieldName.setColumns(10);
-		textFieldName.setBounds(329, 331, 86, 20);
-		frame.getContentPane().add(textFieldName);
-		
-		textFieldNumber = new JTextField();
-		textFieldNumber.setVisible(false);
-		textFieldNumber.setColumns(10);
-		textFieldNumber.setBounds(425, 331, 86, 20);
-		frame.getContentPane().add(textFieldNumber);
-		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setVisible(false);
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(521, 331, 86, 20);
-		frame.getContentPane().add(textFieldEmail);
-		
-		textFieldPass = new JTextField();
-		textFieldPass.setVisible(false);
-		textFieldPass.setColumns(10);
-		textFieldPass.setBounds(617, 331, 86, 20);
-		frame.getContentPane().add(textFieldPass);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

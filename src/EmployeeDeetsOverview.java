@@ -1,15 +1,28 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.*;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EmployeeDeetsOverview {
 
 	JFrame frame;
-	public JLabel lbl_ID1;
-	public JLabel lbl_name;
-	public JLabel lbl_num1;
-	public JLabel lbl_email1;
-	public JLabel lbl_pass1;
+	public JLabel lbl_employee;
+	public JTextField textFieldID;
+	public JTextField textFieldName;
+	public JTextField textFieldNum;
+	public JTextField textFieldEmail;
+	public JTextField textFieldPass;
+	public JLabel emp_profpic;
+	JButton cancel_edit, remove_employee, save_edit, edit_employee, btn_upload;
+	String selectedImagePath = null;
 	
 	/**
 	 * Launch the application.
@@ -33,6 +46,12 @@ public class EmployeeDeetsOverview {
 	public EmployeeDeetsOverview() {
 		initialize();
 	}
+
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -138,10 +157,10 @@ public class EmployeeDeetsOverview {
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback);
         
-        JLabel lbl_employee = new JLabel("Gabrille David");
+        lbl_employee = new JLabel("");
 		lbl_employee.setForeground(Color.WHITE);
 		lbl_employee.setFont(new Font("Poppins Black", Font.PLAIN, 21));
-		lbl_employee.setBounds(274, 49, 182, 19);
+		lbl_employee.setBounds(274, 49, 451, 19);
 		frame.getContentPane().add(lbl_employee);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -181,11 +200,136 @@ public class EmployeeDeetsOverview {
 		hr.setBounds(233, 78, 747, 2);
 		frame.getContentPane().add(hr);
 		
-		JButton remove_employee = new JButton("Remove");
+		JPanel white_bg = new JPanel();
+		white_bg.setBackground(Color.WHITE);
+		white_bg.setBounds(234, 97, 747, 225);
+		frame.getContentPane().add(white_bg);
+		white_bg.setLayout(null);
+		
+		emp_profpic = new JLabel("");
+		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
+		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+		emp_profpic.setBounds(10, 11, 223, 186);
+		white_bg.add(emp_profpic);
+		
+		JLabel lbl_empName = new JLabel("Employee Name:");
+		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empName.setBounds(263, 71, 116, 17);
+		white_bg.add(lbl_empName);
+		
+		JLabel lbl_number = new JLabel("Contact Number:");
+		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_number.setBounds(263, 102, 116, 17);
+		white_bg.add(lbl_number);
+		
+		JLabel emp_email = new JLabel("Email:");
+		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		emp_email.setBounds(263, 135, 116, 17);
+		white_bg.add(emp_email);
+		
+		JLabel emp_pass = new JLabel("Password:");
+		emp_pass.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		emp_pass.setBounds(263, 165, 112, 19);
+		white_bg.add(emp_pass);
+		
+		JLabel lbl_empID = new JLabel("Employee ID:");
+		lbl_empID.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empID.setBounds(263, 41, 87, 17);
+		white_bg.add(lbl_empID);
+		
+		textFieldID = new JTextField();
+		textFieldID.setFont(new Font("Poppins", Font.PLAIN, 12));
+		textFieldID.setEditable(false);
+		textFieldID.setBounds(385, 39, 312, 20);
+		white_bg.add(textFieldID);
+		textFieldID.setColumns(10);
+		
+		textFieldName = new JTextField();
+		textFieldName.setFont(new Font("Poppins", Font.PLAIN, 12));
+		textFieldName.setEditable(false);
+		textFieldName.setColumns(10);
+		textFieldName.setBounds(385, 69, 312, 20);
+		white_bg.add(textFieldName);
+		
+		textFieldNum = new JTextField();
+		textFieldNum.setFont(new Font("Poppins", Font.PLAIN, 12));
+		textFieldNum.setEditable(false);
+		textFieldNum.setColumns(10);
+		textFieldNum.setBounds(385, 100, 312, 20);
+		white_bg.add(textFieldNum);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setFont(new Font("Poppins", Font.PLAIN, 12));
+		textFieldEmail.setEditable(false);
+		textFieldEmail.setColumns(10);
+		textFieldEmail.setBounds(385, 133, 312, 20);
+		white_bg.add(textFieldEmail);
+		
+		textFieldPass = new JTextField();
+		textFieldPass.setFont(new Font("Poppins", Font.PLAIN, 12));
+		textFieldPass.setEditable(false);
+		textFieldPass.setColumns(10);
+		textFieldPass.setBounds(385, 164, 312, 20);
+		white_bg.add(textFieldPass);
+		
+		cancel_edit = new JButton("Cancel");
+		cancel_edit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel changes?", "WARNING", JOptionPane.YES_NO_OPTION); {
+					if (input == JOptionPane.YES_OPTION) {
+						JOptionPane.showMessageDialog(null, "No changes were made.");
+					}
+				}
+				
+				textFieldName.setEditable(false);
+				textFieldNum.setEditable(false);
+				textFieldEmail.setEditable(false);
+				save_edit.setVisible(false);
+				edit_employee.setVisible(true);
+				remove_employee.setVisible(true);
+				cancel_edit.setVisible(false);
+				btn_upload.setVisible(false);
+			}
+		});
+		cancel_edit.setVisible(false);
+		cancel_edit.setForeground(new Color(17, 34, 44));
+		cancel_edit.setFont(new Font("Poppins", Font.BOLD, 10));
+		cancel_edit.setBorderPainted(false);
+		cancel_edit.setBackground(new Color(246, 198, 36));
+		cancel_edit.setBounds(863, 337, 121, 29);
+		frame.getContentPane().add(cancel_edit);
+		
+		remove_employee = new JButton("Remove");
 		remove_employee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.table.getModel();
+				int selectedRow = EmployeeDetails.table.getSelectedRow();
 				
+				String selected = model.getValueAt(selectedRow, 0).toString();
+				
+				String sqlQuery = "DELETE FROM EmpAccounts WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					
+					int deleteItem = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove employee?", "WARNING", JOptionPane.YES_NO_OPTION); {
+						if (deleteItem == JOptionPane.YES_OPTION) {
+							ps.executeUpdate();
+							JOptionPane.showMessageDialog(null, "Deleted successfully.");
+							EmployeeDetails.updateDB();
+						}
+					}
+					
+					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.frame.setVisible(true);
+					frame.dispose();
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
 			}
 		});
 		remove_employee.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -196,75 +340,95 @@ public class EmployeeDeetsOverview {
 		remove_employee.setBounds(863, 337, 121, 29);
 		frame.getContentPane().add(remove_employee);
 		
-		JPanel white_bg = new JPanel();
-		white_bg.setBackground(Color.WHITE);
-		white_bg.setBounds(234, 97, 747, 225);
-		frame.getContentPane().add(white_bg);
-		white_bg.setLayout(null);
+		save_edit = new JButton("Save");
+		save_edit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.table.getModel();
+				int selectedRow = EmployeeDetails.table.getSelectedRow();
+				
+				String selected = model.getValueAt(selectedRow, 0).toString();
+				
+				String sqlQuery = "UPDATE EmpAccounts SET EmpName=?, EmpContactNo=?, EmpEmail=? WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, textFieldName.getText());
+					ps.setString(2, textFieldNum.getText());
+					ps.setString(3, textFieldEmail.getText());
+					
+					ps.executeUpdate();	
+			           
+					JOptionPane.showMessageDialog(null, "Updated Successfully!");
+					EmployeeDetails.updateDB();
+					
+					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.frame.setVisible(true);
+					frame.dispose();
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
+			}
+		});
+		save_edit.setVisible(false);
+		save_edit.setForeground(new Color(17, 34, 44));
+		save_edit.setFont(new Font("Poppins", Font.BOLD, 10));
+		save_edit.setBorderPainted(false);
+		save_edit.setBackground(new Color(246, 198, 36));
+		save_edit.setBounds(732, 337, 121, 29);
+		frame.getContentPane().add(save_edit);
 		
-		JLabel emp_profpic = new JLabel("");
-		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(190, 190, Image.SCALE_DEFAULT)));
-		emp_profpic.setBounds(10, 11, 256, 203);
-		white_bg.add(emp_profpic);
-		
-		JLabel lbl_empName = new JLabel("Employee Name:");
-		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empName.setBounds(276, 73, 116, 17);
-		white_bg.add(lbl_empName);
-		
-		JLabel lbl_number = new JLabel("Contact Number:");
-		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(276, 104, 116, 17);
-		white_bg.add(lbl_number);
-		
-		JLabel emp_email = new JLabel("Email:");
-		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(276, 137, 116, 17);
-		white_bg.add(emp_email);
-		
-		JLabel emp_pass = new JLabel("Password:");
-		emp_pass.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_pass.setBounds(276, 167, 112, 19);
-		white_bg.add(emp_pass);
-		
-		lbl_pass1 = new JLabel("");
-		lbl_pass1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_pass1.setBounds(417, 167, 320, 19);
-		white_bg.add(lbl_pass1);
-		
-		lbl_email1 = new JLabel("");
-		lbl_email1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_email1.setBounds(417, 137, 320, 17);
-		white_bg.add(lbl_email1);
-		
-		lbl_num1 = new JLabel("");
-		lbl_num1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_num1.setBounds(417, 104, 320, 17);
-		white_bg.add(lbl_num1);
-		
-		lbl_name = new JLabel("");
-		lbl_name.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_name.setBounds(417, 73, 320, 17);
-		white_bg.add(lbl_name);
-		
-		JLabel lbl_empID = new JLabel("Employee ID:");
-		lbl_empID.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empID.setBounds(276, 43, 87, 17);
-		white_bg.add(lbl_empID);
-		
-		lbl_ID1 = new JLabel("");
-		lbl_ID1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lbl_ID1.setBounds(417, 43, 320, 17);
-		white_bg.add(lbl_ID1);
-		
-		JButton edit_employee = new JButton("Edit");
+		edit_employee = new JButton("Edit");
+		edit_employee.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		edit_employee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+				textFieldName.setEditable(true);
+				textFieldNum.setEditable(true);
+				textFieldEmail.setEditable(true);
+				save_edit.setVisible(true);
+				edit_employee.setVisible(false);
+				remove_employee.setVisible(false);
+				cancel_edit.setVisible(true);
+				btn_upload.setVisible(true);
+			}
+		});
 		edit_employee.setForeground(new Color(17, 34, 44));
 		edit_employee.setFont(new Font("Poppins", Font.BOLD, 10));
 		edit_employee.setBorderPainted(false);
 		edit_employee.setBackground(new Color(246, 198, 36));
 		edit_employee.setBounds(732, 337, 121, 29);
 		frame.getContentPane().add(edit_employee);
+		
+		btn_upload = new JButton("Change");
+		btn_upload.setVisible(false);
+		btn_upload.setFocusPainted(false);
+		btn_upload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialogue = browseImageFile.showOpenDialog(null);
+				
+				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					selectedImagePath = selectedImageFile.getAbsolutePath();
+					JOptionPane.showMessageDialog(null, selectedImagePath);
+					
+					ImageIcon icon = new ImageIcon(selectedImagePath);
+					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+					emp_profpic.setIcon(new ImageIcon(image));
+				}
+			}
+		});
+		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_upload.setBorderPainted(false);
+		btn_upload.setBounds(83, 195, 72, 19);
+		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
+		btn_upload.setBackground(new Color(246, 198, 36));
+		white_bg.add(btn_upload);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

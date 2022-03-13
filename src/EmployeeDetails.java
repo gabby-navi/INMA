@@ -46,38 +46,6 @@ public class EmployeeDetails {
 	
 	EmployeeDeetsOverview edo = new EmployeeDeetsOverview();
 	
-//	public void LoadImage() {
-//		DefaultTableModel model = (DefaultTableModel)table.getModel();
-//		int selectedRow = table.getSelectedRow();
-//		
-//		String selected = model.getValueAt(selectedRow, 0).toString();
-//		
-//		String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpID='" + selected + "'";
-//		
-//		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-//			
-//			PreparedStatement ps = connection.prepareStatement(sqlQuery);
-//			ResultSet rs = ps.executeQuery();
-//			
-//			if (rs.next()) {
-//				byte[] imagedata = rs.getBytes("EmpImg");
-//				ImageIcon format = new ImageIcon(imagedata);
-//				Image image = format.getImage();
-//				Image imageSize = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-//				ImageIcon img = new ImageIcon(imageSize);
-//				
-//				EmployeeDeetsOverview.emp_profpic.setIcon(img);
-//			}
-//			else {
-//				JOptionPane.showMessageDialog(null, "No Data");
-//			}
-//			
-//		} 
-//		catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
 	public static void updateDB() {
 		
 		int q, i;
@@ -348,6 +316,34 @@ public class EmployeeDetails {
 	                edo.textFieldEmail.setText(email);
 	                edo.textFieldPass.setText(password);
 	                edo.lbl_employee.setText(name);
+				}
+				
+				
+				String selected = model.getValueAt(index, 0).toString();
+				
+				String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						byte[] imagedata = rs.getBytes("EmpImg");
+						ImageIcon format = new ImageIcon(imagedata);
+						Image image = format.getImage();
+						Image imageSize = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+						ImageIcon img = new ImageIcon(imageSize);
+						
+						EmployeeDeetsOverview.emp_profpic.setIcon(img);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Data");
+					}
+					
+				} 
+				catch (SQLException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});

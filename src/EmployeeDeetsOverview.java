@@ -20,7 +20,7 @@ public class EmployeeDeetsOverview {
 	public JTextField textFieldNum;
 	public JTextField textFieldEmail;
 	public JTextField textFieldPass;
-	public JLabel emp_profpic;
+	public static JLabel emp_profpic;
 	JButton cancel_edit, remove_employee, save_edit, edit_employee, btn_upload;
 	String selectedImagePath = null;
 	
@@ -202,14 +202,43 @@ public class EmployeeDeetsOverview {
 		
 		JPanel white_bg = new JPanel();
 		white_bg.setBackground(Color.WHITE);
-		white_bg.setBounds(234, 97, 747, 225);
+		white_bg.setBounds(234, 97, 747, 238);
 		frame.getContentPane().add(white_bg);
 		white_bg.setLayout(null);
+		
+		btn_upload = new JButton("Change Picture");
+		btn_upload.setVisible(false);
+		btn_upload.setFocusPainted(false);
+		btn_upload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialogue = browseImageFile.showOpenDialog(null);
+				
+				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					selectedImagePath = selectedImageFile.getAbsolutePath();
+					JOptionPane.showMessageDialog(null, selectedImagePath);
+					
+					ImageIcon icon = new ImageIcon(selectedImagePath);
+					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+					emp_profpic.setIcon(new ImageIcon(image));
+				}
+			}
+		});
+		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_upload.setBorderPainted(false);
+		btn_upload.setBounds(263, 200, 120, 19);
+		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
+		btn_upload.setBackground(new Color(246, 198, 36));
+		white_bg.add(btn_upload);
 		
 		emp_profpic = new JLabel("");
 		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-		emp_profpic.setBounds(10, 11, 223, 186);
+		emp_profpic.setBounds(10, 11, 223, 203);
 		white_bg.add(emp_profpic);
 		
 		JLabel lbl_empName = new JLabel("Employee Name:");
@@ -296,7 +325,7 @@ public class EmployeeDeetsOverview {
 		cancel_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		cancel_edit.setBorderPainted(false);
 		cancel_edit.setBackground(new Color(246, 198, 36));
-		cancel_edit.setBounds(863, 337, 121, 29);
+		cancel_edit.setBounds(863, 350, 121, 29);
 		frame.getContentPane().add(cancel_edit);
 		
 		remove_employee = new JButton("Remove");
@@ -337,7 +366,7 @@ public class EmployeeDeetsOverview {
 		remove_employee.setFont(new Font("Poppins", Font.BOLD, 10));
 		remove_employee.setForeground(new Color(17, 34, 44));
 		remove_employee.setBackground(new Color(246, 198, 36));
-		remove_employee.setBounds(863, 337, 121, 29);
+		remove_employee.setBounds(863, 350, 121, 29);
 		frame.getContentPane().add(remove_employee);
 		
 		save_edit = new JButton("Save");
@@ -377,7 +406,7 @@ public class EmployeeDeetsOverview {
 		save_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		save_edit.setBorderPainted(false);
 		save_edit.setBackground(new Color(246, 198, 36));
-		save_edit.setBounds(732, 337, 121, 29);
+		save_edit.setBounds(732, 350, 121, 29);
 		frame.getContentPane().add(save_edit);
 		
 		edit_employee = new JButton("Edit");
@@ -398,41 +427,13 @@ public class EmployeeDeetsOverview {
 		edit_employee.setFont(new Font("Poppins", Font.BOLD, 10));
 		edit_employee.setBorderPainted(false);
 		edit_employee.setBackground(new Color(246, 198, 36));
-		edit_employee.setBounds(732, 337, 121, 29);
+		edit_employee.setBounds(732, 350, 121, 29);
 		frame.getContentPane().add(edit_employee);
-		
-		btn_upload = new JButton("Change");
-		btn_upload.setVisible(false);
-		btn_upload.setFocusPainted(false);
-		btn_upload.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser browseImageFile = new JFileChooser();
-				
-				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
-				browseImageFile.addChoosableFileFilter(fnef);
-				int showOpenDialogue = browseImageFile.showOpenDialog(null);
-				
-				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
-					File selectedImageFile = browseImageFile.getSelectedFile();
-					selectedImagePath = selectedImageFile.getAbsolutePath();
-					JOptionPane.showMessageDialog(null, selectedImagePath);
-					
-					ImageIcon icon = new ImageIcon(selectedImagePath);
-					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-					emp_profpic.setIcon(new ImageIcon(image));
-				}
-			}
-		});
-		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_upload.setBorderPainted(false);
-		btn_upload.setBounds(83, 195, 72, 19);
-		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
-		btn_upload.setBackground(new Color(246, 198, 36));
-		white_bg.add(btn_upload);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
+		
 	}
 }

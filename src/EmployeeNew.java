@@ -284,19 +284,10 @@ public class EmployeeNew {
 		emp_profpic = new JLabel("");
 		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
 		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-		emp_profpic.setBounds(10, 11, 213, 170);
+		emp_profpic.setBounds(10, 11, 213, 203);
 		white_bg.add(emp_profpic);
 		
-		JButton btn_change = new JButton("Change");
-		btn_change.setFocusPainted(false);
-		btn_change.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_change.setBorderPainted(false);
-		btn_change.setBounds(123, 184, 72, 19);
-		btn_change.setFont(new Font("Poppins", Font.BOLD, 9));
-		btn_change.setBackground(new Color(246, 198, 36));
-		white_bg.add(btn_change);
-		
-		JButton btn_upload = new JButton("Upload");
+		JButton btn_upload = new JButton("Change Picture");
 		btn_upload.setFocusPainted(false);
 		btn_upload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -319,39 +310,39 @@ public class EmployeeNew {
 		});
 		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_upload.setBorderPainted(false);
-		btn_upload.setBounds(40, 184, 72, 19);
+		btn_upload.setBounds(254, 163, 125, 19);
 		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
 		btn_upload.setBackground(new Color(246, 198, 36));
 		white_bg.add(btn_upload);
 		
 		JLabel lbl_empName = new JLabel("Employee Name:");
 		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empName.setBounds(258, 72, 112, 17);
+		lbl_empName.setBounds(254, 55, 112, 17);
 		white_bg.add(lbl_empName);
 		
 		JLabel lbl_number = new JLabel("Contact Number:");
 		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(258, 103, 116, 17);
+		lbl_number.setBounds(254, 86, 116, 17);
 		white_bg.add(lbl_number);
 		
 		JLabel emp_email = new JLabel("Email:");
 		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(258, 136, 116, 17);
+		emp_email.setBounds(254, 119, 116, 17);
 		white_bg.add(emp_email);
 		
 		txt_empName = new JTextField();
-		txt_empName.setBounds(395, 71, 325, 20);
+		txt_empName.setBounds(391, 54, 325, 20);
 		white_bg.add(txt_empName);
 		txt_empName.setColumns(10);
 		
 		txt_number = new JTextField();
 		txt_number.setColumns(10);
-		txt_number.setBounds(395, 102, 325, 20);
+		txt_number.setBounds(391, 85, 325, 20);
 		white_bg.add(txt_number);
 		
 		txt_email = new JTextField();
 		txt_email.setColumns(10);
-		txt_email.setBounds(395, 132, 325, 20);
+		txt_email.setBounds(391, 115, 325, 20);
 		white_bg.add(txt_email);
 		
 		JButton cancel_btn = new JButton("Cancel");

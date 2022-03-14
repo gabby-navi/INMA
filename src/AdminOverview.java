@@ -5,12 +5,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+
 import com.toedter.calendar.JDateChooser;
+import javax.swing.border.LineBorder;
 
 
 public class AdminOverview {
 
 	JFrame frame;
+	static JLabel lblposter;
+//	JLabel lbl_price;
+	JLabel lblcno1;
+	JTextField times_1f;
+	JTextField textField_price;
+	JTextField textField_title;
+	JTextArea txt_area;
+	String time_avail1, movie_title, movie_desc;
+	Date start_date, end_date;
+	double movie_price;
+	int cinema_num;
+	int seat_num = 150;
+	JTextField startDate;
+	JTextField endDate;
+	
 
 	/**
 	 * Launch the application.
@@ -183,6 +201,7 @@ public class AdminOverview {
 		frame.getContentPane().add(btn_edit);
 		
 		JPanel panelw = new JPanel();
+		panelw.setBackground(Color.WHITE);
 		panelw.setBounds(233, 129, 747, 380);
 		frame.getContentPane().add(panelw);
 		panelw.setLayout(null);
@@ -195,119 +214,118 @@ public class AdminOverview {
 		btn_change.setBackground(new Color(246, 198, 36));
 		panelw.add(btn_change);
 		
-		JLabel lblposter = new JLabel("");
-		lblposter.setBounds(18, 10, 150, 229);
-		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/UN poster.png")).getImage().getScaledInstance(150, 220, Image.SCALE_DEFAULT)));
+		lblposter = new JLabel("");
+		lblposter.setBounds(18, 12, 150, 220);
 		panelw.add(lblposter);
 		
 		JLabel lblmt = new JLabel("Movie Title:");
-		lblmt.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		lblmt.setBounds(185, 22, 87, 17);
+		lblmt.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		panelw.add(lblmt);
 		
 		JLabel lbld = new JLabel("Description:");
+		lbld.setBounds(185, 60, 87, 17);
 		lbld.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbld.setBounds(185, 52, 87, 17);
 		panelw.add(lbld);
 		
+		JLabel lblstart = new JLabel("Start Showing:");
+		lblstart.setBounds(185, 125, 116, 17);
+		lblstart.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		panelw.add(lblstart);
+		
 		JLabel lblcm1 = new JLabel("Cinema Number:");
+		lblcm1.setBounds(185, 214, 112, 19);
 		lblcm1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm1.setBounds(186, 165, 112, 19);
 		panelw.add(lblcm1);
 		
-		JLabel lblcm2 = new JLabel("Cinema Number:");
-		lblcm2.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblcm2.setBounds(186, 225, 114, 19);
-		panelw.add(lblcm2);
-		
 		JLabel lblta1 = new JLabel("Times Available:");
+		lblta1.setBounds(185, 262, 106, 19);
 		lblta1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta1.setBounds(186, 195, 106, 19);
 		panelw.add(lblta1);
 		
-		JLabel lblta2 = new JLabel("Times Available:");
-		lblta2.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		lblta2.setBounds(186, 255, 108, 19);
-		panelw.add(lblta2);
-		
 		JLabel lblp = new JLabel("Price:");
+		lblp.setBounds(185, 305, 45, 19);
 		lblp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblp.setBounds(185, 315, 45, 19);
 		panelw.add(lblp);
 		
-		JLabel lbltitle = new JLabel("Uncharted");
-		lbltitle.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lbltitle.setBounds(300, 21, 81, 19);
-		panelw.add(lbltitle);
-		
-		JLabel lbldesc1 = new JLabel("Nathan Drake and his wisecracking partner Victor \"Sully\" Sullivan embark");
-		lbldesc1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lbldesc1.setBounds(300, 51, 447, 19);
-		panelw.add(lbldesc1);
-		
-		JLabel lbldesc2 = new JLabel("on a dangerous quest to find the greatest treasure never found while also");
-		lbldesc2.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lbldesc2.setBounds(300, 65, 447, 19);
-		panelw.add(lbldesc2);
-		
-		JLabel lbldesc3 = new JLabel("tracking clues that may lead to Nate's long-lost brother.");
-		lbldesc3.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lbldesc3.setBounds(300, 79, 437, 19);
-		panelw.add(lbldesc3);
-		
-		JLabel lblcno1 = new JLabel("1");
+//		lbltitle = new JLabel("");
+//		lbltitle.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lbltitle.setBounds(282, 21, 437, 19);
+//		panelw.add(lbltitle);
+//		
+		lblcno1 = new JLabel("");
 		lblcno1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblcno1.setBounds(300, 165, 18, 19);
+		lblcno1.setBounds(296, 214, 437, 19);
 		panelw.add(lblcno1);
+//		
+//		lblt1 = new JLabel("");
+//		lblt1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lblt1.setBounds(299, 220, 420, 19);
+//		panelw.add(lblt1);
+//		
+//		lbl_price = new JLabel("");
+//		lbl_price.setFont(new Font("Dialog", Font.PLAIN, 12));
+//		lbl_price.setBounds(284, 292, 435, 19);
+//		panelw.add(lbl_price);
 		
-		JLabel lblcno2 = new JLabel("2");
-		lblcno2.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblcno2.setBounds(300, 225, 21, 19);
-		panelw.add(lblcno2);
-		
-		JLabel lblt1 = new JLabel("8:00PM");
-		lblt1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt1.setBounds(300, 195, 51, 19);
-		panelw.add(lblt1);
-		
-		JLabel lblt2 = new JLabel("2:30PM");
-		lblt2.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt2.setBounds(300, 255, 45, 19);
-		panelw.add(lblt2);
-		
-		JLabel lblt3 = new JLabel("5:30PM");
-		lblt3.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt3.setBounds(300, 269, 45, 19);
-		panelw.add(lblt3);
-		
-		JLabel lblt4 = new JLabel("8:30PM");
-		lblt4.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		lblt4.setBounds(300, 283, 45, 19);
-		panelw.add(lblt4);
-		
-		JLabel lblprice = new JLabel("P350.00");
+		JLabel lblprice = new JLabel("");
 		lblprice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblprice.setBounds(300, 315, 81, 19);
+		lblprice.setBounds(300, 292, 81, 19);
 		panelw.add(lblprice);
-		
-		JLabel lblstart = new JLabel("Start Showing:");
-		lblstart.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblstart.setBounds(185, 108, 116, 17);
-		panelw.add(lblstart);
 		
 		JLabel lblend = new JLabel("End Showing:");
 		lblend.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblend.setBounds(185, 137, 116, 17);
+		lblend.setBounds(185, 165, 116, 17);
 		panelw.add(lblend);
 		
-		JLabel startDate = new JLabel("February 16, 2022");
+//		startDate = new JLabel("");
+//		startDate.setFont(new Font("Poppins", Font.PLAIN, 12));
+//		startDate.setBounds(282, 109, 437, 19);
+//		panelw.add(startDate);
+//		
+//		endDate = new JLabel("");
+//		endDate.setFont(new Font("Poppins", Font.PLAIN, 12));
+//		endDate.setBounds(282, 136, 437, 19);
+//		panelw.add(endDate);
+		
+		textField_title = new JTextField();
+		textField_title.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+		textField_title.setBounds(296, 19, 437, 22);
+		panelw.add(textField_title);
+		textField_title.setColumns(10);
+		
+        txt_area = new JTextArea();
+		txt_area.setBorder(new LineBorder(new Color(0, 0, 0)));
+		txt_area.setMargin(new Insets(3, 7, 3, 3));
+		txt_area.setFont(new Font("Poppins", Font.PLAIN, 12));
+		txt_area.setLineWrap(true);
+		txt_area.setWrapStyleWord(true);
+		txt_area.setBounds(296, 54, 437, 57);
+		panelw.add(txt_area);
+		
+		times_1f = new JTextField();
+		times_1f.setMargin(new Insets(3, 7, 3, 3));
+		times_1f.setFont(new Font("Poppins", Font.PLAIN, 12));
+		times_1f.setColumns(10);
+		times_1f.setBounds(296, 261, 437, 20);
+		panelw.add(times_1f);
+		
+		textField_price = new JTextField();
+		textField_price.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+		textField_price.setBounds(296, 305, 437, 20);
+		panelw.add(textField_price);
+		textField_price.setColumns(10);
+		
+		startDate = new JTextField();
 		startDate.setFont(new Font("Poppins", Font.PLAIN, 12));
-		startDate.setBounds(300, 109, 116, 19);
+		startDate.setColumns(10);
+		startDate.setBounds(296, 122, 437, 22);
 		panelw.add(startDate);
 		
-		JLabel endDate = new JLabel("Febraury 18, 2022");
+		endDate = new JTextField();
 		endDate.setFont(new Font("Poppins", Font.PLAIN, 12));
-		endDate.setBounds(300, 135, 116, 19);
+		endDate.setColumns(10);
+		endDate.setBounds(296, 162, 437, 22);
 		panelw.add(endDate);
 		
 		JLabel lblrectangle = new JLabel("");

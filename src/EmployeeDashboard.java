@@ -1,13 +1,21 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.TableModel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class EmployeeDashboard {
 
 	JFrame frame;
+	static JMenu user_account;
 
 	/**
 	 * Launch the application.
@@ -31,6 +39,12 @@ public class EmployeeDashboard {
 	public EmployeeDashboard() {
 		initialize();
 	}
+	
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -136,7 +150,7 @@ public class EmployeeDashboard {
 		lbl_company.setForeground(new Color(255, 255, 255));
 		menuBar.add(lbl_company);
 		
-		JMenu user_account = new JMenu("   Employee   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));

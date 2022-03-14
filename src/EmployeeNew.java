@@ -241,13 +241,14 @@ public class EmployeeNew {
 	                
 	                InputStream inputS = new FileInputStream(selectedImagePath);
 					
-					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg) VALUES (?, ?, ?, ?, ?)";
+					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg, Position) VALUES (?, ?, ?, ?, ?, ?)";
 					PreparedStatement ps = connection.prepareStatement(sqlQuery);
 					ps.setString(1, txt_empName.getText());
 					ps.setString(2, txt_number.getText());
 					ps.setString(3, txt_email.getText());
 					ps.setString(4, password);
 					ps.setBlob(5, inputS);
+					ps.setString(6, "Employee");
 					
 					ps.executeUpdate();	
 					
@@ -287,7 +288,7 @@ public class EmployeeNew {
 		emp_profpic.setBounds(10, 11, 213, 203);
 		white_bg.add(emp_profpic);
 		
-		JButton btn_upload = new JButton("Change Picture");
+		JButton btn_upload = new JButton("Upload Picture");
 		btn_upload.setFocusPainted(false);
 		btn_upload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

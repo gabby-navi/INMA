@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class AdminDash {
 
 	JFrame frame;
+	public JMenu user_account;
 
 
 	/**
@@ -92,6 +93,16 @@ public class AdminDash {
 		btn_reservations.setBackground(new Color(247, 165, 35));
 		btn_reservations.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_reservations);
+		
+		JButton btn_employees = new JButton("Employees");
+		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_employees.setForeground(Color.WHITE);
+		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_employees.setFocusPainted(false);
+		btn_employees.setBorderPainted(false);
+		btn_employees.setBackground(new Color(247, 165, 35));
+		btn_employees.setBounds(5, 217, 194, 40);
+		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
 		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));

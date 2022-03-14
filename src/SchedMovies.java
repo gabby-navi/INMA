@@ -1,10 +1,25 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
 
 public class SchedMovies {
 
 	JFrame frame;
+	static JTable table;
+	JScrollPane reservePane;
+	private JButton add_movie_1;
+	private JButton add_movie_2;
+	private JButton add_movie_3;
 
 	/**
 	 * Launch the application.
@@ -27,7 +42,52 @@ public class SchedMovies {
 	 */
 	public SchedMovies() {
 		initialize();
+		updateDB();
+		}
+	
+	AdminOverview ao = new AdminOverview();
+	
+      public static void updateDB() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM Cinemas";
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector columnData = new Vector();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("MovieTitle"));
+					columnData.add(rs.getString("StartDate"));
+					columnData.add(rs.getString("EndDate"));
+					columnData.add(rs.getString("Price"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
 	}
+	
+  	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -112,6 +172,20 @@ public class SchedMovies {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
+		reservePane = new JScrollPane();
+		reservePane.setBounds(233, 132, 747, 188);
+		frame.getContentPane().add(reservePane);
+		
+		table = new JTable();
+		reservePane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					 "Movie", "Start Date", "End Date", "Price"
+			}
+		));
+		
 		JMenu user_account = new JMenu("   Admin   ");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
@@ -159,11 +233,126 @@ public class SchedMovies {
 		add_movie.setBounds(859, 90, 121, 29);
 		frame.getContentPane().add(add_movie);
 		
+		add_movie_1 = new JButton("View Details");
+		add_movie_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int index = table.getSelectedRow();
+                TableModel model = table.getModel();
+				
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No Row Selected");
+				}
+				else {					
+					
+	                String movie_title = model.getValueAt(index, 0).toString();
+	                String start_date = model.getValueAt(index, 1).toString();
+	                String end_date = model.getValueAt(index, 2).toString();
+	                String price = model.getValueAt(index, 3).toString();
+	                
+	                ao.frame.setVisible(true);
+	                frame.dispose();
+	                
+	                ao.textField_title.setText(movie_title);
+	                ao.startDate.setText(start_date);
+	                ao.endDate.setText(end_date);
+	                ao.textField_price.setText(price);
+				}
+				
+				
+				String selected = model.getValueAt(index, 0).toString();
+				
+				String sqlQuery = "SELECT * FROM SchedMovies WHERE MovieTitle='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						
+						int cinemaNum = rs.getInt("CinemaNo");
+						String showtime = rs.getString("ShowTime");
+						String moviedesc = rs.getString("MovieDesc");
+						
+						ao.times_1f.setText(showtime);
+						ao.lblcno1.setText(String.valueOf(cinemaNum));
+						ao.txt_area.setText(moviedesc);
+						
+						byte[] imagedata = rs.getBytes("MovieImg");
+						ImageIcon format = new ImageIcon(imagedata);
+						Image image = format.getImage();
+						Image imageSize = image.getScaledInstance(AdminOverview.lblposter.getWidth(),AdminOverview.lblposter.getHeight(),Image.SCALE_SMOOTH);
+						ImageIcon img = new ImageIcon(imageSize);
+						
+						AdminOverview.lblposter.setIcon(img);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Data");
+					}
+					
+				} 
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+		});
+		add_movie_1.setForeground(new Color(17, 34, 44));
+		add_movie_1.setFont(new Font("Poppins", Font.BOLD, 10));
+		add_movie_1.setBorderPainted(false);
+		add_movie_1.setBackground(new Color(246, 198, 36));
+		add_movie_1.setBounds(595, 486, 121, 29);
+		frame.getContentPane().add(add_movie_1);
+		
+		add_movie_3 = new JButton("Remove");
+		add_movie_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DefaultTableModel model = (DefaultTableModel)table.getModel();
+				int selectedRow = table.getSelectedRow();
+				
+				String selected = model.getValueAt(selectedRow, 0).toString();
+				
+				String sqlQuery = "DELETE FROM SchedMovies WHERE MovieTitle='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					
+					int deleteItem = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this movie?", "WARNING", JOptionPane.YES_NO_OPTION); {
+						if (deleteItem == JOptionPane.YES_OPTION) {
+							ps.executeUpdate();
+							JOptionPane.showMessageDialog(null, "Deleted successfully.");
+							updateDB();
+						}
+					}
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
+			}
+		});
+		add_movie_3.setForeground(new Color(17, 34, 44));
+		add_movie_3.setFont(new Font("Poppins", Font.BOLD, 10));
+		add_movie_3.setBorderPainted(false);
+		add_movie_3.setBackground(new Color(246, 198, 36));
+		add_movie_3.setBounds(859, 486, 121, 29);
+		frame.getContentPane().add(add_movie_3);
+		
+		add_movie_2 = new JButton("Edit");
+		add_movie_2.setForeground(new Color(17, 34, 44));
+		add_movie_2.setFont(new Font("Poppins", Font.BOLD, 10));
+		add_movie_2.setBorderPainted(false);
+		add_movie_2.setBackground(new Color(246, 198, 36));
+		add_movie_2.setBounds(728, 486, 121, 29);
+		frame.getContentPane().add(add_movie_2);
+		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
 	
 	}
-
 }

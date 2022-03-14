@@ -1,21 +1,41 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
 import com.toedter.calendar.JDateChooser;
 
 public class DetailsEdit {
 
 	JFrame frame;
 	private JTextField textField_title;
-	private JTextField textField_desc;
+	private JLabel lblposter;
+	private JTextArea txt_area;
+	private JDateChooser startDate;
+	private JDateChooser endDate;
 	private JTextField times_1f;
-	private JTextField times_1s;
 	private JTextField textField_price;
+	String time_avail1, movie_title, movie_desc;
+	Date start_date, end_date;
+	double movie_price;
+	int cinema_num;
+	int seat_num = 150;
+	String selectedImagePath = null;
 
 	/**
 	 * Launch the application.
@@ -184,6 +204,57 @@ public class DetailsEdit {
 		frame.getContentPane().add(line);
 		
 		JButton btn_save = new JButton("Save");
+		btn_save.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		        String formattedDate = simpleDateFormat.format(startDate.getDate());
+		        java.sql.Date date1 = java.sql.Date.valueOf(formattedDate);
+		        start_date = date1;
+		        
+		        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+		        String formattedDate2 = simpleDateFormat2.format(endDate.getDate());
+		        java.sql.Date date2 = java.sql.Date.valueOf(formattedDate2);
+		        end_date = date2;
+		        
+				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			               +"databaseName = SchedMovies;"
+                        +"username = sa;"
+			               +"password = markangelo12;"
+			               + ";encrypt=true;trustServerCertificate=true;";
+	try (Connection connection = DriverManager.getConnection(connectionUrl)){
+		
+		String query = "INSERT INTO SchedMovies (MovieTitle,StartDate,EndDate,Price,CinemaNo,SeatNo,ShowTime,MovieDesc,MovieImg) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";
+		
+		PreparedStatement pst = connection.prepareStatement(query);
+		
+		InputStream inputS =  new FileInputStream(selectedImagePath);
+		
+		pst.setString(1, textField_title.getText());
+		pst.setDate(2, start_date);
+		pst.setDate(3, end_date);
+		pst.setDouble(4, movie_price = Double.parseDouble(textField_price.getText()));
+		pst.setInt(5, cinema_num);
+		pst.setInt(6, seat_num);
+		pst.setString(7, time_avail1);
+		pst.setString(8, txt_area.getText());
+		pst.setBlob(9, inputS);
+		int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
+			if (input == JOptionPane.YES_OPTION) {
+				  pst.executeUpdate();
+	               JOptionPane.showMessageDialog(null, "Added successfully.");
+			}
+		}
+	} catch(HeadlessException | SQLException x){
+        JOptionPane.showMessageDialog(null,x);
+    } catch (FileNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	
+			}
+		});
 		btn_save.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_save.setBorderPainted(false);
 		btn_save.setFont(new Font("Poppins", Font.BOLD, 10));
@@ -222,6 +293,28 @@ public class DetailsEdit {
 		panelw.add(btn_change);
 		
 		JButton btn_upload = new JButton("Upload");
+		btn_upload.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				JFileChooser browseImageFile = new JFileChooser();
+				
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialogue = browseImageFile.showOpenDialog(null);
+				
+				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					selectedImagePath = selectedImageFile.getAbsolutePath();
+					JOptionPane.showMessageDialog(null, selectedImagePath);
+					
+					ImageIcon icon = new ImageIcon(selectedImagePath);
+					Image image = icon.getImage().getScaledInstance(lblposter.getWidth(),lblposter.getHeight(),Image.SCALE_SMOOTH);
+					lblposter.setIcon(new ImageIcon(image));
+				
+				}
+			}
+		});
 		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_upload.setBorderPainted(false);
 		btn_upload.setBounds(18, 240, 72, 19);
@@ -229,7 +322,7 @@ public class DetailsEdit {
 		btn_upload.setBackground(new Color(246, 198, 36));
 		panelw.add(btn_upload);
 		
-		JLabel lblposter = new JLabel("");
+		lblposter = new JLabel("");
 		lblposter.setBounds(18, 10, 150, 229);
 		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/add new.png")).getImage().getScaledInstance(150, 220, Image.SCALE_DEFAULT)));
 		panelw.add(lblposter);
@@ -250,27 +343,17 @@ public class DetailsEdit {
 		panelw.add(lblstart);
 		
 		JLabel lblcm1 = new JLabel("Cinema Number:");
-		lblcm1.setBounds(185, 187, 112, 19);
+		lblcm1.setBounds(185, 214, 112, 19);
 		lblcm1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		panelw.add(lblcm1);
 		
-		JLabel lblcm2 = new JLabel("Cinema Number:");
-		lblcm2.setBounds(185, 262, 112, 19);
-		lblcm2.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		panelw.add(lblcm2);
-		
 		JLabel lblta1 = new JLabel("Times Available:");
-		lblta1.setBounds(185, 225, 106, 19);
+		lblta1.setBounds(185, 262, 106, 19);
 		lblta1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
 		panelw.add(lblta1);
 		
-		JLabel lblta2 = new JLabel("Times Available:");
-		lblta2.setBounds(185, 301, 106, 19);
-		lblta2.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-		panelw.add(lblta2);
-		
 		JLabel lblp = new JLabel("Price:");
-		lblp.setBounds(185, 335, 45, 19);
+		lblp.setBounds(195, 314, 45, 19);
 		lblp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		panelw.add(lblp);
 		
@@ -280,7 +363,7 @@ public class DetailsEdit {
 		panelw.add(textField_title);
 		textField_title.setColumns(10);
 		
-		JTextArea txt_area = new JTextArea();
+        txt_area = new JTextArea();
 		txt_area.setBorder(new LineBorder(new Color(0, 0, 0)));
 		txt_area.setMargin(new Insets(3, 7, 3, 3));
 		txt_area.setFont(new Font("Poppins", Font.PLAIN, 12));
@@ -290,133 +373,122 @@ public class DetailsEdit {
 		panelw.add(txt_area);
 		
 		JButton cinema_1f = new JButton("1");
+		cinema_1f.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				cinema_num = 1;
+				
+			}
+		});
 		cinema_1f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_1f.setForeground(new Color(17, 34, 44));
 		cinema_1f.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_1f.setBorderPainted(false);
 		cinema_1f.setBackground(new Color(247, 165, 35));
 		cinema_1f.setFocusPainted(false);
-		cinema_1f.setBounds(296, 182, 45, 30);
+		cinema_1f.setBounds(296, 209, 45, 30);
 		panelw.add(cinema_1f);
 		
 		JButton cinema_2f = new JButton("2");
+		cinema_2f.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				cinema_num = 2;
+				
+			}
+		});
 		cinema_2f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_2f.setForeground(new Color(17, 34, 44));
 		cinema_2f.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_2f.setFocusPainted(false);
 		cinema_2f.setBorderPainted(false);
 		cinema_2f.setBackground(new Color(246, 198, 36));
-		cinema_2f.setBounds(345, 182, 45, 30);
+		cinema_2f.setBounds(345, 209, 45, 30);
 		panelw.add(cinema_2f);
 		
 		JButton cinema_3f = new JButton("3");
+		cinema_3f.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				cinema_num = 3;
+				
+			}
+		});
 		cinema_3f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_3f.setForeground(new Color(17, 34, 44));
 		cinema_3f.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_3f.setFocusPainted(false);
 		cinema_3f.setBorderPainted(false);
 		cinema_3f.setBackground(new Color(246, 198, 36));
-		cinema_3f.setBounds(394, 182, 45, 30);
+		cinema_3f.setBounds(394, 209, 45, 30);
 		panelw.add(cinema_3f);
 		
 		JButton cinema_4f = new JButton("4");
+		cinema_4f.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				cinema_num = 4;
+				
+			}
+		});
 		cinema_4f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinema_4f.setForeground(new Color(17, 34, 44));
 		cinema_4f.setFont(new Font("Poppins", Font.BOLD, 12));
 		cinema_4f.setFocusPainted(false);
 		cinema_4f.setBorderPainted(false);
 		cinema_4f.setBackground(new Color(246, 198, 36));
-		cinema_4f.setBounds(443, 182, 45, 30);
+		cinema_4f.setBounds(443, 209, 45, 30);
 		panelw.add(cinema_4f);
 		
 		times_1f = new JTextField();
 		times_1f.setMargin(new Insets(3, 7, 3, 3));
 		times_1f.setFont(new Font("Poppins", Font.PLAIN, 12));
 		times_1f.setColumns(10);
-		times_1f.setBounds(296, 224, 63, 20);
+		times_1f.setBounds(296, 261, 63, 20);
 		panelw.add(times_1f);
 		
 		JButton add_time = new JButton("+");
+		add_time.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String time1 = JOptionPane.showInputDialog("Add Time");
+				time_avail1 = time1;
+				times_1f.setText(time_avail1);
+				
+			}
+		});
 		add_time.setBackground(new Color(246, 198, 36));
 		add_time.setFont(new Font("Poppins", Font.BOLD, 11));
 		add_time.setFocusPainted(false);
 		add_time.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add_time.setBorderPainted(false);
-		add_time.setBounds(369, 225, 47, 19);
+		add_time.setBounds(369, 262, 47, 19);
 		panelw.add(add_time);
-		
-		JButton cinemaa_1s = new JButton("1");
-		cinemaa_1s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinemaa_1s.setForeground(new Color(17, 34, 44));
-		cinemaa_1s.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinemaa_1s.setFocusPainted(false);
-		cinemaa_1s.setBorderPainted(false);
-		cinemaa_1s.setBackground(new Color(246, 198, 36));
-		cinemaa_1s.setBounds(296, 256, 45, 30);
-		panelw.add(cinemaa_1s);
-		
-		JButton cinema_2s = new JButton("2");
-		cinema_2s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_2s.setForeground(new Color(17, 34, 44));
-		cinema_2s.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_2s.setFocusPainted(false);
-		cinema_2s.setBorderPainted(false);
-		cinema_2s.setBackground(new Color(247, 165, 35));
-		cinema_2s.setBounds(345, 256, 45, 30);
-		panelw.add(cinema_2s);
-		
-		JButton cinema_3s = new JButton("3");
-		cinema_3s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_3s.setForeground(new Color(17, 34, 44));
-		cinema_3s.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_3s.setFocusPainted(false);
-		cinema_3s.setBorderPainted(false);
-		cinema_3s.setBackground(new Color(246, 198, 36));
-		cinema_3s.setBounds(394, 256, 45, 30);
-		panelw.add(cinema_3s);
-		
-		JButton cinema_4s = new JButton("4");
-		cinema_4s.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_4s.setForeground(new Color(17, 34, 44));
-		cinema_4s.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_4s.setFocusPainted(false);
-		cinema_4s.setBorderPainted(false);
-		cinema_4s.setBackground(new Color(246, 198, 36));
-		cinema_4s.setBounds(443, 256, 45, 30);
-		panelw.add(cinema_4s);
-		
-		times_1s = new JTextField();
-		times_1s.setMargin(new Insets(3, 7, 3, 3));
-		times_1s.setFont(new Font("Poppins", Font.PLAIN, 12));
-		times_1s.setColumns(10);
-		times_1s.setBounds(296, 300, 63, 20);
-		panelw.add(times_1s);
 		
 		textField_price = new JTextField();
 		textField_price.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		textField_price.setBounds(296, 332, 428, 20);
+		textField_price.setBounds(305, 313, 428, 20);
 		panelw.add(textField_price);
 		textField_price.setColumns(10);
 		
 		JLabel lblend = new JLabel("End Showing:");
 		lblend.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lblend.setBounds(185, 154, 116, 17);
+		lblend.setBounds(185, 165, 116, 17);
 		panelw.add(lblend);
 		
-		JButton add_time_1 = new JButton("+");
-		add_time_1.setFont(new Font("Poppins", Font.BOLD, 11));
-		add_time_1.setFocusPainted(false);
-		add_time_1.setBorderPainted(false);
-		add_time_1.setBackground(new Color(246, 198, 36));
-		add_time_1.setBounds(369, 300, 47, 19);
-		panelw.add(add_time_1);
+		startDate = new JDateChooser();
 		
-		JDateChooser startDate = new JDateChooser();
 		startDate.setBounds(296, 122, 437, 20);
 		panelw.add(startDate);
 		
-		JDateChooser endDate = new JDateChooser();
-		endDate.setBounds(296, 151, 437, 20);
+		endDate = new JDateChooser();
+
+		endDate.setBounds(296, 162, 437, 20);
 		panelw.add(endDate);
 		
 		JLabel lblrectangle = new JLabel("");

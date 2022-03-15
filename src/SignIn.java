@@ -150,7 +150,7 @@ public class SignIn {
                     }
                     
                     // query for position
-                    String query1 = "SELECT * FROM Accounts WHERE EmpName=? and Position=?";
+                    String query1 = "SELECT * FROM EmpAccounts WHERE EmpName=? and Position=?";
                     PreparedStatement ps1 = connection.prepareStatement(query1);
                     ps1.setString(1, NameD);
                     ps1.setString(2, PositionD);

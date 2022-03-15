@@ -20,6 +20,7 @@ public class Reservations {
 	JFrame frame;
 	static JTable table;
 	private JButton view_deets;
+	JMenu user_account;
 
 	/**
 	 * Launch the application.
@@ -101,6 +102,7 @@ public class Reservations {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				AdminDash admin_dash = new AdminDash();
+				admin_dash.user_account.setText("Admin");
 				admin_dash.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -120,6 +122,7 @@ public class Reservations {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SchedMovies sched_movies = new SchedMovies();
+				sched_movies.user_account.setText("Admin");
 				sched_movies.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -145,6 +148,25 @@ public class Reservations {
 		btn_reservations.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_reservations);
 		
+		JButton btn_employees = new JButton("Employees");
+		btn_employees.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EmployeeDetails empD = new EmployeeDetails();
+				empD.user_account.setText("Admin");
+				empD.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_employees.setForeground(Color.WHITE);
+		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_employees.setFocusPainted(false);
+		btn_employees.setBorderPainted(false);
+		btn_employees.setBackground(new Color(247, 165, 35));
+		btn_employees.setBounds(5, 217, 194, 40);
+		frame.getContentPane().add(btn_employees);
+		
 		JLabel blue_logo = new JLabel("");
 		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
 		blue_logo.setBounds(20, 18, 67, 46);
@@ -169,7 +191,7 @@ public class Reservations {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));

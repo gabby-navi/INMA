@@ -1,12 +1,26 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 public class AdminDash {
 
 	JFrame frame;
+	static JTable table;
+	JScrollPane moviePane, reservePane;
+	JMenu user_account;
+	private JButton view_deetsSM;
 
 
 	/**
@@ -30,7 +44,54 @@ public class AdminDash {
 	 */
 	public AdminDash() {
 		initialize();
+		updateDB();
 	}
+	
+	AdminOverview ao = new AdminOverview();
+	
+	public static void updateDB() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM Cinemas";
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector columnData = new Vector();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("MovieTitle"));
+					columnData.add(rs.getString("CinemaNo"));
+					columnData.add(rs.getString("ShowTime"));
+					columnData.add(rs.getString("StartDate"));
+					columnData.add(rs.getString("EndDate"));
+					columnData.add(rs.getString("Price"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+	}
+	
+  	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -57,8 +118,8 @@ public class AdminDash {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
+				sm.user_account.setText("Admin");
                 sm.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -77,8 +138,8 @@ public class AdminDash {
 		btn_reservations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
                 r.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -92,6 +153,25 @@ public class AdminDash {
 		btn_reservations.setBackground(new Color(247, 165, 35));
 		btn_reservations.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_reservations);
+		
+		JButton btn_employees = new JButton("Employees");
+		btn_employees.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EmployeeDetails empD = new EmployeeDetails();
+				empD.user_account.setText("Admin");
+				empD.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_employees.setForeground(Color.WHITE);
+		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_employees.setFocusPainted(false);
+		btn_employees.setBorderPainted(false);
+		btn_employees.setBackground(new Color(247, 165, 35));
+		btn_employees.setBounds(5, 217, 194, 40);
+		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
 		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
@@ -117,7 +197,7 @@ public class AdminDash {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));
@@ -153,19 +233,95 @@ public class AdminDash {
 		lbl_schedmovies.setBounds(235, 103, 159, 14);
 		frame.getContentPane().add(lbl_schedmovies);
 		
-		JScrollPane moviesPane = new JScrollPane();
-		moviesPane.setBounds(233, 126, 747, 170);
-		frame.getContentPane().add(moviesPane);
+		moviePane = new JScrollPane();
+		moviePane .setFont(new Font("Poppins", Font.PLAIN, 12));
+		moviePane .setBounds(233, 126, 747, 170);
+		frame.getContentPane().add(moviePane );
 		
-		JTable moviesTable = new JTable();
-		moviesPane.setViewportView(moviesTable);
-		moviesTable.setModel(new DefaultTableModel(
+		table = new JTable();
+		table.setFont(new Font("Poppins", Font.PLAIN, 12));
+		moviePane .setViewportView(table);
+		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Movie", "Start Date", "End Date", "Price"
+					 "Movie", "Cinema Number", "Time", "Start Date", "End Date", "Price"
 			}
 		));
+		
+		view_deetsSM = new JButton("View Details");
+		view_deetsSM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int index = table.getSelectedRow();
+                TableModel model = table.getModel();
+				
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No Row Selected");
+				}
+				else {					
+					try {
+						String movie_title = model.getValueAt(index, 0).toString();
+						String cinemaNum = model.getValueAt(index, 1).toString();
+						String showtime = model.getValueAt(index, 2).toString();
+						java.util.Date start_date = new SimpleDateFormat("YYYY-MM-DD").parse((String)model.getValueAt(index, 3));
+						java.util.Date end_date = new SimpleDateFormat("YYYY-MM-DD").parse((String)model.getValueAt(index, 4));
+		                String price = model.getValueAt(index, 5).toString();
+		                
+		                ao.frame.setVisible(true);
+		                frame.dispose();
+		                
+		                ao.cinemaN.setSelectedItem(cinemaNum);
+						ao.times.setSelectedItem(showtime);
+		                ao.textField_title.setText(movie_title);
+		                ao.startDate.setDate(start_date);
+		                ao.endDate.setDate(end_date);
+		                ao.textField_price.setText(price);
+		                
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					} 
+				}
+				
+				String selected = model.getValueAt(index, 0).toString();
+				
+				String sqlQuery = "SELECT * FROM Cinemas WHERE MovieTitle='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						
+						String moviedesc = rs.getString("MovieDesc");
+						ao.txt_area.setText(moviedesc);
+						
+						byte[] imagedata = rs.getBytes("MovieImg");
+						ImageIcon format = new ImageIcon(imagedata);
+						Image image = format.getImage();
+						Image imageSize = image.getScaledInstance(AdminOverview.lblposter.getWidth(),AdminOverview.lblposter.getHeight(),Image.SCALE_SMOOTH);
+						ImageIcon img = new ImageIcon(imageSize);
+						
+						AdminOverview.lblposter.setIcon(img);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Data");
+					}
+					
+				} 
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+		});
+		view_deetsSM.setForeground(new Color(17, 34, 44));
+		view_deetsSM.setFont(new Font("Poppins", Font.BOLD, 10));
+		view_deetsSM.setBorderPainted(false);
+		view_deetsSM.setBackground(new Color(246, 198, 36));
+		view_deetsSM.setBounds(859, 90, 121, 29);
+		frame.getContentPane().add(view_deetsSM);
 		
 		JLabel lbl_reservations = new JLabel("Reservations");
 		lbl_reservations.setForeground(Color.WHITE);
@@ -186,6 +342,14 @@ public class AdminDash {
 				"Employee", "Date", "Reserved Seats", "Total"
 			}
 		));
+		
+		JButton view_deetsR = new JButton("View Details");
+		view_deetsR.setForeground(new Color(17, 34, 44));
+		view_deetsR.setFont(new Font("Poppins", Font.BOLD, 10));
+		view_deetsR.setBorderPainted(false);
+		view_deetsR.setBackground(new Color(246, 198, 36));
+		view_deetsR.setBounds(859, 307, 121, 29);
+		frame.getContentPane().add(view_deetsR);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

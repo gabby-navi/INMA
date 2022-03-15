@@ -14,15 +14,16 @@ import java.sql.SQLException;
 public class EmployeeDeetsOverview {
 
 	JFrame frame;
-	public JLabel lbl_employee;
-	public JTextField textFieldID;
-	public JTextField textFieldName;
-	public JTextField textFieldNum;
-	public JTextField textFieldEmail;
-	public JTextField textFieldPass;
+	JLabel lbl_employee;
+	JTextField textFieldID;
+	JTextField textFieldName;
+	JTextField textFieldNum;
+	JTextField textFieldEmail;
+	JTextField textFieldPass;
 	public static JLabel emp_profpic;
 	JButton cancel_edit, remove_employee, save_edit, edit_employee, btn_upload;
 	String selectedImagePath = null;
+	JMenu user_account;
 	
 	/**
 	 * Launch the application.
@@ -79,6 +80,7 @@ public class EmployeeDeetsOverview {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				AdminDash adminD = new AdminDash();
+				adminD.user_account.setText("Admin");
 				adminD.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -97,8 +99,8 @@ public class EmployeeDeetsOverview {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
+				sm.user_account.setText("Admin");
                 sm.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -117,8 +119,8 @@ public class EmployeeDeetsOverview {
 		btn_reservations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
                 r.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -170,7 +172,7 @@ public class EmployeeDeetsOverview {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));
@@ -392,6 +394,7 @@ public class EmployeeDeetsOverview {
 					EmployeeDetails.updateDB();
 					
 					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.user_account.setText("Admin");
 					empDeets.frame.setVisible(true);
 					frame.dispose();
 				}

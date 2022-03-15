@@ -19,23 +19,25 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 public class DetailsEdit {
 
 	JFrame frame;
-	private JTextField textField_title;
-	private JLabel lblposter;
-	private JTextArea txt_area;
-	private JDateChooser startDate;
-	private JDateChooser endDate;
-	private JTextField times_1f;
-	private JTextField textField_price;
+	JTextField textField_price;
+	JTextField textField_title;
+	JLabel lblposter;
+	JTextArea txt_area;
+	JDateChooser startDate;
+	JDateChooser endDate;
 	String time_avail1, movie_title, movie_desc;
 	Date start_date, end_date;
 	double movie_price;
 	int cinema_num;
-	int seat_num = 150;
+	JComboBox cinemaN, times;
+	int seat_num;
 	String selectedImagePath = null;
+	JMenu user_account;
 
 	/**
 	 * Launch the application.
@@ -59,18 +61,20 @@ public class DetailsEdit {
 	public DetailsEdit() {
 		initialize();
 	}
+	
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+			+ "databaseName = MTRS;"
+			+ "username = sa;"
+			+ "password = inmainmainma;"
+			+ ";encrypt = true;trustServerCertificate = true;";
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame = new JFrame();
 		frame.setBounds(100, 100, 1024, 576);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -84,7 +88,6 @@ public class DetailsEdit {
 		btn_dash.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				AdminDash ad = new AdminDash();
                 ad.frame.setVisible(true);
                 frame.dispose();
@@ -140,6 +143,24 @@ public class DetailsEdit {
 		btn_reservations.setBounds(5, 173, 194, 40);
 		panelo.add(btn_reservations);
 		
+		JButton btn_employees = new JButton("Employees");
+		btn_employees.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EmployeeDetails empD = new EmployeeDetails();
+				empD.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_employees.setForeground(Color.WHITE);
+		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_employees.setFocusPainted(false);
+		btn_employees.setBorderPainted(false);
+		btn_employees.setBackground(new Color(247, 165, 35));
+		btn_employees.setBounds(5, 217, 194, 40);
+		panelo.add(btn_employees);
+		
 		JLabel lbl_logo = new JLabel("");
 		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")));
 		lbl_logo.setBounds(20, 18, 67, 46);
@@ -152,7 +173,7 @@ public class DetailsEdit {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		JMenu user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));
@@ -182,7 +203,6 @@ public class DetailsEdit {
 		lblback.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
                 sm.frame.setVisible(true);
                 frame.dispose();
@@ -217,41 +237,62 @@ public class DetailsEdit {
 		        java.sql.Date date2 = java.sql.Date.valueOf(formattedDate2);
 		        end_date = date2;
 		        
-				String connectionUrl = "jdbc:sqlserver://localhost:1433;"
-			               +"databaseName = SchedMovies;"
-                        +"username = sa;"
-			               +"password = markangelo12;"
-			               + ";encrypt=true;trustServerCertificate=true;";
-	try (Connection connection = DriverManager.getConnection(connectionUrl)){
-		
-		String query = "INSERT INTO SchedMovies (MovieTitle,StartDate,EndDate,Price,CinemaNo,SeatNo,ShowTime,MovieDesc,MovieImg) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?)";
-		
-		PreparedStatement pst = connection.prepareStatement(query);
-		
-		InputStream inputS =  new FileInputStream(selectedImagePath);
-		
-		pst.setString(1, textField_title.getText());
-		pst.setDate(2, start_date);
-		pst.setDate(3, end_date);
-		pst.setDouble(4, movie_price = Double.parseDouble(textField_price.getText()));
-		pst.setInt(5, cinema_num);
-		pst.setInt(6, seat_num);
-		pst.setString(7, time_avail1);
-		pst.setString(8, txt_area.getText());
-		pst.setBlob(9, inputS);
-		int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
-			if (input == JOptionPane.YES_OPTION) {
-				  pst.executeUpdate();
-	               JOptionPane.showMessageDialog(null, "Added successfully.");
-			}
-		}
-	} catch(HeadlessException | SQLException x){
-        JOptionPane.showMessageDialog(null,x);
-    } catch (FileNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+		        if (cinemaN.getSelectedItem() == "1") {
+		        	seat_num = 100;
+		        }
+		        else if (cinemaN.getSelectedItem() == "2") {
+		        	seat_num = 150;
+		        }
+		        else if (cinemaN.getSelectedItem() == "3") {
+		        	seat_num = 250;
+		        }
+		        else if (cinemaN.getSelectedItem() == "4") {
+		        	seat_num = 200;
+		        }
+		        
+				try (Connection connection = DriverManager.getConnection(connectionUrl)){
+					
+					String query1 = "INSERT INTO SchedMovies (MovieTitle) VALUES (?)";
+					PreparedStatement ps = connection.prepareStatement(query1);
+					
+					ps.setString(1, textField_title.getText());
+					
+					String query2 = "INSERT INTO Cinemas (StartDate, EndDate, Price, CinemaNo, SeatNo, ShowTime, MovieDesc, MovieImg, MovieTitle)"
+							+ "VALUES (?,?,?,?,?,?,?,?,?)";
+					
+					InputStream inputS =  new FileInputStream(selectedImagePath);
+					PreparedStatement pst = connection.prepareStatement(query2);
+					
+					pst.setDate(1, start_date);
+					pst.setDate(2, end_date);
+					pst.setDouble(3, movie_price = Double.parseDouble(textField_price.getText()));
+					pst.setString(4, (String) cinemaN.getSelectedItem());
+					pst.setInt(5, seat_num);
+					pst.setString(6, (String) times.getSelectedItem());
+					pst.setString(7, txt_area.getText());
+					pst.setBlob(8, inputS);
+					pst.setString(9, textField_title.getText());
+					
+					int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
+						if (input == JOptionPane.YES_OPTION) {
+							  ps.executeUpdate();
+							  pst.executeUpdate();
+				              JOptionPane.showMessageDialog(null, "Added successfully.");
+						}
+					}
+					
+					SchedMovies sm = new SchedMovies();
+	                sm.frame.setVisible(true);
+	                frame.dispose();
+					
+				} catch(HeadlessException | SQLException x){
+			        JOptionPane.showMessageDialog(null,x);
+			        x.printStackTrace();
+			        
+			    } catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	
 			}
 		});
@@ -266,10 +307,14 @@ public class DetailsEdit {
 		btn_cancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
-                frame.dispose();
+				int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel adding movie?", "WARNING", JOptionPane.YES_NO_OPTION); {
+					if (input == JOptionPane.YES_OPTION) {
+						JOptionPane.showMessageDialog(null, "No movie was added.");
+						SchedMovies sm = new SchedMovies();
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
 			}
 		});
 		btn_cancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -280,17 +325,10 @@ public class DetailsEdit {
 		frame.getContentPane().add(btn_cancel);
 		
 		JPanel panelw = new JPanel();
+		panelw.setBackground(Color.WHITE);
 		panelw.setBounds(233, 129, 747, 380);
 		frame.getContentPane().add(panelw);
 		panelw.setLayout(null);
-		
-		JButton btn_change = new JButton("Change");
-		btn_change.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_change.setBorderPainted(false);
-		btn_change.setBounds(96, 240, 72, 19);
-		btn_change.setFont(new Font("Poppins", Font.BOLD, 9));
-		btn_change.setBackground(new Color(246, 198, 36));
-		panelw.add(btn_change);
 		
 		JButton btn_upload = new JButton("Upload");
 		btn_upload.addMouseListener(new MouseAdapter() {
@@ -306,24 +344,23 @@ public class DetailsEdit {
 				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
 					File selectedImageFile = browseImageFile.getSelectedFile();
 					selectedImagePath = selectedImageFile.getAbsolutePath();
-					JOptionPane.showMessageDialog(null, selectedImagePath);
+					JOptionPane.showMessageDialog(null, "Uploaded picture successfully!");
 					
 					ImageIcon icon = new ImageIcon(selectedImagePath);
 					Image image = icon.getImage().getScaledInstance(lblposter.getWidth(),lblposter.getHeight(),Image.SCALE_SMOOTH);
 					lblposter.setIcon(new ImageIcon(image));
-				
 				}
 			}
 		});
 		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_upload.setBorderPainted(false);
-		btn_upload.setBounds(18, 240, 72, 19);
+		btn_upload.setBounds(57, 240, 72, 19);
 		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
 		btn_upload.setBackground(new Color(246, 198, 36));
 		panelw.add(btn_upload);
 		
 		lblposter = new JLabel("");
-		lblposter.setBounds(18, 10, 150, 229);
+		lblposter.setBounds(18, 12, 150, 220);
 		lblposter.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/add new.png")).getImage().getScaledInstance(150, 220, Image.SCALE_DEFAULT)));
 		panelw.add(lblposter);
 		
@@ -348,18 +385,18 @@ public class DetailsEdit {
 		panelw.add(lblcm1);
 		
 		JLabel lblta1 = new JLabel("Times Available:");
-		lblta1.setBounds(185, 262, 106, 19);
+		lblta1.setBounds(428, 214, 106, 19);
 		lblta1.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
 		panelw.add(lblta1);
 		
 		JLabel lblp = new JLabel("Price:");
-		lblp.setBounds(195, 314, 45, 19);
+		lblp.setBounds(185, 261, 45, 19);
 		lblp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		panelw.add(lblp);
 		
 		textField_title = new JTextField();
 		textField_title.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		textField_title.setBounds(296, 19, 437, 22);
+		textField_title.setBounds(306, 19, 418, 22);
 		panelw.add(textField_title);
 		textField_title.setColumns(10);
 		
@@ -369,110 +406,12 @@ public class DetailsEdit {
 		txt_area.setFont(new Font("Poppins", Font.PLAIN, 12));
 		txt_area.setLineWrap(true);
 		txt_area.setWrapStyleWord(true);
-		txt_area.setBounds(296, 54, 437, 57);
+		txt_area.setBounds(306, 54, 418, 57);
 		panelw.add(txt_area);
-		
-		JButton cinema_1f = new JButton("1");
-		cinema_1f.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				cinema_num = 1;
-				
-			}
-		});
-		cinema_1f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_1f.setForeground(new Color(17, 34, 44));
-		cinema_1f.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_1f.setBorderPainted(false);
-		cinema_1f.setBackground(new Color(247, 165, 35));
-		cinema_1f.setFocusPainted(false);
-		cinema_1f.setBounds(296, 209, 45, 30);
-		panelw.add(cinema_1f);
-		
-		JButton cinema_2f = new JButton("2");
-		cinema_2f.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				cinema_num = 2;
-				
-			}
-		});
-		cinema_2f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_2f.setForeground(new Color(17, 34, 44));
-		cinema_2f.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_2f.setFocusPainted(false);
-		cinema_2f.setBorderPainted(false);
-		cinema_2f.setBackground(new Color(246, 198, 36));
-		cinema_2f.setBounds(345, 209, 45, 30);
-		panelw.add(cinema_2f);
-		
-		JButton cinema_3f = new JButton("3");
-		cinema_3f.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				cinema_num = 3;
-				
-			}
-		});
-		cinema_3f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_3f.setForeground(new Color(17, 34, 44));
-		cinema_3f.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_3f.setFocusPainted(false);
-		cinema_3f.setBorderPainted(false);
-		cinema_3f.setBackground(new Color(246, 198, 36));
-		cinema_3f.setBounds(394, 209, 45, 30);
-		panelw.add(cinema_3f);
-		
-		JButton cinema_4f = new JButton("4");
-		cinema_4f.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				cinema_num = 4;
-				
-			}
-		});
-		cinema_4f.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		cinema_4f.setForeground(new Color(17, 34, 44));
-		cinema_4f.setFont(new Font("Poppins", Font.BOLD, 12));
-		cinema_4f.setFocusPainted(false);
-		cinema_4f.setBorderPainted(false);
-		cinema_4f.setBackground(new Color(246, 198, 36));
-		cinema_4f.setBounds(443, 209, 45, 30);
-		panelw.add(cinema_4f);
-		
-		times_1f = new JTextField();
-		times_1f.setMargin(new Insets(3, 7, 3, 3));
-		times_1f.setFont(new Font("Poppins", Font.PLAIN, 12));
-		times_1f.setColumns(10);
-		times_1f.setBounds(296, 261, 63, 20);
-		panelw.add(times_1f);
-		
-		JButton add_time = new JButton("+");
-		add_time.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				String time1 = JOptionPane.showInputDialog("Add Time");
-				time_avail1 = time1;
-				times_1f.setText(time_avail1);
-				
-			}
-		});
-		add_time.setBackground(new Color(246, 198, 36));
-		add_time.setFont(new Font("Poppins", Font.BOLD, 11));
-		add_time.setFocusPainted(false);
-		add_time.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add_time.setBorderPainted(false);
-		add_time.setBounds(369, 262, 47, 19);
-		panelw.add(add_time);
 		
 		textField_price = new JTextField();
 		textField_price.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-		textField_price.setBounds(305, 313, 428, 20);
+		textField_price.setBounds(306, 261, 418, 20);
 		panelw.add(textField_price);
 		textField_price.setColumns(10);
 		
@@ -482,14 +421,31 @@ public class DetailsEdit {
 		panelw.add(lblend);
 		
 		startDate = new JDateChooser();
-		
-		startDate.setBounds(296, 122, 437, 20);
+		JTextFieldDateEditor Seditor = (JTextFieldDateEditor) startDate.getDateEditor();
+        Seditor.setEditable(false);
+		startDate.setBounds(306, 122, 418, 20);
 		panelw.add(startDate);
 		
 		endDate = new JDateChooser();
-
-		endDate.setBounds(296, 162, 437, 20);
+		JTextFieldDateEditor Eeditor = (JTextFieldDateEditor) endDate.getDateEditor();
+        Eeditor.setEditable(false);
+		endDate.setBounds(306, 162, 418, 20);
 		panelw.add(endDate);
+		
+		cinemaN = new JComboBox();
+		cinemaN.setBackground(Color.WHITE);
+		cinemaN.setFont(new Font("Poppins", Font.PLAIN, 12));
+		cinemaN.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
+		cinemaN.setBounds(307, 208, 97, 30);
+		panelw.add(cinemaN);
+		
+		times = new JComboBox();
+		times.setBackground(Color.WHITE);
+		times.setFont(new Font("Poppins", Font.PLAIN, 12));
+		times.setModel(new DefaultComboBoxModel(new String[] {"12:30PM", "1:00PM", "1:30PM", "2:00PM", "2:30PM", 
+				"3:00PM", "3:30PM", "4:00PM", "4:30PM", "5:00PM", "5:30PM", "6:00PM", "6:30PM", "7:00PM", "7:30PM", "8:00PM"}));
+		times.setBounds(544, 208, 180, 29);
+		panelw.add(times);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setBounds(0, 0, 1010, 539);

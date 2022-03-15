@@ -50,6 +50,7 @@ public class EmployeeReserved {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				AdminDash admin_dash = new AdminDash();
+				admin_dash.user_account.setText("Admin");
 				admin_dash.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -69,6 +70,7 @@ public class EmployeeReserved {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SchedMovies sched_movies = new SchedMovies();
+				sched_movies.user_account.setText("Admin");
 				sched_movies.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -88,6 +90,7 @@ public class EmployeeReserved {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Reservations reserve = new Reservations();
+				reserve.user_account.setText("Admin");
 				reserve.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -98,9 +101,28 @@ public class EmployeeReserved {
 		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_reservations.setFocusPainted(false);
 		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBackground(new Color(246, 198, 36));
+		btn_reservations.setBackground(new Color(247, 165, 35));
 		btn_reservations.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_reservations);
+		
+		JButton btn_employees = new JButton("Employees");
+		btn_employees.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EmployeeDetails empD = new EmployeeDetails();
+				empD.user_account.setText("Admin");
+				empD.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_employees.setForeground(Color.WHITE);
+		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_employees.setFocusPainted(false);
+		btn_employees.setBorderPainted(false);
+		btn_employees.setBackground(new Color(246, 198, 36));
+		btn_employees.setBounds(5, 217, 194, 40);
+		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
 		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
@@ -118,6 +140,7 @@ public class EmployeeReserved {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Reservations reserve = new Reservations();
+				reserve.user_account.setText("Admin");
 				reserve.frame.setVisible(true);
 				frame.dispose();
 			}

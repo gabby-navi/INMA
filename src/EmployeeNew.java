@@ -24,6 +24,7 @@ public class EmployeeNew {
 	private JTextField txt_email;
 	public JLabel emp_profpic;
 	String selectedImagePath = null;
+	JMenu user_account;
 
 	/**
 	 * Launch the application.
@@ -55,6 +56,7 @@ public class EmployeeNew {
 			+ "username = sa;"
 			+ "password = inmainmainma;"
 			+ ";encrypt = true;trustServerCertificate = true;";
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -82,6 +84,7 @@ public class EmployeeNew {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				AdminDash adminD = new AdminDash();
+				adminD.user_account.setText("Admin");
 				adminD.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -100,8 +103,8 @@ public class EmployeeNew {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				SchedMovies sm = new SchedMovies();
+				sm.user_account.setText("Admin");
                 sm.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -121,6 +124,7 @@ public class EmployeeNew {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
                 r.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -150,6 +154,7 @@ public class EmployeeNew {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				EmployeeDetails empDeets = new EmployeeDetails();
+				empDeets.user_account.setText("Admin");
                 empDeets.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -172,7 +177,7 @@ public class EmployeeNew {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));
@@ -241,13 +246,14 @@ public class EmployeeNew {
 	                
 	                InputStream inputS = new FileInputStream(selectedImagePath);
 					
-					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg) VALUES (?, ?, ?, ?, ?)";
+					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg, Position) VALUES (?, ?, ?, ?, ?, ?)";
 					PreparedStatement ps = connection.prepareStatement(sqlQuery);
 					ps.setString(1, txt_empName.getText());
 					ps.setString(2, txt_number.getText());
 					ps.setString(3, txt_email.getText());
 					ps.setString(4, password);
 					ps.setBlob(5, inputS);
+					ps.setString(6, "Employee");
 					
 					ps.executeUpdate();	
 					
@@ -255,6 +261,7 @@ public class EmployeeNew {
 					EmployeeDetails.updateDB();
 					
 					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.user_account.setText("Admin");
 					empDeets.frame.setVisible(true);
 					frame.dispose();
 				}
@@ -287,7 +294,7 @@ public class EmployeeNew {
 		emp_profpic.setBounds(10, 11, 213, 203);
 		white_bg.add(emp_profpic);
 		
-		JButton btn_upload = new JButton("Change Picture");
+		JButton btn_upload = new JButton("Upload Picture");
 		btn_upload.setFocusPainted(false);
 		btn_upload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -7,7 +7,7 @@ import java.sql.*;
 public class SignIn {
 
 	JFrame frame;
-	private JTextField txt_email;
+	public static JTextField txt_email;
 	private JLabel lbl_welcome;
 	private JPasswordField txt_password;
 
@@ -138,33 +138,38 @@ public class SignIn {
 					
 					// database variable
 					String EmailD = "";
-					String PassD = "";
-					String PositionD = "";
-					
-					while (rs.next()) {
-						EmailD = rs.getString("EmpEmail");
-						PassD = rs.getString("EmpPassword");
-						PositionD = rs.getString("Position");
-					}
-					
-					// query for position
-					String query1 = "SELECT * FROM EmpAccounts WHERE Position=?";
-					PreparedStatement ps1 = connection.prepareStatement(query1);
-					ps1.setString(1, PositionD);
-					ResultSet rs1 = ps1.executeQuery();
-					
-					if (EmailD.equals(email) && PassD.equals(pass)) {
-						if (PositionD.equals("Admin")) {
-							AdminDash adminD = new AdminDash();
-							adminD.frame.setVisible(true);
-							frame.dispose();
-						}
-						else if (PositionD.equals("Employee")) {
-							EmployeeDashboard employeeD = new EmployeeDashboard();
-							employeeD.frame.setVisible(true);
-							frame.dispose();
-						}
-					}
+                    String PassD = "";
+                    String NameD  = "";
+                    String PositionD = "";
+                    
+                    while (rs.next()) {
+                        EmailD = rs.getString("EmpEmail");
+                        PassD = rs.getString("EmpPassword");
+                        NameD = rs.getString("EmpName");
+                        PositionD = rs.getString("Position");
+                    }
+                    
+                    // query for position
+                    String query1 = "SELECT * FROM EmpAccounts WHERE EmpName=? and Position=?";
+                    PreparedStatement ps1 = connection.prepareStatement(query1);
+                    ps1.setString(1, NameD);
+                    ps1.setString(2, PositionD);
+                    ResultSet rs1 = ps1.executeQuery();
+                    
+                    if (EmailD.equals(email) && PassD.equals(pass)) {
+                        if (NameD.equals("Admin") && PositionD.equals("Admin")) {
+                            AdminDash ad = new AdminDash();
+                            ad.user_account.setText("Admin");
+                            ad.frame.setVisible(true);
+                            frame.dispose();
+                        }
+                        else if (PositionD.equals("Employee")) {
+                            EmployeeDashboard ed = new EmployeeDashboard();
+                            ed.user_account.setText(NameD);
+                            ed.frame.setVisible(true);
+                            frame.dispose();
+                        }
+                    }
 					else {
 						JOptionPane.showMessageDialog(null, "Email or password is incorrect!", "Message Error", JOptionPane.WARNING_MESSAGE);
 					}

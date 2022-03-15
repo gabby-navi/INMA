@@ -18,6 +18,7 @@ public class EmployeeDetails {
 	JFrame frame;
 	static JTable table;
 	private JButton view_deets;
+	JMenu user_account;
 
 	/**
 	 * Launch the application.
@@ -115,6 +116,7 @@ public class EmployeeDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				AdminDash adminD = new AdminDash();
+				adminD.user_account.setText("Admin");
 				adminD.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -134,6 +136,7 @@ public class EmployeeDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SchedMovies sm = new SchedMovies();
+				sm.user_account.setText("Admin");
                 sm.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -153,6 +156,7 @@ public class EmployeeDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
                 r.frame.setVisible(true);
                 frame.dispose();
 			}
@@ -190,7 +194,7 @@ public class EmployeeDetails {
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
 		
-		JMenu user_account = new JMenu("   Admin   ");
+		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		user_account.setHorizontalAlignment(SwingConstants.CENTER);
 		user_account.setBounds(new Rectangle(0, 0, 10, 0));
@@ -226,6 +230,7 @@ public class EmployeeDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				EmployeeNew empNew = new EmployeeNew();
+				empNew.user_account.setText("Admin");
 				empNew.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -308,6 +313,7 @@ public class EmployeeDetails {
 	                String password = model.getValueAt(index, 4).toString();
 	                
 	                edo.frame.setVisible(true);
+	                edo.user_account.setText("Admin");
 	                frame.dispose();
 	                
 	                edo.textFieldID.setText(id);

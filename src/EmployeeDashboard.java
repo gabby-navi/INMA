@@ -80,9 +80,6 @@ public class EmployeeDashboard {
 			public void mouseClicked(MouseEvent e) {
 				
 				MovieTimes mt = new MovieTimes();
-				
-				mt.title.setText("Uncharted");
-				
                 mt.frame.setVisible(true);
                 frame.dispose();
 			}

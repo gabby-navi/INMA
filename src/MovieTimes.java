@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 public class MovieTimes {
 
 	JFrame frame;
-	 JLabel title;
 
 	/**
 	 * Launch the application.
@@ -96,11 +95,11 @@ public class MovieTimes {
 		lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
 		frame.getContentPane().add(lblback);
 		
-		title = new JLabel("The Adam Project");
-		title.setForeground(new Color(255, 255, 255));
-		title.setFont(new Font("Poppins", Font.BOLD, 30));
-		title.setBounds(90, 72, 302, 37);
-		frame.getContentPane().add(title);
+		JLabel lbl2 = new JLabel("The Adam Project");
+		lbl2.setForeground(new Color(255, 255, 255));
+		lbl2.setFont(new Font("Poppins", Font.BOLD, 30));
+		lbl2.setBounds(90, 72, 302, 37);
+		frame.getContentPane().add(lbl2);
 		
 		JLabel lblNewLabel = new JLabel("February 16, 2022");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -137,10 +136,6 @@ public class MovieTimes {
 		time1.add(lbl_available1);
 		
 		JButton btn_reserve1 = new JButton("Reserve Seats");
-		btn_reserve1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn_reserve1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

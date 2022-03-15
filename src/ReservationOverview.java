@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 
 public class ReservationOverview {
 
-	 JFrame frame;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -117,10 +117,6 @@ public class ReservationOverview {
 		user_account.add(logout_item);
 		
 		JButton btn_cancel = new JButton("Cancel Reservation");
-		btn_cancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn_cancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_cancel.setBorderPainted(false);
 		btn_cancel.setFont(new Font("Poppins", Font.BOLD, 10));

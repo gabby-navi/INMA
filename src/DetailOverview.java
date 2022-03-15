@@ -198,20 +198,87 @@ public class DetailOverview {
 		lbltotal.setBounds(332, 302, 67, 19);
 		panelw.add(lbltotal);
 		
+//		JLabel lblmt = new JLabel("Movie Title:");
+//		lblmt.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lblmt.setBounds(250, 28, 74, 19);
+//		panelw.add(lblmt);
+//		
+//		JLabel lbld = new JLabel("Date:");
+//		lbld.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lbld.setBounds(250, 58, 45, 19);
+//		panelw.add(lbld);
+//		
+//		JLabel lblt = new JLabel("Time:");
+//		lblt.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lblt.setBounds(250, 88, 45, 19);
+//		panelw.add(lblt);
+//		
+//		JLabel lblc = new JLabel("Cinema:");
+//		lblc.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lblc.setBounds(250, 118, 58, 19);
+//		panelw.add(lblc);
+//		
+//		JLabel lblnos = new JLabel("Number of Seats:");
+//		lblnos.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lblnos.setBounds(250, 148, 112, 19);
+//		panelw.add(lblnos);
+//		
+//		JLabel lbls = new JLabel("Seats:");
+//		lbls.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lbls.setBounds(250, 178, 45, 19);
+//		panelw.add(lbls);
+//		
+//		JLabel lblip = new JLabel("Initial Price:");
+//		lblip.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lblip.setBounds(250, 258, 91, 19);
+//		panelw.add(lblip);
+//		
+//		JLabel lbltp = new JLabel("Total Price:");
+//		lbltp.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+//		lbltp.setBounds(250, 288, 74, 19);
+//		panelw.add(lbltp);
+//		
+//		JLabel lbltitle = new JLabel("The Adam Project");
+//		lbltitle.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lbltitle.setBounds(330, 28, 112, 19);
+//		panelw.add(lbltitle);
+//		
+//		JLabel lbldate = new JLabel("February 16, 2022");
+//		lbldate.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lbldate.setBounds(295, 58, 112, 19);
+//		panelw.add(lbldate);
+//		
+//		JLabel lbltime = new JLabel("2:45PM");
+//		lbltime.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lbltime.setBounds(295, 88, 45, 19);
+//		panelw.add(lbltime);
+//		
+//		JLabel lblcinema = new JLabel("2");
+//		lblcinema.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		lblcinema.setBounds(313, 118, 18, 19);
+//		panelw.add(lblcinema);
+//		
+//		JLabel lblnoseats = new JLabel("5");
+//		lblnoseats.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lblnoseats.setBounds(366, 148, 18, 19);
+//		panelw.add(lblnoseats);
+//		
+//		JLabel lblseats = new JLabel("B3, B4, B5, B6, B7");
+//		lblseats.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
+//		lblseats.setBounds(300, 178, 112, 19);
+//		panelw.add(lblseats);
+//		
+//		JLabel lblinitial = new JLabel("P320.00");
+//		lblinitial.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		lblinitial.setBounds(332, 258, 56, 19);
+//		panelw.add(lblinitial);
+//		
+//		JLabel lbltotal = new JLabel("P1,600.00");
+//		lbltotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		lbltotal.setBounds(332, 288, 67, 19);
+//		panelw.add(lbltotal);
 		
 		JButton btn_confirm = new JButton("Confirm");
-		btn_confirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn_confirm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ReservationDetails rd = new ReservationDetails();
-				rd.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
 		btn_confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_confirm.setBorderPainted(false);
 		btn_confirm.setBounds(842, 480, 121, 29);
@@ -220,10 +287,6 @@ public class DetailOverview {
 		frame.getContentPane().add(btn_confirm);
 		
 		JButton btn_cancel = new JButton("Cancel");
-		btn_cancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn_cancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

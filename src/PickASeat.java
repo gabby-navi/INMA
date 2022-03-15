@@ -116,11 +116,6 @@ public class PickASeat {
 		frame.getContentPane().add(lblback);
 		
 		JPanel panelw = new JPanel();
-		panelw.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		panelw.setBounds(46, 131, 918, 315);
 		panelw.setBackground(new Color(255, 255, 255));
 		frame.getContentPane().add(panelw);
@@ -140,11 +135,6 @@ public class PickASeat {
 		frame.getContentPane().add(lbl6);
 		
 		JButton btn1 = new JButton("");
-		btn1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn1.setBackground(new Color(246, 198, 36));
@@ -155,11 +145,6 @@ public class PickASeat {
 		panelw.add(btn1);
 		
 		JButton btn2 = new JButton("");
-		btn2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn2.setBackground(new Color(246, 198, 36));
@@ -170,11 +155,6 @@ public class PickASeat {
 		panelw.add(btn2);
 		
 		JButton btn3 = new JButton("");
-		btn3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn3.setBackground(new Color(246, 198, 36));
@@ -185,11 +165,6 @@ public class PickASeat {
 		panelw.add(btn3);
 		
 		JButton btn4 = new JButton("");
-		btn4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn4.setBackground(new Color(246, 198, 36));
@@ -200,11 +175,6 @@ public class PickASeat {
 		panelw.add(btn4);
 		
 		JButton btn5 = new JButton("");
-		btn5.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn5.setBackground(new Color(246, 198, 36));
@@ -215,11 +185,6 @@ public class PickASeat {
 		panelw.add(btn5);
 		
 		JButton btn6 = new JButton("");
-		btn6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn6.setBackground(new Color(246, 198, 36));
@@ -230,11 +195,6 @@ public class PickASeat {
 		panelw.add(btn6);
 		
 		JButton btn7 = new JButton("");
-		btn7.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn7.setBackground(new Color(246, 198, 36));
@@ -245,11 +205,6 @@ public class PickASeat {
 		panelw.add(btn7);
 		
 		JButton btn8 = new JButton("");
-		btn8.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn8.setBackground(new Color(246, 198, 36));
@@ -260,11 +215,6 @@ public class PickASeat {
 		panelw.add(btn8);
 		
 		JButton btn9 = new JButton("");
-		btn9.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn9.setBackground(new Color(246, 198, 36));
@@ -275,11 +225,6 @@ public class PickASeat {
 		panelw.add(btn9);
 		
 		JButton btn10 = new JButton("");
-		btn10.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn10.setBackground(new Color(246, 198, 36));
@@ -290,11 +235,6 @@ public class PickASeat {
 		panelw.add(btn10);
 		
 		JButton btn11 = new JButton("");
-		btn11.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn11.setBackground(new Color(246, 198, 36));
@@ -305,11 +245,6 @@ public class PickASeat {
 		panelw.add(btn11);
 		
 		JButton btn12 = new JButton("");
-		btn12.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn12.setBackground(new Color(246, 198, 36));
@@ -320,11 +255,6 @@ public class PickASeat {
 		panelw.add(btn12);
 		
 		JButton btn13 = new JButton("");
-		btn13.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn13.setBackground(new Color(246, 198, 36));
@@ -335,11 +265,6 @@ public class PickASeat {
 		panelw.add(btn13);
 		
 		JButton btn14 = new JButton("");
-		btn14.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn14.setBackground(new Color(246, 198, 36));
@@ -350,11 +275,6 @@ public class PickASeat {
 		panelw.add(btn14);
 		
 		JButton btn15 = new JButton("");
-		btn15.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn15.setBackground(new Color(246, 198, 36));
@@ -365,11 +285,6 @@ public class PickASeat {
 		panelw.add(btn15);
 		
 		JButton btn16 = new JButton("");
-		btn16.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn16.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn16.setBackground(new Color(246, 198, 36));
@@ -380,11 +295,6 @@ public class PickASeat {
 		panelw.add(btn16);
 		
 		JButton btn17 = new JButton("");
-		btn17.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn17.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn17.setBackground(new Color(246, 198, 36));
@@ -395,11 +305,6 @@ public class PickASeat {
 		panelw.add(btn17);
 		
 		JButton btn18 = new JButton("");
-		btn18.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn18.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn18.setBackground(new Color(246, 198, 36));
@@ -410,11 +315,6 @@ public class PickASeat {
 		panelw.add(btn18);
 		
 		JButton btn19 = new JButton("");
-		btn19.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn19.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn19.setBackground(new Color(246, 198, 36));
@@ -425,11 +325,6 @@ public class PickASeat {
 		panelw.add(btn19);
 		
 		JButton btn20 = new JButton("");
-		btn20.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn20.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn20.setBackground(new Color(246, 198, 36));
@@ -440,11 +335,6 @@ public class PickASeat {
 		panelw.add(btn20);
 		
 		JButton btn21 = new JButton("");
-		btn21.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn21.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn21.setBackground(new Color(246, 198, 36));
@@ -455,11 +345,6 @@ public class PickASeat {
 		panelw.add(btn21);
 		
 		JButton btn22 = new JButton("");
-		btn22.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn22.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn22.setBackground(new Color(246, 198, 36));
@@ -470,11 +355,6 @@ public class PickASeat {
 		panelw.add(btn22);
 		
 		JButton btn23 = new JButton("");
-		btn23.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn23.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn23.setBackground(new Color(246, 198, 36));
@@ -485,11 +365,6 @@ public class PickASeat {
 		panelw.add(btn23);
 		
 		JButton btn24 = new JButton("");
-		btn24.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn24.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn24.setBackground(new Color(246, 198, 36));
@@ -500,11 +375,6 @@ public class PickASeat {
 		panelw.add(btn24);
 		
 		JButton btn25 = new JButton("");
-		btn25.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn25.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn25.setBackground(new Color(246, 198, 36));
@@ -515,11 +385,6 @@ public class PickASeat {
 		panelw.add(btn25);
 		
 		JButton btn26 = new JButton("");
-		btn26.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn26.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn26.setBackground(new Color(246, 198, 36));
@@ -530,11 +395,6 @@ public class PickASeat {
 		panelw.add(btn26);
 		
 		JButton btn27 = new JButton("");
-		btn27.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn27.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn27.setBackground(new Color(246, 198, 36));
@@ -545,11 +405,6 @@ public class PickASeat {
 		panelw.add(btn27);
 		
 		JButton btn28 = new JButton("");
-		btn28.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn28.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn28.setBackground(new Color(246, 198, 36));
@@ -560,11 +415,6 @@ public class PickASeat {
 		panelw.add(btn28);
 		
 		JButton btn29 = new JButton("");
-		btn29.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn29.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn29.setBackground(new Color(246, 198, 36));
@@ -575,11 +425,6 @@ public class PickASeat {
 		panelw.add(btn29);
 		
 		JButton btn30 = new JButton("");
-		btn30.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn30.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn30.setBackground(new Color(246, 198, 36));
@@ -590,11 +435,6 @@ public class PickASeat {
 		panelw.add(btn30);
 		
 		JButton btn31 = new JButton("");
-		btn31.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn31.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn31.setBackground(new Color(246, 198, 36));
@@ -605,11 +445,6 @@ public class PickASeat {
 		panelw.add(btn31);
 		
 		JButton btn32 = new JButton("");
-		btn32.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn32.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn32.setBackground(new Color(246, 198, 36));
@@ -620,11 +455,6 @@ public class PickASeat {
 		panelw.add(btn32);
 		
 		JButton btn33 = new JButton("");
-		btn33.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn33.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn33.setBackground(new Color(246, 198, 36));
@@ -635,11 +465,6 @@ public class PickASeat {
 		panelw.add(btn33);
 		
 		JButton btn34 = new JButton("");
-		btn34.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn34.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn34.setBackground(new Color(246, 198, 36));
@@ -650,11 +475,6 @@ public class PickASeat {
 		panelw.add(btn34);
 		
 		JButton btn35 = new JButton("");
-		btn35.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn35.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn35.setBackground(new Color(246, 198, 36));
@@ -665,11 +485,6 @@ public class PickASeat {
 		panelw.add(btn35);
 		
 		JButton btn36 = new JButton("");
-		btn36.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn36.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn36.setBackground(new Color(246, 198, 36));
@@ -680,11 +495,6 @@ public class PickASeat {
 		panelw.add(btn36);
 		
 		JButton btn37 = new JButton("");
-		btn37.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn37.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn37.setBackground(new Color(246, 198, 36));
@@ -695,11 +505,6 @@ public class PickASeat {
 		panelw.add(btn37);
 		
 		JButton btn38 = new JButton("");
-		btn38.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn38.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn38.setBackground(new Color(246, 198, 36));
@@ -710,11 +515,6 @@ public class PickASeat {
 		panelw.add(btn38);
 		
 		JButton btn39 = new JButton("");
-		btn39.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn39.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn39.setBackground(new Color(246, 198, 36));
@@ -725,11 +525,6 @@ public class PickASeat {
 		panelw.add(btn39);
 		
 		JButton btn40 = new JButton("");
-		btn40.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn40.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn40.setBackground(new Color(246, 198, 36));
@@ -740,11 +535,6 @@ public class PickASeat {
 		panelw.add(btn40);
 		
 		JButton btn41 = new JButton("");
-		btn41.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn41.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn41.setBackground(new Color(246, 198, 36));
@@ -755,11 +545,6 @@ public class PickASeat {
 		panelw.add(btn41);
 		
 		JButton btn42 = new JButton("");
-		btn42.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn42.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn42.setBackground(new Color(246, 198, 36));
@@ -770,11 +555,6 @@ public class PickASeat {
 		panelw.add(btn42);
 		
 		JButton btn43 = new JButton("");
-		btn43.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn43.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn43.setBackground(new Color(246, 198, 36));
@@ -785,11 +565,6 @@ public class PickASeat {
 		panelw.add(btn43);
 		
 		JButton btn44 = new JButton("");
-		btn44.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn44.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn44.setBackground(new Color(246, 198, 36));
@@ -800,11 +575,6 @@ public class PickASeat {
 		panelw.add(btn44);
 		
 		JButton btn45 = new JButton("");
-		btn45.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn45.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn45.setBackground(new Color(246, 198, 36));
@@ -815,11 +585,6 @@ public class PickASeat {
 		panelw.add(btn45);
 		
 		JButton btn46 = new JButton("");
-		btn46.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn46.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn46.setBackground(new Color(246, 198, 36));
@@ -830,11 +595,6 @@ public class PickASeat {
 		panelw.add(btn46);
 		
 		JButton btn47 = new JButton("");
-		btn47.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn47.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn47.setBackground(new Color(246, 198, 36));
@@ -845,11 +605,6 @@ public class PickASeat {
 		panelw.add(btn47);
 		
 		JButton btn48 = new JButton("");
-		btn48.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn48.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn48.setBackground(new Color(246, 198, 36));
@@ -860,11 +615,6 @@ public class PickASeat {
 		panelw.add(btn48);
 		
 		JButton btn49 = new JButton("");
-		btn49.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn49.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn49.setBackground(new Color(246, 198, 36));
@@ -875,11 +625,6 @@ public class PickASeat {
 		panelw.add(btn49);
 		
 		JButton btn50 = new JButton("");
-		btn50.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn50.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn50.setBackground(new Color(246, 198, 36));
@@ -890,11 +635,6 @@ public class PickASeat {
 		panelw.add(btn50);
 		
 		JButton btn51 = new JButton("");
-		btn51.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn51.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn51.setBackground(new Color(246, 198, 36));
@@ -905,11 +645,6 @@ public class PickASeat {
 		panelw.add(btn51);
 		
 		JButton btn52 = new JButton("");
-		btn52.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn52.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn52.setBackground(new Color(246, 198, 36));
@@ -920,11 +655,6 @@ public class PickASeat {
 		panelw.add(btn52);
 		
 		JButton btn53 = new JButton("");
-		btn53.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn53.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn53.setBackground(new Color(246, 198, 36));
@@ -935,11 +665,6 @@ public class PickASeat {
 		panelw.add(btn53);
 		
 		JButton btn54 = new JButton("");
-		btn54.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn54.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn54.setBackground(new Color(246, 198, 36));
@@ -950,11 +675,6 @@ public class PickASeat {
 		panelw.add(btn54);
 		
 		JButton btn55 = new JButton("");
-		btn55.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn55.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn55.setBackground(new Color(246, 198, 36));
@@ -965,11 +685,6 @@ public class PickASeat {
 		panelw.add(btn55);
 		
 		JButton btn56 = new JButton("");
-		btn56.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn56.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn56.setBackground(new Color(246, 198, 36));
@@ -980,11 +695,6 @@ public class PickASeat {
 		panelw.add(btn56);
 		
 		JButton btn57 = new JButton("");
-		btn57.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn57.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn57.setBackground(new Color(246, 198, 36));
@@ -995,11 +705,6 @@ public class PickASeat {
 		panelw.add(btn57);
 		
 		JButton btn58 = new JButton("");
-		btn58.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn58.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn58.setBackground(new Color(246, 198, 36));
@@ -1010,11 +715,6 @@ public class PickASeat {
 		panelw.add(btn58);
 		
 		JButton btn59 = new JButton("");
-		btn59.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn59.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn59.setBackground(new Color(246, 198, 36));
@@ -1025,11 +725,6 @@ public class PickASeat {
 		panelw.add(btn59);
 		
 		JButton btn60 = new JButton("");
-		btn60.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn60.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn60.setBackground(new Color(246, 198, 36));
@@ -1040,11 +735,6 @@ public class PickASeat {
 		panelw.add(btn60);
 		
 		JButton btn61 = new JButton("");
-		btn61.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn61.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn61.setBackground(new Color(246, 198, 36));
@@ -1055,11 +745,6 @@ public class PickASeat {
 		panelw.add(btn61);
 		
 		JButton btn62 = new JButton("");
-		btn62.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn62.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn62.setBackground(new Color(246, 198, 36));
@@ -1070,11 +755,6 @@ public class PickASeat {
 		panelw.add(btn62);
 		
 		JButton btn63 = new JButton("");
-		btn63.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn63.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn63.setBackground(new Color(246, 198, 36));
@@ -1085,11 +765,6 @@ public class PickASeat {
 		panelw.add(btn63);
 		
 		JButton btn64 = new JButton("");
-		btn64.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn64.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn64.setBackground(new Color(246, 198, 36));
@@ -1100,11 +775,6 @@ public class PickASeat {
 		panelw.add(btn64);
 		
 		JButton btn65 = new JButton("");
-		btn65.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn65.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn65.setBackground(new Color(246, 198, 36));
@@ -1115,11 +785,6 @@ public class PickASeat {
 		panelw.add(btn65);
 		
 		JButton btn66 = new JButton("");
-		btn66.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn66.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn66.setBackground(new Color(246, 198, 36));
@@ -1130,11 +795,6 @@ public class PickASeat {
 		panelw.add(btn66);
 		
 		JButton btn67 = new JButton("");
-		btn67.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn67.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn67.setBackground(new Color(246, 198, 36));
@@ -1145,11 +805,6 @@ public class PickASeat {
 		panelw.add(btn67);
 		
 		JButton btn68 = new JButton("");
-		btn68.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn68.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn68.setBackground(new Color(246, 198, 36));
@@ -1160,11 +815,6 @@ public class PickASeat {
 		panelw.add(btn68);
 		
 		JButton btn69 = new JButton("");
-		btn69.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn69.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn69.setBackground(new Color(246, 198, 36));
@@ -1175,11 +825,6 @@ public class PickASeat {
 		panelw.add(btn69);
 		
 		JButton btn70 = new JButton("");
-		btn70.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn70.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn70.setBackground(new Color(246, 198, 36));
@@ -1190,11 +835,6 @@ public class PickASeat {
 		panelw.add(btn70);
 		
 		JButton btn71 = new JButton("");
-		btn71.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn71.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn71.setBackground(new Color(246, 198, 36));
@@ -1205,11 +845,6 @@ public class PickASeat {
 		panelw.add(btn71);
 		
 		JButton btn72 = new JButton("");
-		btn72.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn72.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn72.setBackground(new Color(246, 198, 36));
@@ -1220,11 +855,6 @@ public class PickASeat {
 		panelw.add(btn72);
 		
 		JButton btn73 = new JButton("");
-		btn73.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn73.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn73.setBackground(new Color(246, 198, 36));
@@ -1235,11 +865,6 @@ public class PickASeat {
 		panelw.add(btn73);
 		
 		JButton btn74 = new JButton("");
-		btn74.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn74.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn74.setBackground(new Color(246, 198, 36));
@@ -1250,11 +875,6 @@ public class PickASeat {
 		panelw.add(btn74);
 		
 		JButton btn75 = new JButton("");
-		btn75.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn75.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn75.setBackground(new Color(246, 198, 36));
@@ -1265,11 +885,6 @@ public class PickASeat {
 		panelw.add(btn75);
 		
 		JButton btn76 = new JButton("");
-		btn76.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn76.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn76.setBackground(new Color(246, 198, 36));
@@ -1280,11 +895,6 @@ public class PickASeat {
 		panelw.add(btn76);
 		
 		JButton btn77 = new JButton("");
-		btn77.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn77.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn77.setBackground(new Color(246, 198, 36));
@@ -1295,11 +905,6 @@ public class PickASeat {
 		panelw.add(btn77);
 		
 		JButton btn78 = new JButton("");
-		btn78.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn78.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn78.setBackground(new Color(246, 198, 36));
@@ -1310,11 +915,6 @@ public class PickASeat {
 		panelw.add(btn78);
 		
 		JButton btn79 = new JButton("");
-		btn79.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn79.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn79.setBackground(new Color(246, 198, 36));
@@ -1325,11 +925,6 @@ public class PickASeat {
 		panelw.add(btn79);
 		
 		JButton btn80 = new JButton("");
-		btn80.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn80.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn80.setBackground(new Color(246, 198, 36));
@@ -1340,11 +935,6 @@ public class PickASeat {
 		panelw.add(btn80);
 		
 		JButton btn81 = new JButton("");
-		btn81.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn81.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn81.setBackground(new Color(246, 198, 36));
@@ -1355,11 +945,6 @@ public class PickASeat {
 		panelw.add(btn81);
 		
 		JButton btn82 = new JButton("");
-		btn82.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn82.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn82.setBackground(new Color(246, 198, 36));
@@ -1370,11 +955,6 @@ public class PickASeat {
 		panelw.add(btn82);
 		
 		JButton btn83 = new JButton("");
-		btn83.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn83.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn83.setBackground(new Color(246, 198, 36));
@@ -1385,11 +965,6 @@ public class PickASeat {
 		panelw.add(btn83);
 		
 		JButton btn84 = new JButton("");
-		btn84.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn84.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn84.setBackground(new Color(246, 198, 36));
@@ -1400,11 +975,6 @@ public class PickASeat {
 		panelw.add(btn84);
 		
 		JButton btn85 = new JButton("");
-		btn85.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn85.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn85.setBackground(new Color(246, 198, 36));
@@ -1415,11 +985,6 @@ public class PickASeat {
 		panelw.add(btn85);
 		
 		JButton btn86 = new JButton("");
-		btn86.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn86.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn86.setBackground(new Color(246, 198, 36));
@@ -1430,11 +995,6 @@ public class PickASeat {
 		panelw.add(btn86);
 		
 		JButton btn87 = new JButton("");
-		btn87.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn87.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn87.setBackground(new Color(246, 198, 36));
@@ -1445,11 +1005,6 @@ public class PickASeat {
 		panelw.add(btn87);
 		
 		JButton btn88 = new JButton("");
-		btn88.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn88.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn88.setBackground(new Color(246, 198, 36));
@@ -1460,11 +1015,6 @@ public class PickASeat {
 		panelw.add(btn88);
 		
 		JButton btn89 = new JButton("");
-		btn89.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn89.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn89.setBackground(new Color(246, 198, 36));
@@ -1475,11 +1025,6 @@ public class PickASeat {
 		panelw.add(btn89);
 		
 		JButton btn90 = new JButton("");
-		btn90.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn90.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn90.setBackground(new Color(246, 198, 36));
@@ -1490,11 +1035,6 @@ public class PickASeat {
 		panelw.add(btn90);
 		
 		JButton btn92 = new JButton("");
-		btn92.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn92.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn92.setBackground(new Color(246, 198, 36));
@@ -1505,11 +1045,6 @@ public class PickASeat {
 		panelw.add(btn92);
 		
 		JButton btn93 = new JButton("");
-		btn93.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn93.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn93.setBackground(new Color(246, 198, 36));
@@ -1520,11 +1055,6 @@ public class PickASeat {
 		panelw.add(btn93);
 		
 		JButton btn94 = new JButton("");
-		btn94.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn94.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn94.setBackground(new Color(246, 198, 36));
@@ -1535,11 +1065,6 @@ public class PickASeat {
 		panelw.add(btn94);
 		
 		JButton btn95 = new JButton("");
-		btn95.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn95.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn95.setBackground(new Color(246, 198, 36));
@@ -1550,11 +1075,6 @@ public class PickASeat {
 		panelw.add(btn95);
 		
 		JButton btn96 = new JButton("");
-		btn96.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn96.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn96.setBackground(new Color(246, 198, 36));
@@ -1565,11 +1085,6 @@ public class PickASeat {
 		panelw.add(btn96);
 		
 		JButton btn97 = new JButton("");
-		btn97.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn97.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn97.setBackground(new Color(246, 198, 36));
@@ -1580,11 +1095,6 @@ public class PickASeat {
 		panelw.add(btn97);
 		
 		JButton btn98 = new JButton("");
-		btn98.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn98.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn98.setBackground(new Color(246, 198, 36));
@@ -1595,11 +1105,6 @@ public class PickASeat {
 		panelw.add(btn98);
 		
 		JButton btn99 = new JButton("");
-		btn99.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn99.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn99.setBackground(new Color(246, 198, 36));
@@ -1610,11 +1115,6 @@ public class PickASeat {
 		panelw.add(btn99);
 		
 		JButton btn100 = new JButton("");
-		btn100.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn100.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn100.setBackground(new Color(246, 198, 36));
@@ -1625,11 +1125,6 @@ public class PickASeat {
 		panelw.add(btn100);
 		
 		JButton btn91 = new JButton("");
-		btn91.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btn91.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn91.setBackground(new Color(246, 198, 36));
@@ -1640,10 +1135,6 @@ public class PickASeat {
 		panelw.add(btn91);
 		
 		JButton btn_reserve = new JButton("Reserve");
-		btn_reserve.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn_reserve.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

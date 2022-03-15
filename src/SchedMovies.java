@@ -1,10 +1,21 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
 
 public class SchedMovies {
 
 	JFrame frame;
+	static JTable table;
+	JScrollPane reservePane;
 
 	/**
 	 * Launch the application.
@@ -27,7 +38,51 @@ public class SchedMovies {
 	 */
 	public SchedMovies() {
 		initialize();
+		updateDB();
+		}
+	
+	
+      public static void updateDB() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM SchedMovies";
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector columnData = new Vector();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("MovieTitle"));
+					columnData.add(rs.getString("StartDate"));
+					columnData.add(rs.getString("EndDate"));
+					columnData.add(rs.getString("Price"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
 	}
+	
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+            +"databaseName = SchedMovies;"
+            +"username = sa;"
+            +"password = markangelo12;"
+            + ";encrypt=true;trustServerCertificate=true;";
 
 	/**
 	 * Initialize the contents of the frame.
@@ -111,6 +166,20 @@ public class SchedMovies {
 		menuBar.setBackground(new Color(247, 165, 35));
 		menuBar.setBounds(735, 10, 263, 43);
 		frame.getContentPane().add(menuBar);
+		
+		reservePane = new JScrollPane();
+		reservePane.setBounds(247, 181, 685, 210);
+		frame.getContentPane().add(reservePane);
+		
+		table = new JTable();
+		reservePane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					 "Movie", "Start Date", "End Date", "Price"
+			}
+		));
 		
 		JMenu user_account = new JMenu("   Admin   ");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));

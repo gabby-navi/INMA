@@ -8,9 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,10 +26,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class ReservationDetails {
 
-	private JFrame frame;
+	 JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -44,8 +56,56 @@ public class ReservationDetails {
 	 */
 	public ReservationDetails() {
 		initialize();
+		updateDB();
 	}
 
+    public static void updateDB() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM EmpReservationDetails";
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector<String> columnData = new Vector<String>();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("CustomerNo"));
+					columnData.add(rs.getString("Movie"));
+					columnData.add(rs.getString("ShowingTime"));
+					columnData.add(rs.getString("NumOSeat"));
+					columnData.add(rs.getString("TotalPrice"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(SQLException ex){
+          JOptionPane.showMessageDialog(null, ex);
+      }
+	}
+	
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+          +"databaseName = SchedMovies;"
+          +"username = gelo;"
+          +"password = Lighttron#@!123;"
+          +";encrypt=true;"
+          +"trustServerCertificate=true;";
+	
+	private static JTable table;
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -56,11 +116,63 @@ public class ReservationDetails {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JButton remove = new JButton("Remove");
+		remove.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		remove.setFont(new Font("Poppins", Font.BOLD, 10));
+		remove.setBorderPainted(false);
+		remove.setBackground(new Color(246, 198, 36));
+		remove.setBounds(844, 464, 110, 35);
+		frame.getContentPane().add(remove);
+		
+		JScrollPane reservePane = new JScrollPane();
+		reservePane.setBounds(43, 187, 911, 203);
+		frame.getContentPane().add(reservePane);
+		
+		table = new JTable();
+		reservePane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"Customer No.", "Movie", "Time", "Number of seat", "Total Price"
+			}
+		));
+		
 		JLabel lbl3 = new JLabel("Today");
 		lbl3.setForeground(new Color(255, 255, 255));
 		lbl3.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 23));
 		lbl3.setBounds(87, 65, 95, 43);
 		frame.getContentPane().add(lbl3);
+		
+		JButton view_detail = new JButton("View Details");
+		view_detail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		view_detail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ReservationOverview ro = new ReservationOverview();
+				ro.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		view_detail.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		view_detail.setBorderPainted(false);
+		view_detail.setFont(new Font("Poppins", Font.BOLD, 10));
+		view_detail.setBackground(new Color(246, 198, 36));
+		view_detail.setBounds(681, 464, 110, 35);
+		frame.getContentPane().add(view_detail);
 		
 		JLabel lbl4 = new JLabel("February 16, 2022");
 		lbl4.setForeground(new Color(255, 255, 255));
@@ -81,7 +193,7 @@ public class ReservationDetails {
 				
 				SchedMovies sm = new SchedMovies();
                 sm.frame.setVisible(true);
-                frame.dispose();
+                getFrame().dispose();
 			}
 		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -119,7 +231,7 @@ public class ReservationDetails {
 				if (exitconfirmation == JOptionPane.YES_OPTION) {
 					SignIn signIn = new SignIn();
 					signIn.frame.setVisible(true);
-					frame.dispose();
+					getFrame().dispose();
 				}			
 			}
 		});
@@ -133,4 +245,11 @@ public class ReservationDetails {
 		frame.getContentPane().add(bg);
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 }

@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
@@ -34,8 +35,8 @@ public class DetailsEdit {
 	Date start_date, end_date;
 	double movie_price;
 	int cinema_num;
+	int seat_num = 100;
 	JComboBox cinemaN, times;
-	int seat_num;
 	String selectedImagePath = null;
 	JMenu user_account;
 
@@ -84,35 +85,7 @@ public class DetailsEdit {
 		frame.getContentPane().add(panelo);
 		panelo.setLayout(null);
 		
-		JButton btn_dash = new JButton("Dashboard");
-		btn_dash.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AdminDash ad = new AdminDash();
-                ad.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
-		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(247, 165, 35));
-		btn_dash.setBorderPainted(false);
-		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_dash.setFocusPainted(false);
-		btn_dash.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_dash.setFont(new Font("Poppins SemiBold", Font.PLAIN, 15));
-		btn_dash.setBounds(5, 79, 194, 40);
-		panelo.add(btn_dash);
-		
 		JButton btn_sched = new JButton("Scheduled Movies");
-		btn_sched.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
 		btn_sched.setForeground(Color.WHITE);
 		btn_sched.setBackground(new Color(246, 198, 36));
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -120,16 +93,38 @@ public class DetailsEdit {
 		btn_sched.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_sched.setFocusPainted(false);
 		btn_sched.setBorderPainted(false);
-		btn_sched.setBounds(5, 126, 194, 40);
+		btn_sched.setBounds(5, 79, 194, 40);
 		panelo.add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeDetails empD = new EmployeeDetails();
-				empD.frame.setVisible(true);
-				frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						EmployeeDetails ed = new EmployeeDetails();
+						ed.user_account.setText(NameD);
+						ed.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
@@ -138,8 +133,25 @@ public class DetailsEdit {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(247, 165, 35));
-		btn_employees.setBounds(5, 173, 194, 40);
+		btn_employees.setBounds(5, 126, 194, 40);
 		panelo.add(btn_employees);
+		
+		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reservations r = new Reservations();
+				r.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_reservations.setForeground(Color.WHITE);
+		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_reservations.setFocusPainted(false);
+		btn_reservations.setBorderPainted(false);
+		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBounds(5, 173, 194, 40);
+		panelo.add(btn_reservations);
 		
 		JLabel lbl_logo = new JLabel("");
 		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("/images/blue-logo.png")));
@@ -183,9 +195,31 @@ public class DetailsEdit {
 		lblback.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
-                frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText(NameD);
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -217,27 +251,28 @@ public class DetailsEdit {
 		        java.sql.Date date2 = java.sql.Date.valueOf(formattedDate2);
 		        end_date = date2;
 		        
-		        if (cinemaN.getSelectedItem() == "1") {
-		        	seat_num = 100;
-		        }
-		        else if (cinemaN.getSelectedItem() == "2") {
-		        	seat_num = 150;
-		        }
-		        else if (cinemaN.getSelectedItem() == "3") {
-		        	seat_num = 250;
-		        }
-		        else if (cinemaN.getSelectedItem() == "4") {
-		        	seat_num = 200;
-		        }
+                String num = "1234567890";
+                String mID = "";
+                
+                for(int i = 0; i < 4; i++) {
+                    int rand = (int)(1 * Math.random());
+                    
+                    switch(rand) {
+                    case 0:
+                    	rand = (int)(num.length() * Math.random());
+                        mID += String.valueOf(num.charAt(rand));
+                    }
+                }
 		        
 				try (Connection connection = DriverManager.getConnection(connectionUrl)){
 					
-					String query1 = "INSERT INTO SchedMovies (MovieTitle) VALUES (?)";
+					String query1 = "INSERT INTO SchedMovies (MovieID, MovieTitle) VALUES (?, ?)";
 					PreparedStatement ps = connection.prepareStatement(query1);
 					
-					ps.setString(1, textField_title.getText());
+					ps.setString(1, mID);
+					ps.setString(2, textField_title.getText());
 					
-					String query2 = "INSERT INTO Cinemas (StartDate, EndDate, Price, CinemaNo, SeatNo, ShowTime, MovieDesc, MovieImg, MovieTitle)"
+					String query2 = "INSERT INTO Cinemas (StartDate, EndDate, Price, CinemaNo, SeatNo, ShowTime, MovieDesc, MovieImg, MovieID)"
 							+ "VALUES (?,?,?,?,?,?,?,?,?)";
 					
 					InputStream inputS =  new FileInputStream(selectedImagePath);
@@ -251,7 +286,7 @@ public class DetailsEdit {
 					pst.setString(6, (String) times.getSelectedItem());
 					pst.setString(7, txt_area.getText());
 					pst.setBlob(8, inputS);
-					pst.setString(9, textField_title.getText());
+					pst.setString(9, mID);
 					
 					int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
 						if (input == JOptionPane.YES_OPTION) {

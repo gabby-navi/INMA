@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,11 +38,14 @@ public class AdminOverview {
 	Date start_date, end_date;
 	double movie_price;
 	int cinema_num;
-	int seat_num = 150;
+	int seat_num = 100;
 	JDateChooser startDate;
 	JDateChooser endDate;
 	JButton cancel_edit, remove_movie, save_edit, edit_employee, btn_change;
-	JComboBox cinemaN, times, cinemaN2, times2;
+	static JComboBox cinemaN;
+	JComboBox times;
+	JComboBox cinemaN2;
+	JComboBox times2;
 	JButton add_cine, add_cinema, cancel_addcine;
 	String selectedImagePath = null;
 	JMenu user_account;
@@ -91,26 +95,6 @@ public class AdminOverview {
 		frame.getContentPane().add(panelo);
 		panelo.setLayout(null);
 		
-		JButton btn_dash = new JButton("Dashboard");
-		btn_dash.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				AdminDash ad = new AdminDash();
-                ad.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
-		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(247, 165, 35));
-		btn_dash.setBorderPainted(false);
-		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_dash.setFocusPainted(false);
-		btn_dash.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_dash.setFont(new Font("Poppins SemiBold", Font.PLAIN, 15));
-		btn_dash.setBounds(5, 79, 194, 40);
-		panelo.add(btn_dash);
-		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.setForeground(Color.WHITE);
 		btn_sched.setBackground(new Color(246, 198, 36));
@@ -119,16 +103,38 @@ public class AdminOverview {
 		btn_sched.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_sched.setFocusPainted(false);
 		btn_sched.setBorderPainted(false);
-		btn_sched.setBounds(5, 126, 194, 40);
+		btn_sched.setBounds(5, 79, 194, 40);
 		panelo.add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeDetails empD = new EmployeeDetails();
-				empD.frame.setVisible(true);
-				frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						EmployeeDetails ed = new EmployeeDetails();
+						ed.user_account.setText(NameD);
+						ed.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
@@ -137,8 +143,25 @@ public class AdminOverview {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(247, 165, 35));
-		btn_employees.setBounds(5, 173, 194, 40);
+		btn_employees.setBounds(5, 126, 194, 40);
 		panelo.add(btn_employees);
+		
+		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reservations r = new Reservations();
+				r.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_reservations.setForeground(Color.WHITE);
+		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_reservations.setFocusPainted(false);
+		btn_reservations.setBorderPainted(false);
+		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBounds(5, 173, 194, 40);
+		panelo.add(btn_reservations);
 		
 		JLabel lbl_logo = new JLabel("");
 		lbl_logo.setIcon(new ImageIcon(this.getClass().getResource("/images/logo.png")));
@@ -183,9 +206,30 @@ public class AdminOverview {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				SchedMovies sm = new SchedMovies();
-                sm.frame.setVisible(true);
-                frame.dispose();
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText(NameD);
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -214,6 +258,7 @@ public class AdminOverview {
 				startDate.setEnabled(true);
 				endDate.setEnabled(true);
 				
+				add_cine.setVisible(false);
 				save_edit.setVisible(true);
 				edit_employee.setVisible(false);
 				remove_movie.setVisible(false);
@@ -245,6 +290,7 @@ public class AdminOverview {
 				startDate.setEnabled(false);
 				endDate.setEnabled(false);
 				
+				add_cine.setVisible(true);
 				save_edit.setVisible(false);
 				edit_employee.setVisible(true);
 				remove_movie.setVisible(true);
@@ -304,19 +350,6 @@ public class AdminOverview {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel)SchedMovies.table.getModel();
 				int selectedRow = SchedMovies.table.getSelectedRow();
-				
-				if (cinemaN.getSelectedItem() == "1") {
-		        	seat_num = 100;
-		        }
-		        else if (cinemaN.getSelectedItem() == "2") {
-		        	seat_num = 150;
-		        }
-		        else if (cinemaN.getSelectedItem() == "3") {
-		        	seat_num = 250;
-		        }
-		        else if (cinemaN.getSelectedItem() == "4") {
-		        	seat_num = 200;
-		        }
 		        
 		        java.util.Date startD = startDate.getDate();
 		        java.util.Date endD = endDate.getDate();
@@ -324,24 +357,32 @@ public class AdminOverview {
 		        String strDate = DateFormat.getDateInstance().format(startD);
 		        String eDate = DateFormat.getDateInstance().format(endD);
 				
-				int id = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-//		        String selected = model.getValueAt(selectedRow, 0).toString();
-				
-				String sqlQuery = "UPDATE Cinemas SET StartDate=?, EndDate=?, Price=?, CinemaNo=?, SeatNo=?, ShowTime=?,"
-						+ "MovieDesc=? WHERE id=?";
-				
-				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+		        String cinemaNo = (String) cinemaN.getSelectedItem();
+		        String showTime = (String) times.getSelectedItem();
+		        
+		        try (Connection connection = DriverManager.getConnection(connectionUrl);) { 
+		        
+		        String sql = "SELECT MovieID FROM SchedMovies WHERE MovieTitle='" + textField_title.getText() + "'";
+		        
+		        PreparedStatement ps = connection.prepareStatement(sql);
+		        ResultSet rs = ps.executeQuery();
+		        
+		        String id = "";
+		        while (rs.next()) {
+		        	id = rs.getString("MovieID");
+		        }
+		        
+				String sqlQuery = "UPDATE Cinemas SET StartDate=?, EndDate=?, Price=?, CinemaNo=?, SeatNo=?, ShowTime=?, MovieDesc=? WHERE MovieID='" + id + "'";      
 					
-					PreparedStatement ps = connection.prepareStatement(sqlQuery);
-					
+				ps = connection.prepareStatement(sqlQuery);
+				
 					ps.setString(1, strDate);
 					ps.setString(2, eDate);
 					ps.setDouble(3, movie_price = Double.parseDouble(textField_price.getText()));
-					ps.setString(4, (String) cinemaN2.getSelectedItem());
+					ps.setString(4, cinemaNo);
 					ps.setInt(5, seat_num);
-					ps.setString(6, (String) times2.getSelectedItem());
+					ps.setString(6, showTime);
 					ps.setString(7, txt_area.getText());
-					ps.setInt(8, id);
 
 					ps.executeUpdate();
 			           
@@ -351,9 +392,11 @@ public class AdminOverview {
 					SchedMovies sm = new SchedMovies();
 	                sm.frame.setVisible(true);
 	                frame.dispose();
-				}
+				
+		        }
 				
 				catch(HeadlessException | SQLException ex){
+					ex.printStackTrace();
 		            JOptionPane.showMessageDialog(null, ex);
 		        } 
 			}
@@ -560,45 +603,45 @@ public class AdminOverview {
         
         add_cinema = new JButton("Add Cinema");
         add_cinema.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-		        if (cinemaN.getSelectedItem() == "1") {
-		        	seat_num = 100;
-		        }
-		        else if (cinemaN.getSelectedItem() == "2") {
-		        	seat_num = 150;
-		        }
-		        else if (cinemaN.getSelectedItem() == "3") {
-		        	seat_num = 250;
-		        }
-		        else if (cinemaN.getSelectedItem() == "4") {
-		        	seat_num = 200;
-		        }
-		        
-		        java.util.Date startD = startDate.getDate();
-		        java.util.Date endD = endDate.getDate();
-		        
-		        String strDate = DateFormat.getDateInstance().format(startD);
-		        String eDate = DateFormat.getDateInstance().format(endD);
-		        
-				try (Connection connection = DriverManager.getConnection(connectionUrl)){
+        	public void actionPerformed(ActionEvent e) {        
+			        java.util.Date startD = startDate.getDate();
+			        java.util.Date endD = endDate.getDate();
+			        
+			        String strDate = DateFormat.getDateInstance().format(startD);
+			        String eDate = DateFormat.getDateInstance().format(endD);
+			        
+			        String cinemaNo = (String) cinemaN2.getSelectedItem();
+			        String showTime = (String) times2.getSelectedItem();
+			        
+			        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+			        
+			        String sql = "SELECT MovieID FROM SchedMovies WHERE MovieTitle='" + textField_title.getText() + "'";
+			        
+			        PreparedStatement ps = connection.prepareStatement(sql);
+			        ResultSet rs = ps.executeQuery();
+			        
+			        String id = "";
+			        while (rs.next()) {
+			        	id = rs.getString("MovieID");
+			        }
 					
-					String query2 = "INSERT INTO Cinemas (StartDate, EndDate, Price, CinemaNo, SeatNo, ShowTime, MovieDesc, MovieTitle)"
-							+ "VALUES (?,?,?,?,?,?,?,?)";
+					String sqlQuery = "INSERT INTO Cinemas (MovieTitle, MovieDesc, StartDate, EndDate, CinemaNo, SeatNo, ShowTime, Price)"
+							+ "VALUES (?,?,?,?,?,?,?,?,?) WHERE MovieID='" + id + "'";
 					
-					PreparedStatement pst = connection.prepareStatement(query2);
+					ps = connection.prepareStatement(sqlQuery);
 					
-					pst.setString(1, strDate);
-					pst.setString(2, eDate);
-					pst.setDouble(3, movie_price = Double.parseDouble(textField_price.getText()));
-					pst.setString(4, (String) cinemaN2.getSelectedItem());
-					pst.setInt(5, seat_num);
-					pst.setString(6, (String) times2.getSelectedItem());
-					pst.setString(7, txt_area.getText());
-					pst.setString(8, textField_title.getText());
+					ps.setString(1, textField_title.getText());
+					ps.setString(2, txt_area.getText());
+					ps.setString(3, strDate);
+					ps.setString(4, eDate);
+					ps.setString(5, cinemaNo);
+					ps.setInt(6, seat_num);
+					ps.setString(7, showTime);
+					ps.setDouble(8, movie_price = Double.parseDouble(textField_price.getText()));
 					
 					int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
 						if (input == JOptionPane.YES_OPTION) {
-							  pst.executeUpdate();
+							  ps.executeUpdate();
 				              JOptionPane.showMessageDialog(null, "Added cinema successfully.");
 						}
 					}
@@ -611,7 +654,7 @@ public class AdminOverview {
 			        JOptionPane.showMessageDialog(null,x);
 			        x.printStackTrace();
 			        
-			    } 
+			    }    				
         	}
         });
         add_cinema.setVisible(false);

@@ -16,7 +16,7 @@ import javax.swing.table.TableModel;
 public class EmployeeDetails {
 
 	JFrame frame;
-	static JTable table;
+	static JTable tableE;
 	private JButton view_deets;
 	JMenu user_account;
 
@@ -61,7 +61,7 @@ public class EmployeeDetails {
 			
 			q = StData.getColumnCount();
 			
-			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			DefaultTableModel RecordTable = (DefaultTableModel)tableE.getModel();
 			RecordTable.setRowCount(0);
 			
 			while(rs.next()) {
@@ -111,34 +111,35 @@ public class EmployeeDetails {
 		blue_logo.setBounds(20, 18, 67, 46);
 		panel.add(blue_logo);
 		
-		JButton btn_dash = new JButton("Dashboard");
-		btn_dash.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AdminDash adminD = new AdminDash();
-				adminD.user_account.setText("Admin");
-				adminD.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
-		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(247, 165, 35));
-		btn_dash.setBorderPainted(false);
-		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_dash.setFocusPainted(false);
-		btn_dash.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_dash.setFont(new Font("Poppins SemiBold", Font.PLAIN, 15));
-		btn_dash.setBounds(5, 79, 194, 40);
-		panel.add(btn_dash);
-		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SchedMovies sm = new SchedMovies();
-				sm.user_account.setText("Admin");
-                sm.frame.setVisible(true);
-                frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText(NameD);
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -148,7 +149,7 @@ public class EmployeeDetails {
 		btn_sched.setFocusPainted(false);
 		btn_sched.setBorderPainted(false);
 		btn_sched.setBackground(new Color(247, 165, 35));
-		btn_sched.setBounds(5, 126, 194, 40);
+		btn_sched.setBounds(5, 79, 194, 40);
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
@@ -158,8 +159,25 @@ public class EmployeeDetails {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(246, 198, 36));
-		btn_employees.setBounds(5, 173, 194, 40);
+		btn_employees.setBounds(5, 126, 194, 40);
 		panel.add(btn_employees);
+		
+		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reservations r = new Reservations();
+				r.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_reservations.setForeground(Color.WHITE);
+		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_reservations.setFocusPainted(false);
+		btn_reservations.setBorderPainted(false);
+		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBounds(5, 173, 194, 40);
+		panel.add(btn_reservations);
 		
 		JLabel lbl_employees = new JLabel("Employees");
 		lbl_employees.setForeground(Color.WHITE);
@@ -209,10 +227,31 @@ public class EmployeeDetails {
 		add_employee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeNew empNew = new EmployeeNew();
-				empNew.user_account.setText("Admin");
-				empNew.frame.setVisible(true);
-				frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						EmployeeNew empNew = new EmployeeNew();
+						empNew.user_account.setText(NameD);
+						empNew.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		add_employee.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -228,10 +267,10 @@ public class EmployeeDetails {
 		scrollPane.setBounds(233, 132, 747, 188);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setFont(new Font("Poppins", Font.PLAIN, 12));
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tableE = new JTable();
+		tableE.setFont(new Font("Poppins", Font.PLAIN, 12));
+		scrollPane.setViewportView(tableE);
+		tableE.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -242,8 +281,8 @@ public class EmployeeDetails {
 		JButton remove = new JButton("Remove");
 		remove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel)table.getModel();
-				int selectedRow = table.getSelectedRow();
+				DefaultTableModel model = (DefaultTableModel)tableE.getModel();
+				int selectedRow = tableE.getSelectedRow();
 				
 				String selected = model.getValueAt(selectedRow, 0).toString();
 				
@@ -278,8 +317,8 @@ public class EmployeeDetails {
 		view_deets = new JButton("View Details");
 		view_deets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int index = table.getSelectedRow();
-                TableModel model = table.getModel();
+				int index = tableE.getSelectedRow();
+                TableModel model = tableE.getModel();
 				
 				if (index == -1) {
 					JOptionPane.showMessageDialog(null, "No Row Selected");

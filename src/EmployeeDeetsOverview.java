@@ -75,34 +75,35 @@ public class EmployeeDeetsOverview {
 		blue_logo.setBounds(20, 18, 67, 46);
 		panel.add(blue_logo);
 		
-		JButton btn_dash = new JButton("Dashboard");
-		btn_dash.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AdminDash adminD = new AdminDash();
-				adminD.user_account.setText("Admin");
-				adminD.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
-		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(247, 165, 35));
-		btn_dash.setBorderPainted(false);
-		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_dash.setFocusPainted(false);
-		btn_dash.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_dash.setFont(new Font("Poppins SemiBold", Font.PLAIN, 15));
-		btn_dash.setBounds(5, 79, 194, 40);
-		panel.add(btn_dash);
-		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SchedMovies sm = new SchedMovies();
-				sm.user_account.setText("Admin");
-                sm.frame.setVisible(true);
-                frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText(NameD);
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -112,7 +113,7 @@ public class EmployeeDeetsOverview {
 		btn_sched.setFocusPainted(false);
 		btn_sched.setBorderPainted(false);
 		btn_sched.setBackground(new Color(247, 165, 35));
-		btn_sched.setBounds(5, 126, 194, 40);
+		btn_sched.setBounds(5, 79, 194, 40);
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
@@ -122,16 +123,55 @@ public class EmployeeDeetsOverview {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(246, 198, 36));
-		btn_employees.setBounds(5, 173, 194, 40);
+		btn_employees.setBounds(5, 126, 194, 40);
 		panel.add(btn_employees);
+		
+		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reservations r = new Reservations();
+				r.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_reservations.setForeground(Color.WHITE);
+		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_reservations.setFocusPainted(false);
+		btn_reservations.setBorderPainted(false);
+		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBounds(5, 173, 194, 40);
+		panel.add(btn_reservations);
 		
 		JLabel lblback = new JLabel("");
 		lblback.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeDetails empDeets = new EmployeeDetails();
-                empDeets.frame.setVisible(true);
-                frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						EmployeeDetails ed = new EmployeeDetails();
+						ed.user_account.setText(NameD);
+						ed.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		lblback.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -315,8 +355,8 @@ public class EmployeeDeetsOverview {
 		remove_employee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.table.getModel();
-				int selectedRow = EmployeeDetails.table.getSelectedRow();
+				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.tableE.getModel();
+				int selectedRow = EmployeeDetails.tableE.getSelectedRow();
 				
 				String selected = model.getValueAt(selectedRow, 0).toString();
 				
@@ -355,8 +395,8 @@ public class EmployeeDeetsOverview {
 		save_edit = new JButton("Save");
 		save_edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.table.getModel();
-				int selectedRow = EmployeeDetails.table.getSelectedRow();
+				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.tableE.getModel();
+				int selectedRow = EmployeeDetails.tableE.getSelectedRow();
 				
 				String selected = model.getValueAt(selectedRow, 0).toString();
 				

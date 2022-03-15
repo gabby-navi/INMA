@@ -57,7 +57,7 @@ public class SchedMovies {
 		
 		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 			
-			String sqlQuery = "SELECT * FROM Cinemas";
+			String sqlQuery = "SELECT * FROM SchedMovies JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID";
 			PreparedStatement ps = connection.prepareStatement(sqlQuery);
 			
 			ResultSet rs = ps.executeQuery();
@@ -65,7 +65,7 @@ public class SchedMovies {
 			
 			q = StData.getColumnCount();
 			
-			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			DefaultTableModel RecordTable = (DefaultTableModel)SchedMovies.table.getModel();
 			RecordTable.setRowCount(0);
 			
 			while(rs.next()) {
@@ -105,26 +105,6 @@ public class SchedMovies {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btn_dash = new JButton("Dashboard");
-		btn_dash.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AdminDash admin_dash = new AdminDash();
-				admin_dash.user_account.setText("Admin");
-				admin_dash.frame.setVisible(true);
-				frame.dispose();
-			}
-		});
-		btn_dash.setForeground(Color.WHITE);
-		btn_dash.setBackground(new Color(247, 165, 35));
-		btn_dash.setBorderPainted(false);
-		btn_dash.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_dash.setFocusPainted(false);
-		btn_dash.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_dash.setFont(new Font("Poppins SemiBold", Font.PLAIN, 15));
-		btn_dash.setBounds(5, 79, 194, 40);
-		frame.getContentPane().add(btn_dash);
-		
 		JButton btn_sched = new JButton("Scheduled Movies");
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_sched.setHorizontalAlignment(SwingConstants.LEFT);
@@ -133,17 +113,38 @@ public class SchedMovies {
 		btn_sched.setFocusPainted(false);
 		btn_sched.setBorderPainted(false);
 		btn_sched.setBackground(new Color(246, 198, 36));
-		btn_sched.setBounds(5, 126, 194, 40);
+		btn_sched.setBounds(5, 79, 194, 40);
 		frame.getContentPane().add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeDetails empD = new EmployeeDetails();
-				empD.user_account.setText("Admin");
-				empD.frame.setVisible(true);
-				frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						EmployeeDetails empD = new EmployeeDetails();
+						empD.user_account.setText(NameD);
+						empD.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
@@ -152,7 +153,7 @@ public class SchedMovies {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(247, 165, 35));
-		btn_employees.setBounds(5, 173, 194, 40);
+		btn_employees.setBounds(5, 126, 194, 40);
 		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
@@ -165,6 +166,16 @@ public class SchedMovies {
 		panel.setBackground(new Color(247, 165, 35));
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+		
+		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_reservations.setForeground(Color.WHITE);
+		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
+		btn_reservations.setFocusPainted(false);
+		btn_reservations.setBorderPainted(false);
+		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBounds(5, 173, 194, 40);
+		panel.add(btn_reservations);
 		
 		JLabel lbl_schedmovies = new JLabel("Scheduled Movies");
 		lbl_schedmovies.setForeground(Color.WHITE);
@@ -194,6 +205,7 @@ public class SchedMovies {
 					 "Movie", "Cinema Number", "Time", "Start Date", "End Date", "Price"
 			}
 		));
+		
 		
 		user_account = new JMenu("");
 		user_account.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/user-account.png")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
@@ -229,12 +241,34 @@ public class SchedMovies {
 		add_movie.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DetailsEdit details_edit = new DetailsEdit();
-				details_edit.user_account.setText("Admin");
-				details_edit.frame.setVisible(true);
-				frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						DetailsEdit details_edit = new DetailsEdit();
+						details_edit.user_account.setText(NameD);
+						details_edit.frame.setVisible(true);
+						frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
+		
 		add_movie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add_movie.setBorderPainted(false);
 		add_movie.setFont(new Font("Poppins", Font.BOLD, 10));
@@ -279,7 +313,8 @@ public class SchedMovies {
 				
 				String selected = model.getValueAt(index, 0).toString();
 				
-				String sqlQuery = "SELECT * FROM Cinemas WHERE MovieTitle='" + selected + "'";
+				String sqlQuery = "SELECT * FROM SchedMovies\r\n"
+						+ "JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID WHERE MovieTitle='" + selected + "'";
 				
 				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 					
@@ -326,18 +361,25 @@ public class SchedMovies {
 				
 				String selected = model.getValueAt(selectedRow, 0).toString();
 				
-				String sqlQuery = "DELETE FROM Cinemas WHERE MovieTitle='" + selected + "'";
-				String sqlQuery2 = "DELETE FROM SchedMovies WHERE MovieTitle='" + selected + "'";
-				
-				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {  
 					
-					PreparedStatement ps = connection.prepareStatement(sqlQuery);
-					PreparedStatement pst = connection.prepareStatement(sqlQuery2);
+					String sqlSelect = "SELECT MovieID FROM SchedMovies WHERE MovieTitle='" + selected + "'";
 					
+					PreparedStatement ps = connection.prepareStatement(sqlSelect);
+					ResultSet rs = ps.executeQuery();
+					
+					String id = "";
+			        while (rs.next()) {
+			        	id = rs.getString("MovieID");
+			        }
+					
+			        String sqlQuery = "DELETE FROM Cinemas WHERE MovieID='" + id + "'"; 
+					
+					ps = connection.prepareStatement(sqlQuery);
+			        
 					int deleteItem = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this movie?", "WARNING", JOptionPane.YES_NO_OPTION); {
 						if (deleteItem == JOptionPane.YES_OPTION) {
 							ps.executeUpdate();
-							pst.executeUpdate();
 							JOptionPane.showMessageDialog(null, "Deleted successfully.");
 							updateDB();
 						}

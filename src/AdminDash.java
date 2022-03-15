@@ -18,9 +18,10 @@ public class AdminDash {
 
 	JFrame frame;
 	static JTable table;
-	JScrollPane moviePane, scrollPane;
+	static JTable tableE;
+	JScrollPane moviePane, reservePane;
 	JMenu user_account;
-	private JButton view_deetsSM;
+	private JButton view_deetsSM, view_deetsR;
 
 
 	/**
@@ -44,87 +45,87 @@ public class AdminDash {
 	 */
 	public AdminDash() {
 		initialize();
-		updateDBMovies();
-		updateDBEmps();
+		SchedMovies.updateDB();
+		EmployeeDetails.updateDB();
 	}
 	
 	AdminOverview ao = new AdminOverview();
 	EmployeeDeetsOverview edo = new EmployeeDeetsOverview();
 	
-	public static void updateDBMovies() {
-		
-		int q, i;
-		
-		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-			
-			String sqlQuery = "SELECT * FROM Cinemas";
-			PreparedStatement ps = connection.prepareStatement(sqlQuery);
-			
-			ResultSet rs = ps.executeQuery();
-			ResultSetMetaData StData = rs.getMetaData();
-			
-			q = StData.getColumnCount();
-			
-			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
-			RecordTable.setRowCount(0);
-			
-			while(rs.next()) {
-				Vector columnData = new Vector();
-				
-				for (i = 1; i <= q; i++) {
-					columnData.add(rs.getString("MovieTitle"));
-					columnData.add(rs.getString("CinemaNo"));
-					columnData.add(rs.getString("ShowTime"));
-					columnData.add(rs.getString("StartDate"));
-					columnData.add(rs.getString("EndDate"));
-					columnData.add(rs.getString("Price"));
-				}
-				
-				RecordTable.addRow(columnData);
-			}
-			
-		}
-		catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex);
-        }
-	}
-	
-	public static void updateDBEmps() {
-		
-		int q, i;
-		
-		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-			
-			String sqlQuery = "SELECT * FROM EmpAccounts";
-			PreparedStatement ps = connection.prepareStatement(sqlQuery);
-			
-			ResultSet rs = ps.executeQuery();
-			ResultSetMetaData StData = rs.getMetaData();
-			
-			q = StData.getColumnCount();
-			
-			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
-			RecordTable.setRowCount(0);
-			
-			while(rs.next()) {
-				Vector columnData = new Vector();
-				
-				for (i = 1; i <= q; i++) {
-					columnData.add(rs.getString("EmpID"));
-					columnData.add(rs.getString("EmpName"));
-					columnData.add(rs.getString("EmpContactNo"));
-					columnData.add(rs.getString("EmpEmail"));
-					columnData.add(rs.getString("EmpPassword"));
-				}
-				
-				RecordTable.addRow(columnData);
-			}
-			
-		}
-		catch(HeadlessException | SQLException ex){
-            JOptionPane.showMessageDialog(null, ex);
-        }
-	}
+//	public static void updateDBMovies() {
+//		
+//		int q, i;
+//		
+//		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+//			
+//			String sqlQuery = "SELECT * FROM SchedMovies JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID";
+//			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+//			
+//			ResultSet rs = ps.executeQuery();
+//			ResultSetMetaData StData = rs.getMetaData();
+//			
+//			q = StData.getColumnCount();
+//			
+//			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+//			RecordTable.setRowCount(0);
+//			
+//			while(rs.next()) {
+//				Vector columnData = new Vector();
+//				
+//				for (i = 1; i <= q; i++) {
+//					columnData.add(rs.getString("MovieTitle"));
+//					columnData.add(rs.getString("CinemaNo"));
+//					columnData.add(rs.getString("ShowTime"));
+//					columnData.add(rs.getString("StartDate"));
+//					columnData.add(rs.getString("EndDate"));
+//					columnData.add(rs.getString("Price"));
+//				}
+//				
+//				RecordTable.addRow(columnData);
+//			}
+//			
+//		}
+//		catch(SQLException ex){
+//            JOptionPane.showMessageDialog(null, ex);
+//        }
+//	}
+//	
+//	public static void updateDBEmps() {
+//		
+//		int q, i;
+//		
+//		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+//			
+//			String sqlQuery = "SELECT * FROM EmpAccounts";
+//			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+//			
+//			ResultSet rs = ps.executeQuery();
+//			ResultSetMetaData StData = rs.getMetaData();
+//			
+//			q = StData.getColumnCount();
+//			
+//			DefaultTableModel RecordTable = (DefaultTableModel)tableE.getModel();
+//			RecordTable.setRowCount(0);
+//			
+//			while(rs.next()) {
+//				Vector columnData = new Vector();
+//				
+//				for (i = 1; i <= q; i++) {
+//					columnData.add(rs.getString("EmpID"));
+//					columnData.add(rs.getString("EmpName"));
+//					columnData.add(rs.getString("EmpContactNo"));
+//					columnData.add(rs.getString("EmpEmail"));
+//					columnData.add(rs.getString("EmpPassword"));
+//				}
+//				
+//				RecordTable.addRow(columnData);
+//			}
+//			
+//		}
+//		catch(HeadlessException | SQLException ex){
+//            JOptionPane.showMessageDialog(null, ex);
+//        }
+//	}
 	
   	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
 			+ "databaseName = MTRS;"
@@ -157,10 +158,31 @@ public class AdminDash {
 		btn_sched.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SchedMovies sm = new SchedMovies();
-				sm.user_account.setText("Admin");
-                sm.frame.setVisible(true);
-                frame.dispose();
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ps.setString(1, user_account.getText());
+					ResultSet rs = ps.executeQuery();
+					
+					// database variable
+					String NameD  = "";
+					
+					while (rs.next()) {
+						NameD = rs.getString("EmpName");
+					}
+					
+					if(user_account.getText().equals(NameD)){
+						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText(NameD);
+		                sm.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+				catch(SQLException x) {
+						x.printStackTrace();
+				}
 			}
 		});
 		btn_sched.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -177,10 +199,36 @@ public class AdminDash {
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EmployeeDetails empD = new EmployeeDetails();
-				empD.user_account.setText("Admin");
-				empD.frame.setVisible(true);
-				frame.dispose();
+				btn_dash.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+						try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+							
+							String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpName=?";
+							PreparedStatement ps = connection.prepareStatement(sqlQuery);
+							ps.setString(1, user_account.getText());
+							ResultSet rs = ps.executeQuery();
+							
+							// database variable
+							String NameD  = "";
+							
+							while (rs.next()) {
+								NameD = rs.getString("EmpName");
+							}
+							
+							if(user_account.getText().equals(NameD)){
+								EmployeeDetails empD = new EmployeeDetails();
+								empD.user_account.setText(NameD);
+								empD.frame.setVisible(true);
+								frame.dispose();
+							}
+						}
+						catch(SQLException x) {
+								x.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
@@ -255,23 +303,23 @@ public class AdminDash {
 		view_deetsSM = new JButton("View Details");
 		view_deetsSM.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				int index = table.getSelectedRow();
                 TableModel model = table.getModel();
 				
 				if (index == -1) {
 					JOptionPane.showMessageDialog(null, "No Row Selected");
 				}
-				else {					
+				else {					  
 					try {
 						String movie_title = model.getValueAt(index, 0).toString();
 						String cinemaNum = model.getValueAt(index, 1).toString();
 						String showtime = model.getValueAt(index, 2).toString();
-						java.util.Date start_date = new SimpleDateFormat("YYYY-MM-DD").parse((String)model.getValueAt(index, 3));
-						java.util.Date end_date = new SimpleDateFormat("YYYY-MM-DD").parse((String)model.getValueAt(index, 4));
+						java.util.Date start_date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(index, 3));
+						java.util.Date end_date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(index, 4));
 		                String price = model.getValueAt(index, 5).toString();
 		                
 		                ao.frame.setVisible(true);
+		                ao.user_account.setText("Admin");
 		                frame.dispose();
 		                
 		                ao.cinemaN.setSelectedItem(cinemaNum);
@@ -283,12 +331,13 @@ public class AdminDash {
 		                
 					} catch (ParseException e1) {
 						e1.printStackTrace();
-					} 
+					}  
 				}
 				
 				String selected = model.getValueAt(index, 0).toString();
 				
-				String sqlQuery = "SELECT * FROM Cinemas WHERE MovieTitle='" + selected + "'";
+				String sqlQuery = "SELECT * FROM SchedMovies\r\n"
+						+ "JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID WHERE MovieTitle='" + selected + "'";
 				
 				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 					
@@ -342,17 +391,17 @@ public class AdminDash {
 			}
 		));
 		
-		JLabel lbl_reservations = new JLabel("Employees");
-		lbl_reservations.setForeground(Color.WHITE);
-		lbl_reservations.setFont(new Font("Poppins", Font.BOLD, 16));
-		lbl_reservations.setBounds(235, 316, 159, 14);
-		frame.getContentPane().add(lbl_reservations);
+		JLabel lbl_employees = new JLabel("Employees");
+		lbl_employees.setForeground(Color.WHITE);
+		lbl_employees.setFont(new Font("Poppins", Font.BOLD, 16));
+		lbl_employees.setBounds(235, 316, 159, 14);
+		frame.getContentPane().add(lbl_employees);
 		
-		JButton view_deetsR = new JButton("View Details");
+		view_deetsR = new JButton("View Details");
 		view_deetsR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int index = table.getSelectedRow();
-                TableModel model = table.getModel();
+				int index = tableE.getSelectedRow();
+                TableModel model = tableE.getModel();
 				
 				if (index == -1) {
 					JOptionPane.showMessageDialog(null, "No Row Selected");
@@ -413,15 +462,15 @@ public class AdminDash {
 		view_deetsR.setBounds(859, 307, 121, 29);
 		frame.getContentPane().add(view_deetsR);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setFont(new Font("Poppins", Font.PLAIN, 12));
-		scrollPane.setBounds(233, 345, 747, 170);
-		frame.getContentPane().add(scrollPane);
+		reservePane = new JScrollPane();
+		reservePane.setFont(new Font("Poppins", Font.PLAIN, 12));
+		reservePane.setBounds(233, 345, 747, 170);
+		frame.getContentPane().add(reservePane);
 		
-		table = new JTable();
-		table.setFont(new Font("Poppins", Font.PLAIN, 12));
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tableE = new JTable();
+		tableE.setFont(new Font("Poppins", Font.PLAIN, 12));
+		reservePane.setViewportView(tableE);
+		tableE.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {

@@ -18,7 +18,7 @@ public class AdminDash {
 
 	JFrame frame;
 	static JTable table;
-	JScrollPane moviePane, reservePane;
+	JScrollPane moviePane, scrollPane;
 	JMenu user_account;
 	private JButton view_deetsSM;
 
@@ -44,12 +44,14 @@ public class AdminDash {
 	 */
 	public AdminDash() {
 		initialize();
-		updateDB();
+		updateDBMovies();
+		updateDBEmps();
 	}
 	
 	AdminOverview ao = new AdminOverview();
+	EmployeeDeetsOverview edo = new EmployeeDeetsOverview();
 	
-	public static void updateDB() {
+	public static void updateDBMovies() {
 		
 		int q, i;
 		
@@ -83,6 +85,43 @@ public class AdminDash {
 			
 		}
 		catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+	}
+	
+	public static void updateDBEmps() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM EmpAccounts";
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector columnData = new Vector();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("EmpID"));
+					columnData.add(rs.getString("EmpName"));
+					columnData.add(rs.getString("EmpContactNo"));
+					columnData.add(rs.getString("EmpEmail"));
+					columnData.add(rs.getString("EmpPassword"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(HeadlessException | SQLException ex){
             JOptionPane.showMessageDialog(null, ex);
         }
 	}
@@ -134,26 +173,6 @@ public class AdminDash {
 		btn_sched.setBounds(5, 126, 194, 40);
 		frame.getContentPane().add(btn_sched);
 		
-		JButton btn_reservations = new JButton("Reservations");
-		btn_reservations.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Reservations r = new Reservations();
-				r.user_account.setText("Admin");
-                r.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
-		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_reservations.setForeground(Color.WHITE);
-		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
-		btn_reservations.setFocusPainted(false);
-		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBackground(new Color(247, 165, 35));
-		btn_reservations.setBounds(5, 173, 194, 40);
-		frame.getContentPane().add(btn_reservations);
-		
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
@@ -170,7 +189,7 @@ public class AdminDash {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(247, 165, 35));
-		btn_employees.setBounds(5, 217, 194, 40);
+		btn_employees.setBounds(5, 173, 194, 40);
 		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
@@ -232,22 +251,6 @@ public class AdminDash {
 		lbl_schedmovies.setFont(new Font("Poppins", Font.BOLD, 16));
 		lbl_schedmovies.setBounds(235, 103, 159, 14);
 		frame.getContentPane().add(lbl_schedmovies);
-		
-		moviePane = new JScrollPane();
-		moviePane .setFont(new Font("Poppins", Font.PLAIN, 12));
-		moviePane .setBounds(233, 126, 747, 170);
-		frame.getContentPane().add(moviePane );
-		
-		table = new JTable();
-		table.setFont(new Font("Poppins", Font.PLAIN, 12));
-		moviePane .setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-					 "Movie", "Cinema Number", "Time", "Start Date", "End Date", "Price"
-			}
-		));
 		
 		view_deetsSM = new JButton("View Details");
 		view_deetsSM.addActionListener(new ActionListener() {
@@ -323,33 +326,108 @@ public class AdminDash {
 		view_deetsSM.setBounds(859, 90, 121, 29);
 		frame.getContentPane().add(view_deetsSM);
 		
-		JLabel lbl_reservations = new JLabel("Reservations");
+		moviePane = new JScrollPane();
+		moviePane .setFont(new Font("Poppins", Font.PLAIN, 12));
+		moviePane .setBounds(233, 126, 747, 170);
+		frame.getContentPane().add(moviePane );
+		
+		table = new JTable();
+		table.setFont(new Font("Poppins", Font.PLAIN, 12));
+		moviePane .setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					 "Movie", "Cinema Number", "Time", "Start Date", "End Date", "Price"
+			}
+		));
+		
+		JLabel lbl_reservations = new JLabel("Employees");
 		lbl_reservations.setForeground(Color.WHITE);
 		lbl_reservations.setFont(new Font("Poppins", Font.BOLD, 16));
 		lbl_reservations.setBounds(235, 316, 159, 14);
 		frame.getContentPane().add(lbl_reservations);
 		
-		JScrollPane reservePane = new JScrollPane();
-		reservePane.setBounds(233, 341, 747, 170);
-		frame.getContentPane().add(reservePane);
-		
-		JTable reserveTable = new JTable();
-		reservePane.setViewportView(reserveTable);
-		reserveTable.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Employee", "Date", "Reserved Seats", "Total"
-			}
-		));
-		
 		JButton view_deetsR = new JButton("View Details");
+		view_deetsR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = table.getSelectedRow();
+                TableModel model = table.getModel();
+				
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No Row Selected");
+				}
+				else {					
+					
+	                String id = model.getValueAt(index, 0).toString();
+	                String name = model.getValueAt(index, 1).toString();
+	                String contact = model.getValueAt(index, 2).toString();
+	                String email = model.getValueAt(index, 3).toString();
+	                String password = model.getValueAt(index, 4).toString();
+	                
+	                edo.frame.setVisible(true);
+	                edo.user_account.setText("Admin");
+	                frame.dispose();
+	                
+	                edo.textFieldID.setText(id);
+	                edo.textFieldName.setText(name);
+	                edo.textFieldNum.setText(contact);
+	                edo.textFieldEmail.setText(email);
+	                edo.textFieldPass.setText(password);
+	                edo.lbl_employee.setText(name);
+				}
+				
+				
+				String selected = model.getValueAt(index, 0).toString();
+				
+				String sqlQuery = "SELECT * FROM EmpAccounts WHERE EmpID='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						byte[] imagedata = rs.getBytes("EmpImg");
+						ImageIcon format = new ImageIcon(imagedata);
+						Image image = format.getImage();
+						Image imageSize = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+						ImageIcon img = new ImageIcon(imageSize);
+						
+						EmployeeDeetsOverview.emp_profpic.setIcon(img);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Data");
+					}
+					
+				} 
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 		view_deetsR.setForeground(new Color(17, 34, 44));
 		view_deetsR.setFont(new Font("Poppins", Font.BOLD, 10));
 		view_deetsR.setBorderPainted(false);
 		view_deetsR.setBackground(new Color(246, 198, 36));
 		view_deetsR.setBounds(859, 307, 121, 29);
 		frame.getContentPane().add(view_deetsR);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Poppins", Font.PLAIN, 12));
+		scrollPane.setBounds(233, 345, 747, 170);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		table.setFont(new Font("Poppins", Font.PLAIN, 12));
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Employee ID", "Employee Name", "Contact No.", "Email", "Password"
+			}
+		));
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

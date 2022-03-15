@@ -122,26 +122,6 @@ public class AdminOverview {
 		btn_sched.setBounds(5, 126, 194, 40);
 		panelo.add(btn_sched);
 		
-		JButton btn_reservations = new JButton("Reservations");
-		btn_reservations.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				Reservations r = new Reservations();
-                r.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
-		btn_reservations.setForeground(Color.WHITE);
-		btn_reservations.setBackground(new Color(247, 165, 35));
-		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
-		btn_reservations.setFocusPainted(false);
-		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBounds(5, 173, 194, 40);
-		panelo.add(btn_reservations);
-		
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
@@ -157,7 +137,7 @@ public class AdminOverview {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(247, 165, 35));
-		btn_employees.setBounds(5, 217, 194, 40);
+		btn_employees.setBounds(5, 173, 194, 40);
 		panelo.add(btn_employees);
 		
 		JLabel lbl_logo = new JLabel("");

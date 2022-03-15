@@ -114,26 +114,6 @@ public class EmployeeDeetsOverview {
 		btn_sched.setBackground(new Color(247, 165, 35));
 		btn_sched.setBounds(5, 126, 194, 40);
 		panel.add(btn_sched);
-		
-		JButton btn_reservations = new JButton("Reservations");
-		btn_reservations.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Reservations r = new Reservations();
-				r.user_account.setText("Admin");
-                r.frame.setVisible(true);
-                frame.dispose();
-			}
-		});
-		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_reservations.setForeground(Color.WHITE);
-		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
-		btn_reservations.setFocusPainted(false);
-		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBackground(new Color(247, 165, 35));
-		btn_reservations.setBounds(5, 173, 194, 40);
-		panel.add(btn_reservations);
 			
 		JButton btn_employees = new JButton("Employees");
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
@@ -142,7 +122,7 @@ public class EmployeeDeetsOverview {
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
 		btn_employees.setBackground(new Color(246, 198, 36));
-		btn_employees.setBounds(5, 217, 194, 40);
+		btn_employees.setBounds(5, 173, 194, 40);
 		panel.add(btn_employees);
 		
 		JLabel lblback = new JLabel("");
@@ -204,7 +184,7 @@ public class EmployeeDeetsOverview {
 		
 		JPanel white_bg = new JPanel();
 		white_bg.setBackground(Color.WHITE);
-		white_bg.setBounds(234, 97, 747, 238);
+		white_bg.setBounds(234, 97, 747, 235);
 		frame.getContentPane().add(white_bg);
 		white_bg.setLayout(null);
 		
@@ -232,7 +212,7 @@ public class EmployeeDeetsOverview {
 		});
 		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_upload.setBorderPainted(false);
-		btn_upload.setBounds(263, 200, 120, 19);
+		btn_upload.setBounds(64, 220, 120, 19);
 		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
 		btn_upload.setBackground(new Color(246, 198, 36));
 		white_bg.add(btn_upload);
@@ -320,6 +300,7 @@ public class EmployeeDeetsOverview {
 				remove_employee.setVisible(true);
 				cancel_edit.setVisible(false);
 				btn_upload.setVisible(false);
+				white_bg.setBounds(234, 97, 747, 235);
 			}
 		});
 		cancel_edit.setVisible(false);
@@ -327,7 +308,7 @@ public class EmployeeDeetsOverview {
 		cancel_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		cancel_edit.setBorderPainted(false);
 		cancel_edit.setBackground(new Color(246, 198, 36));
-		cancel_edit.setBounds(863, 350, 121, 29);
+		cancel_edit.setBounds(863, 360, 121, 29);
 		frame.getContentPane().add(cancel_edit);
 		
 		remove_employee = new JButton("Remove");
@@ -368,7 +349,7 @@ public class EmployeeDeetsOverview {
 		remove_employee.setFont(new Font("Poppins", Font.BOLD, 10));
 		remove_employee.setForeground(new Color(17, 34, 44));
 		remove_employee.setBackground(new Color(246, 198, 36));
-		remove_employee.setBounds(863, 350, 121, 29);
+		remove_employee.setBounds(863, 360, 121, 29);
 		frame.getContentPane().add(remove_employee);
 		
 		save_edit = new JButton("Save");
@@ -409,7 +390,7 @@ public class EmployeeDeetsOverview {
 		save_edit.setFont(new Font("Poppins", Font.BOLD, 10));
 		save_edit.setBorderPainted(false);
 		save_edit.setBackground(new Color(246, 198, 36));
-		save_edit.setBounds(732, 350, 121, 29);
+		save_edit.setBounds(732, 360, 121, 29);
 		frame.getContentPane().add(save_edit);
 		
 		edit_employee = new JButton("Edit");
@@ -424,13 +405,14 @@ public class EmployeeDeetsOverview {
 				remove_employee.setVisible(false);
 				cancel_edit.setVisible(true);
 				btn_upload.setVisible(true);
+				white_bg.setBounds(234, 97, 747, 253);
 			}
 		});
 		edit_employee.setForeground(new Color(17, 34, 44));
 		edit_employee.setFont(new Font("Poppins", Font.BOLD, 10));
 		edit_employee.setBorderPainted(false);
 		edit_employee.setBackground(new Color(246, 198, 36));
-		edit_employee.setBounds(732, 350, 121, 29);
+		edit_employee.setBounds(732, 360, 121, 29);
 		frame.getContentPane().add(edit_employee);
 		
 		JLabel bg = new JLabel("");

@@ -4,27 +4,38 @@ import javax.swing.table.TableModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class EmployeeDashboard {
 
 	JFrame frame;
 	static JMenu user_account;
-	JTextField availables;
+	JTextField avails;
 	JTextField totalprice;
 	JTextField price;
 	JTextField seatno;
+	int seat_num = 100;
 	JLabel date2day;
+	JComboBox movie, times, cinemano;
+	static String empName;
+	static int empID;
 
 	/**
 	 * Launch the application.
@@ -35,6 +46,7 @@ public class EmployeeDashboard {
 				try {
 					EmployeeDashboard window = new EmployeeDashboard();
 					window.frame.setVisible(true);
+					window.setName(empID, empName);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,6 +60,14 @@ public class EmployeeDashboard {
 	public EmployeeDashboard() {
 		initialize();
 		curDateTime();
+		CBFill();
+	}
+	
+	DetailOverview deets = new DetailOverview();
+	
+	public void setName (int empID, String empName){
+		this.empID = empID;
+		this.empName = empName;
 	}
 	
 	public void curDateTime() {
@@ -56,17 +76,16 @@ public class EmployeeDashboard {
 			public void run() {
 				try {
 					while (true) {
-						Calendar cal = new GregorianCalendar();
-						int day = cal.get(Calendar.DAY_OF_MONTH);
-						int month = cal.get(Calendar.MONTH);
-						int year = cal.get(Calendar.YEAR);
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+		                Date dateToday = new Date(); 
+		                String date = formatter.format(dateToday);
 						
+						Calendar cal = new GregorianCalendar();
 						int second = cal.get(Calendar.SECOND);
 						int minute = cal.get(Calendar.MINUTE);
 						int hour = cal.get(Calendar.HOUR);
 						
-						date2day.setText(month + " / " + day + " / " + year + "  -----  " + hour + ":" + minute + ":" + second);
-						
+						date2day.setText(date + "    " + hour + ":" + minute + ":" + second);
 						sleep(1000);
 					}
 				}
@@ -77,6 +96,27 @@ public class EmployeeDashboard {
 		};
 		
 		curDateTime.start();
+	}
+	
+	public void CBFill() {
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {  
+			
+			String sqlSelect = "SELECT * FROM SchedMovies JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID;";
+			
+			PreparedStatement ps = connection.prepareStatement(sqlSelect);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				movie.addItem(rs.getString("MovieTitle"));
+				times.addItem(rs.getString("ShowTime"));
+				cinemano.addItem(Integer.toString(rs.getInt("CinemaNo")));
+			}
+			
+		}
+		
+		catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
 	}
 	
 	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
@@ -155,7 +195,30 @@ public class EmployeeDashboard {
 		date2day.setBounds(205, 15, 509, 22);
 		panel.add(date2day);
 		
-		JComboBox movie = new JComboBox();
+		movie = new JComboBox();
+		movie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {  
+					
+					String selected = movie.getSelectedItem().toString();
+					
+					String sqlSelect = "SELECT * FROM SchedMovies\r\n"
+							+ "JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID WHERE MovieTitle='" + selected + "'";
+					
+					PreparedStatement ps = connection.prepareStatement(sqlSelect);
+					ResultSet rs = ps.executeQuery();
+					
+					while (rs.next()) {
+						price.setText(String.valueOf(rs.getDouble("Price")));
+						avails.setText(String.valueOf(rs.getInt("SeatNo")));
+					}
+				}
+				
+				catch(HeadlessException | SQLException ex){
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
+			}
+		});
 		movie.setBounds(205, 107, 665, 30);
 		panel.add(movie);
 		
@@ -171,7 +234,7 @@ public class EmployeeDashboard {
 		lblprice.setBounds(10, 156, 178, 14);
 		panel.add(lblprice);
 		
-		JComboBox times = new JComboBox();
+		times = new JComboBox();
 		times.setBounds(205, 189, 665, 30);
 		panel.add(times);
 		
@@ -181,7 +244,7 @@ public class EmployeeDashboard {
 		lbltimes.setBounds(10, 197, 178, 14);
 		panel.add(lbltimes);
 		
-		JComboBox cinemano = new JComboBox();
+		cinemano = new JComboBox();
 		cinemano.setBounds(205, 230, 665, 30);
 		panel.add(cinemano);
 		
@@ -209,10 +272,10 @@ public class EmployeeDashboard {
 		lblseatno.setBounds(390, 279, 144, 14);
 		panel.add(lblseatno);
 		
-		availables = new JTextField();
-		availables.setBounds(205, 271, 224, 30);
-		panel.add(availables);
-		availables.setColumns(10);
+		avails = new JTextField();
+		avails.setBounds(205, 271, 224, 30);
+		panel.add(avails);
+		avails.setColumns(10);
 		
 		totalprice = new JTextField();
 		totalprice.setColumns(10);
@@ -227,20 +290,69 @@ public class EmployeeDashboard {
 		JButton remove_btn = new JButton("Reserve");
 		remove_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Calendar cal = new GregorianCalendar();
-				int day = cal.get(Calendar.DAY_OF_MONTH);
-				int month = cal.get(Calendar.MONTH);
-				int year = cal.get(Calendar.YEAR);
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+                Date dateToday = new Date(); 
+                String date = formatter.format(dateToday);
 				
-				int second = cal.get(Calendar.SECOND);
-				int minute = cal.get(Calendar.MINUTE);
-				int hour = cal.get(Calendar.HOUR);
-				
-				deetO.tadReserve.setText(month + " / " + day + " / " + year + "  -----  " + hour + ":" + minute + ":" + second);
+				String movieCB = (String) movie.getSelectedItem();
+		        String timeCB = (String) times.getSelectedItem();
+		        String cinemaCB = (String) cinemano.getSelectedItem();
+		        
+		        int availseats = Integer.parseInt(avails.getText());
+		        int numSeats = Integer.parseInt(seatno.getText());
+		        
+		        int diff =  availseats - numSeats;
+		        
+
+				try (Connection connection = DriverManager.getConnection(connectionUrl)){
+					
+					String sql = "SELECT MovieID FROM SchedMovies WHERE MovieTitle='" + movieCB + "'";
+			        
+			        PreparedStatement ps = connection.prepareStatement(sql);
+			        ResultSet rs = ps.executeQuery();
+			        
+			        String id = "";
+			        while (rs.next()) {
+			        	id = rs.getString("MovieID");
+			        }
+					
+					String query2 = "INSERT INTO Reservations (Price, ShowTime, CinemaNo, MovieID, ReservedSeats, EmpID, TimeNDate)"
+							+ "VALUES (?,?,?,?,?,?,?)";
+					ps = connection.prepareStatement(query2);
+					
+					ps.setString(1, price.getText());
+					ps.setString(2, timeCB);
+					ps.setString(3, cinemaCB);
+					ps.setString(4, id);
+					ps.setInt(5, numSeats);
+					ps.setInt(6, empID);
+					ps.setString(7, date);
+					
+					int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
+						if (input == JOptionPane.YES_OPTION) {
+							  ps.executeUpdate();
+							  
+							  String sqlQuery = "UPDATE Cinemas SET SeatNo=? WHERE MovieID='" + id + "'";      
+								
+							  ps = connection.prepareStatement(sqlQuery);
+							
+							  ps.setInt(1, diff);
+
+							  ps.executeUpdate();
+				              JOptionPane.showMessageDialog(null, "Added successfully.");
+						}
+					}
+					
+				} catch(HeadlessException | SQLException x){
+			        JOptionPane.showMessageDialog(null,x);
+			        x.printStackTrace();
+			        
+			    } 
 				
 				DetailOverview detail = new DetailOverview();
 				detail.frame.setVisible(true);
 				frame.dispose();
+				
 			}
 		});
 		remove_btn.setForeground(new Color(17, 34, 44));
@@ -251,6 +363,15 @@ public class EmployeeDashboard {
 		panel.add(remove_btn);
 		
 		seatno = new JTextField();
+		seatno.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				double pricee = Double.parseDouble(price.getText());
+				double seatNum = Double.parseDouble(seatno.getText());
+				double tp = pricee * seatNum;
+				totalprice.setText(String.valueOf(tp));
+			}
+		});
 		seatno.setColumns(10);
 		seatno.setBounds(546, 271, 324, 30);
 		panel.add(seatno);

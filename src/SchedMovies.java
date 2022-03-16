@@ -65,7 +65,7 @@ public class SchedMovies {
 			
 			q = StData.getColumnCount();
 			
-			DefaultTableModel RecordTable = (DefaultTableModel)SchedMovies.table.getModel();
+			DefaultTableModel RecordTable = (DefaultTableModel)table.getModel();
 			RecordTable.setRowCount(0);
 			
 			while(rs.next()) {
@@ -157,7 +157,7 @@ public class SchedMovies {
 		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
-		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
+		blue_logo.setIcon(new ImageIcon(SchedMovies.class.getResource("/images/blue-logo.png")));
 		blue_logo.setBounds(20, 18, 67, 46);
 		frame.getContentPane().add(blue_logo);
 		

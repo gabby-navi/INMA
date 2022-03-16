@@ -625,19 +625,19 @@ public class AdminOverview {
 			        	id = rs.getString("MovieID");
 			        }
 					
-					String sqlQuery = "INSERT INTO Cinemas (MovieTitle, MovieDesc, StartDate, EndDate, CinemaNo, SeatNo, ShowTime, Price)"
-							+ "VALUES (?,?,?,?,?,?,?,?,?) WHERE MovieID='" + id + "'";
+					String sqlQuery = "INSERT INTO Cinemas (MovieDesc, StartDate, EndDate, CinemaNo, SeatNo, ShowTime, Price, MovieID)"
+							+ "VALUES (?,?,?,?,?,?,?,?)";
 					
 					ps = connection.prepareStatement(sqlQuery);
 					
-					ps.setString(1, textField_title.getText());
-					ps.setString(2, txt_area.getText());
-					ps.setString(3, strDate);
-					ps.setString(4, eDate);
-					ps.setString(5, cinemaNo);
-					ps.setInt(6, seat_num);
-					ps.setString(7, showTime);
-					ps.setDouble(8, movie_price = Double.parseDouble(textField_price.getText()));
+					ps.setString(1, txt_area.getText());
+					ps.setString(2, strDate);
+					ps.setString(3, eDate);
+					ps.setString(4, cinemaNo);
+					ps.setInt(5, seat_num);
+					ps.setString(6, showTime);
+					ps.setDouble(7, movie_price = Double.parseDouble(textField_price.getText()));
+					ps.setString(8, id);
 					
 					int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "ALERT!", JOptionPane.YES_NO_OPTION); {
 						if (input == JOptionPane.YES_OPTION) {

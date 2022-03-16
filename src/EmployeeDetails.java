@@ -107,7 +107,7 @@ public class EmployeeDetails {
 		panel.setLayout(null);
 		
 		JLabel blue_logo = new JLabel("");
-		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
+		blue_logo.setIcon(new ImageIcon(EmployeeDetails.class.getResource("/images/blue-logo.png")));
 		blue_logo.setBounds(20, 18, 67, 46);
 		panel.add(blue_logo);
 		

@@ -1,5 +1,14 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,24 +17,29 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 
-public class EmployeeNew {
+public class ViewReservations {
 
 	JFrame frame;
-	private JTextField txt_empName;
-	private JTextField txt_number;
-	private JTextField txt_email;
-	public JLabel emp_profpic;
-	String selectedImagePath = null;
 	JMenu user_account;
-
+	JLabel empID, noofseats, movietitle, time, custno, empN, tprice, cinemano, price, dnt, lbl_addNew;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -33,7 +47,7 @@ public class EmployeeNew {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeNew window = new EmployeeNew();
+					ViewReservations window = new ViewReservations();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,19 +59,16 @@ public class EmployeeNew {
 	/**
 	 * Create the application.
 	 */
-	
-	public EmployeeNew() {
+	public ViewReservations() {
 		initialize();
-		EmployeeDetails.updateDB();
 	}
-	
-	String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+
+	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
 			+ "databaseName = MTRS;"
 			+ "username = sa;"
 			+ "password = inmainmainma;"
 			+ ";encrypt = true;trustServerCertificate = true;";
 	
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -126,7 +137,7 @@ public class EmployeeNew {
 		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_employees.setFocusPainted(false);
 		btn_employees.setBorderPainted(false);
-		btn_employees.setBackground(new Color(246, 198, 36));
+		btn_employees.setBackground(new Color(247, 165, 35));
 		btn_employees.setBounds(5, 126, 194, 40);
 		panel.add(btn_employees);
 		
@@ -143,7 +154,7 @@ public class EmployeeNew {
 		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
 		btn_reservations.setFocusPainted(false);
 		btn_reservations.setBorderPainted(false);
-		btn_reservations.setBackground(new Color(247, 165, 35));
+		btn_reservations.setBackground(new Color(246, 198, 36));
 		btn_reservations.setBounds(5, 173, 194, 40);
 		panel.add(btn_reservations);
 		
@@ -183,10 +194,10 @@ public class EmployeeNew {
         lblback.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/back.png")).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         frame.getContentPane().add(lblback);
         
-        JLabel lbl_addNew = new JLabel("Add New Employee");
+        lbl_addNew = new JLabel("");
 		lbl_addNew.setForeground(Color.WHITE);
 		lbl_addNew.setFont(new Font("Poppins Black", Font.PLAIN, 21));
-		lbl_addNew.setBounds(274, 49, 255, 19);
+		lbl_addNew.setBounds(274, 49, 451, 19);
 		frame.getContentPane().add(lbl_addNew);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -226,163 +237,116 @@ public class EmployeeNew {
 		hr.setBounds(233, 78, 747, 2);
 		frame.getContentPane().add(hr);
 		
-		JButton save_btn = new JButton("Save");
-		save_btn.setFocusPainted(false);
-		save_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				File f = new File(selectedImagePath);
-				
-				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-					
-					String lcases = "qwertyuiopasdfghjklzxcvbnm";
-	                String ucases = "QWERTYUIOPASDFGHJKLZXCVBNM";
-	                String num = "123456789";
-	                
-	                String password = "";
-	                
-	                for(int i = 0; i < 5; i++) {
-	                    int rand = (int)(3 * Math.random());
-	                    
-	                    switch(rand) {
-	                    case 0:
-	                        password += String.valueOf((int)(0 * Math.random()));
-	                        break;
-	                        
-	                    case 1:
-	                        rand = (int)(lcases.length() * Math.random());
-	                        password += String.valueOf(lcases.charAt(rand));
-	                        
-	                    case 2:
-	                        rand = (int)(ucases.length() * Math.random());
-	                        password += String.valueOf(ucases.charAt(rand));
-	                        
-	                    case 3:
-	                        rand = (int)(num.length() * Math.random());
-	                        password += String.valueOf(num.charAt(rand));
-	                    }
-	                }
-	                
-	                InputStream inputS = new FileInputStream(selectedImagePath);
-					
-					String sqlQuery = "INSERT INTO EmpAccounts(EmpName, EmpContactNo, EmpEmail, EmpPassword, EmpImg, Position) VALUES (?, ?, ?, ?, ?, ?)";
-					PreparedStatement ps = connection.prepareStatement(sqlQuery);
-					ps.setString(1, txt_empName.getText());
-					ps.setString(2, txt_number.getText());
-					ps.setString(3, txt_email.getText());
-					ps.setString(4, password);
-					ps.setBlob(5, inputS);
-					ps.setString(6, "Employee");
-					
-					ps.executeUpdate();	
-					
-					JOptionPane.showMessageDialog(null, "Added Successfully!");
-					EmployeeDetails.updateDB();
-					
-					EmployeeDetails empDeets = new EmployeeDetails();
-					empDeets.user_account.setText("Admin");
-					empDeets.frame.setVisible(true);
-					frame.dispose();
-				}
-				
-				catch(HeadlessException | SQLException ex){
-		            JOptionPane.showMessageDialog(null, ex);
-		        } catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		save_btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		save_btn.setBorderPainted(false);
-		save_btn.setFont(new Font("Poppins", Font.BOLD, 10));
-		save_btn.setForeground(new Color(17, 34, 44));
-		save_btn.setBackground(new Color(246, 198, 36));
-		save_btn.setBounds(861, 91, 121, 29);
-		frame.getContentPane().add(save_btn);
-		
 		JPanel white_bg = new JPanel();
 		white_bg.setBackground(Color.WHITE);
-		white_bg.setBounds(234, 131, 747, 225);
+		white_bg.setBounds(234, 91, 747, 211);
 		frame.getContentPane().add(white_bg);
 		white_bg.setLayout(null);
 		
-		emp_profpic = new JLabel("");
-		emp_profpic.setHorizontalAlignment(SwingConstants.CENTER);
-		emp_profpic.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("/images/emp_prof.png")).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-		emp_profpic.setBounds(10, 11, 213, 203);
-		white_bg.add(emp_profpic);
+		JLabel lbl_custno = new JLabel("Customer No.");
+		lbl_custno.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_custno.setBounds(37, 26, 112, 17);
+		white_bg.add(lbl_custno);
 		
-		JButton btn_upload = new JButton("Upload Picture");
-		btn_upload.setFocusPainted(false);
-		btn_upload.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser browseImageFile = new JFileChooser();
-				
-				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
-				browseImageFile.addChoosableFileFilter(fnef);
-				int showOpenDialogue = browseImageFile.showOpenDialog(null);
-				
-				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
-					File selectedImageFile = browseImageFile.getSelectedFile();
-					selectedImagePath = selectedImageFile.getAbsolutePath();
-					JOptionPane.showMessageDialog(null, selectedImagePath);
-					
-					ImageIcon icon = new ImageIcon(selectedImagePath);
-					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-					emp_profpic.setIcon(new ImageIcon(image));
-				}
-			}
-		});
-		btn_upload.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_upload.setBorderPainted(false);
-		btn_upload.setBounds(254, 163, 125, 19);
-		btn_upload.setFont(new Font("Poppins", Font.BOLD, 9));
-		btn_upload.setBackground(new Color(246, 198, 36));
-		white_bg.add(btn_upload);
+		JLabel lbl_movie = new JLabel("Movie");
+		lbl_movie.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_movie.setBounds(37, 57, 116, 17);
+		white_bg.add(lbl_movie);
 		
-		JLabel lbl_empName = new JLabel("Employee Name:");
-		lbl_empName.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_empName.setBounds(254, 55, 112, 17);
-		white_bg.add(lbl_empName);
+		JLabel lbl_time = new JLabel("Time");
+		lbl_time.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_time.setBounds(37, 90, 116, 17);
+		white_bg.add(lbl_time);
 		
-		JLabel lbl_number = new JLabel("Contact Number:");
-		lbl_number.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		lbl_number.setBounds(254, 86, 116, 17);
-		white_bg.add(lbl_number);
+		JLabel lbl_empID = new JLabel("Employee ID");
+		lbl_empID.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empID.setBounds(37, 153, 116, 17);
+		white_bg.add(lbl_empID);
 		
-		JLabel emp_email = new JLabel("Email:");
-		emp_email.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
-		emp_email.setBounds(254, 119, 116, 17);
-		white_bg.add(emp_email);
+		JLabel lbl_custno_1 = new JLabel("No. of Seats");
+		lbl_custno_1.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_custno_1.setBounds(37, 123, 112, 17);
+		white_bg.add(lbl_custno_1);
 		
-		txt_empName = new JTextField();
-		txt_empName.setBounds(391, 54, 325, 20);
-		white_bg.add(txt_empName);
-		txt_empName.setColumns(10);
+		empID = new JLabel("");
+		empID.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		empID.setBounds(147, 153, 184, 17);
+		white_bg.add(empID);
 		
-		txt_number = new JTextField();
-		txt_number.setColumns(10);
-		txt_number.setBounds(391, 85, 325, 20);
-		white_bg.add(txt_number);
+		noofseats = new JLabel("");
+		noofseats.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		noofseats.setBounds(147, 123, 184, 17);
+		white_bg.add(noofseats);
 		
-		txt_email = new JTextField();
-		txt_email.setColumns(10);
-		txt_email.setBounds(391, 115, 325, 20);
-		white_bg.add(txt_email);
+		time = new JLabel("");
+		time.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		time.setBounds(147, 90, 184, 17);
+		white_bg.add(time);
 		
-		JButton cancel_btn = new JButton("Cancel");
-		cancel_btn.setFocusPainted(false);
-		cancel_btn.setForeground(new Color(17, 34, 44));
-		cancel_btn.setFont(new Font("Poppins", Font.BOLD, 10));
-		cancel_btn.setBorderPainted(false);
-		cancel_btn.setBackground(new Color(246, 198, 36));
-		cancel_btn.setBounds(730, 91, 121, 29);
-		frame.getContentPane().add(cancel_btn);
+		movietitle = new JLabel("");
+		movietitle.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		movietitle.setBounds(147, 57, 184, 17);
+		white_bg.add(movietitle);
+		
+		custno = new JLabel("");
+		custno.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		custno.setBounds(147, 26, 184, 17);
+		white_bg.add(custno);
+		
+		empN = new JLabel("");
+		empN.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		empN.setBounds(541, 153, 178, 17);
+		white_bg.add(empN);
+		
+		JLabel lbl_empN = new JLabel("Employee Name");
+		lbl_empN.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_empN.setBounds(341, 153, 116, 17);
+		white_bg.add(lbl_empN);
+		
+		JLabel lbl_tprice = new JLabel("Total Price");
+		lbl_tprice.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_tprice.setBounds(341, 123, 112, 17);
+		white_bg.add(lbl_tprice);
+		
+		tprice = new JLabel("");
+		tprice.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		tprice.setBounds(541, 123, 178, 17);
+		white_bg.add(tprice);
+		
+		JLabel lbl_cn = new JLabel("Cinema No.");
+		lbl_cn.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_cn.setBounds(341, 90, 116, 17);
+		white_bg.add(lbl_cn);
+		
+		cinemano = new JLabel("");
+		cinemano.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		cinemano.setBounds(541, 90, 178, 17);
+		white_bg.add(cinemano);
+		
+		JLabel lbl_price = new JLabel("Price");
+		lbl_price.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_price.setBounds(341, 57, 116, 17);
+		white_bg.add(lbl_price);
+		
+		price = new JLabel("");
+		price.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		price.setBounds(541, 57, 178, 17);
+		white_bg.add(price);
+		
+		JLabel lbl_dnt = new JLabel("Date and Time of Reservation");
+		lbl_dnt.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
+		lbl_dnt.setBounds(341, 26, 190, 17);
+		white_bg.add(lbl_dnt);
+		
+		dnt = new JLabel("");
+		dnt.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		dnt.setBounds(541, 26, 178, 17);
+		white_bg.add(dnt);
 		
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
 	}
+
 }

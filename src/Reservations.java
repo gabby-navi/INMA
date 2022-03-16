@@ -1,21 +1,9 @@
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -33,10 +21,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import net.proteanit.sql.DbUtils;
+
 public class Reservations {
 
 	JFrame frame;
-	static JTable table;
+	static JTable tableR;
 	JScrollPane reservePane;
 	private JButton view_deets;
 	JMenu user_account;
@@ -62,11 +52,55 @@ public class Reservations {
 	 */
 	public Reservations() {
 		initialize();
+		updateDB();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	ViewReservations vr = new ViewReservations();
+	
+	public static void updateDB() {
+		
+		int q, i;
+		
+		try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+			
+			String sqlQuery = "SELECT * FROM Reservations\r\n"
+					+ "JOIN SchedMovies ON SchedMovies.MovieID = Reservations.MovieID\r\n"
+					+ "JOIN EmpAccounts ON Reservations.EmpID = EmpAccounts.EmpID";
+			
+			PreparedStatement ps = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			ResultSetMetaData StData = rs.getMetaData();
+			
+			q = StData.getColumnCount();
+			
+			DefaultTableModel RecordTable = (DefaultTableModel)tableR.getModel();
+			RecordTable.setRowCount(0);
+			
+			while(rs.next()) {
+				Vector columnData = new Vector();
+				
+				for (i = 1; i <= q; i++) {
+					columnData.add(rs.getString("CustomerNo"));
+					columnData.add(rs.getString("MovieTitle"));
+					columnData.add(rs.getString("TimeNDate"));
+					columnData.add(rs.getString("Price"));
+					columnData.add(rs.getString("EmpName"));
+				}
+				
+				RecordTable.addRow(columnData);
+			}
+			
+		}
+		catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+	}
 	
   	static String connectionUrl = "jdbc:sqlserver://localhost:1433;"
 			+ "databaseName = MTRS;"
@@ -133,7 +167,7 @@ public class Reservations {
 		frame.getContentPane().add(btn_employees);
 		
 		JLabel blue_logo = new JLabel("");
-		blue_logo.setIcon(new ImageIcon(AdminDash.class.getResource("/images/blue-logo.png")));
+		blue_logo.setIcon(new ImageIcon(Reservations.class.getResource("/images/blue-logo.png")));
 		blue_logo.setBounds(20, 18, 67, 46);
 		frame.getContentPane().add(blue_logo);
 		
@@ -171,14 +205,14 @@ public class Reservations {
 		reservePane.setBounds(233, 132, 747, 188);
 		frame.getContentPane().add(reservePane);
 		
-		table = new JTable();
-		table.setFont(new Font("Poppins", Font.PLAIN, 12));
-		reservePane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tableR = new JTable();
+		tableR.setFont(new Font("Poppins", Font.PLAIN, 12));
+		reservePane.setViewportView(tableR);
+		tableR.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-					 "Customer No.", "Movie", "Time", "Date", "Total Price", "Employee Name"
+					 "Customer No.", "Movie", "Date", "Total Price", "Employee Name"
 			}
 		));
 		
@@ -214,78 +248,81 @@ public class Reservations {
 		frame.getContentPane().add(hr);
 		
 		view_deets = new JButton("View Details");
-//		view_deets.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				int index = table.getSelectedRow();
-//                TableModel model = table.getModel();
-//				
-//				if (index == -1) {
-//					JOptionPane.showMessageDialog(null, "No Row Selected");
-//				}
-//				else {					  
-//					try {
-//						String movie_title = model.getValueAt(index, 0).toString();
-//						String cinemaNum = model.getValueAt(index, 1).toString();
-//						String showtime = model.getValueAt(index, 2).toString();
-//						java.util.Date start_date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(index, 3));
-//						java.util.Date end_date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(index, 4));
-//		                String price = model.getValueAt(index, 5).toString();
-//		                
-//		                ao.frame.setVisible(true);
-//		                ao.user_account.setText("Admin");
-//		                frame.dispose();
-//		                
-//		                ao.cinemaN.setSelectedItem(cinemaNum);
-//						ao.times.setSelectedItem(showtime);
-//		                ao.textField_title.setText(movie_title);
-//		                ao.startDate.setDate(start_date);
-//		                ao.endDate.setDate(end_date);
-//		                ao.textField_price.setText(price);
-//		                
-//					} catch (ParseException e1) {
-//						e1.printStackTrace();
-//					}  
-//				}
-//				
-//				String selected = model.getValueAt(index, 0).toString();
-//				
-//				String sqlQuery = "SELECT * FROM SchedMovies\r\n"
-//						+ "JOIN Cinemas ON SchedMovies.MovieID = Cinemas.MovieID WHERE MovieTitle='" + selected + "'";
-//				
-//				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-//					
-//					PreparedStatement ps = connection.prepareStatement(sqlQuery);
-//					ResultSet rs = ps.executeQuery();
-//					
-//					if (rs.next()) {
-//						
-//						String moviedesc = rs.getString("MovieDesc");
-//						ao.txt_area.setText(moviedesc);
-//						
-//						byte[] imagedata = rs.getBytes("MovieImg");
-//						ImageIcon format = new ImageIcon(imagedata);
-//						Image image = format.getImage();
-//						Image imageSize = image.getScaledInstance(AdminOverview.lblposter.getWidth(),AdminOverview.lblposter.getHeight(),Image.SCALE_SMOOTH);
-//						ImageIcon img = new ImageIcon(imageSize);
-//						
-//						AdminOverview.lblposter.setIcon(img);
-//					}
-//					else {
-//						JOptionPane.showMessageDialog(null, "No Data");
-//					}
-//					
-//				} 
-//				catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}
-//				
-//			}
-//		});
+		view_deets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = tableR.getSelectedRow();
+                TableModel model = tableR.getModel();
+				
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No Row Selected");
+				}
+				else {					  
+					String customerN = model.getValueAt(index, 0).toString();
+					String movie_title = model.getValueAt(index, 1).toString();
+					String date = model.getValueAt(index, 2).toString();
+					String price = model.getValueAt(index, 3).toString();
+					String empName = model.getValueAt(index, 4).toString();
+					
+					vr.frame.setVisible(true);
+					vr.user_account.setText("Admin");
+					frame.dispose();
+					
+					vr.custno.setText(customerN);
+					vr.lbl_addNew.setText(customerN);
+					vr.movietitle.setText(movie_title);
+					vr.dnt.setText(date);
+					vr.tprice.setText(price);
+					vr.empN.setText(empName);  
+				}
+				
+				String selected = model.getValueAt(index, 0).toString();
+				
+				String sqlQuery = "SELECT * FROM Reservations\r\n"
+						+ "JOIN SchedMovies ON SchedMovies.MovieID = Reservations.MovieID\r\n"
+						+ "JOIN EmpAccounts ON Reservations.EmpID = EmpAccounts.EmpID WHERE CustomerNo='" + selected + "'";
+				
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+					
+					PreparedStatement ps = connection.prepareStatement(sqlQuery);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						
+						int noseats = rs.getInt("ReservedSeats");
+						vr.noofseats.setText(String.valueOf(noseats));
+
+						int empID = rs.getInt("EmpID");
+						vr.empID.setText(String.valueOf(empID));
+						
+						double price = rs.getDouble("Price");
+						vr.price.setText(String.valueOf(price));
+						
+						int cine = rs.getInt("CinemaNo");
+						vr.cinemano.setText(String.valueOf(cine));
+						
+						String empN = rs.getString("EmpName");
+						vr.empN.setText(empN);
+						
+						String time = rs.getString("ShowTime");
+						vr.time.setText(time);
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Data");
+					}
+					
+				} 
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+		});
 		view_deets.setForeground(new Color(17, 34, 44));
 		view_deets.setFont(new Font("Poppins", Font.BOLD, 10));
 		view_deets.setBorderPainted(false);
 		view_deets.setBackground(new Color(246, 198, 36));
-		view_deets.setBounds(859, 486, 121, 29);
+		view_deets.setBounds(859, 484, 121, 29);
 		frame.getContentPane().add(view_deets);
 		
 		JLabel bg = new JLabel("");

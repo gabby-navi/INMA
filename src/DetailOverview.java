@@ -29,6 +29,7 @@ public class DetailOverview {
 	JTextField price;
 	JTextField cusNo;
 	JTextField tadReserve;
+	JComboBox movie, cinemano, times;
 
 	/**
 	 * Launch the application.
@@ -137,7 +138,7 @@ public class DetailOverview {
 		lblprice.setBounds(10, 178, 178, 14);
 		panel.add(lblprice);
 		
-		JComboBox times = new JComboBox();
+		times = new JComboBox();
 		times.setBounds(205, 211, 665, 30);
 		panel.add(times);
 		
@@ -147,7 +148,7 @@ public class DetailOverview {
 		lbltimes.setBounds(10, 219, 178, 14);
 		panel.add(lbltimes);
 		
-		JComboBox cinemano = new JComboBox();
+		cinemano = new JComboBox();
 		cinemano.setBounds(205, 252, 665, 30);
 		panel.add(cinemano);
 		
@@ -184,12 +185,12 @@ public class DetailOverview {
 		price.setBounds(205, 170, 665, 30);
 		panel.add(price);
 		
-		JButton remove_btn = new JButton("Confirm");
+		JButton remove_btn = new JButton("OK");
 		remove_btn.setForeground(new Color(17, 34, 44));
 		remove_btn.setFont(new Font("Poppins", Font.BOLD, 13));
 		remove_btn.setBorderPainted(false);
 		remove_btn.setBackground(new Color(246, 198, 36));
-		remove_btn.setBounds(702, 384, 168, 30);
+		remove_btn.setBounds(769, 384, 101, 30);
 		panel.add(remove_btn);
 		
 		JLabel lblCustomerNo = new JLabel("Customer No.");
@@ -213,14 +214,6 @@ public class DetailOverview {
 		tadReserve.setColumns(10);
 		tadReserve.setBounds(619, 88, 251, 30);
 		panel.add(tadReserve);
-		
-		JButton remove_btn_1 = new JButton("Cancel");
-		remove_btn_1.setForeground(new Color(17, 34, 44));
-		remove_btn_1.setFont(new Font("Poppins", Font.BOLD, 13));
-		remove_btn_1.setBorderPainted(false);
-		remove_btn_1.setBackground(new Color(246, 198, 36));
-		remove_btn_1.setBounds(523, 384, 168, 30);
-		panel.add(remove_btn_1);
 		
 		JLabel lblrectangle = new JLabel("");
 		lblrectangle.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));

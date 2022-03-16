@@ -141,12 +141,14 @@ public class SignIn {
                     String PassD = "";
                     String NameD  = "";
                     String PositionD = "";
+                    int EmpID = 0;
                     
                     while (rs.next()) {
                         EmailD = rs.getString("EmpEmail");
                         PassD = rs.getString("EmpPassword");
                         NameD = rs.getString("EmpName");
                         PositionD = rs.getString("Position");
+                        EmpID = rs.getInt("EmpID");
                     }
                     
                     // query for position
@@ -158,13 +160,14 @@ public class SignIn {
                     
                     if (EmailD.equals(email) && PassD.equals(pass)) {
                         if (NameD.equals("Admin") && PositionD.equals("Admin")) {
-                            AdminDash ad = new AdminDash();
-                            ad.user_account.setText("Admin");
-                            ad.frame.setVisible(true);
+                            SchedMovies sm = new SchedMovies();
+                            sm.user_account.setText("Admin");
+                            sm.frame.setVisible(true);
                             frame.dispose();
                         }
                         else if (PositionD.equals("Employee")) {
                             EmployeeDashboard ed = new EmployeeDashboard();
+                            ed.setName(EmpID, NameD);
                             ed.user_account.setText(NameD);
                             ed.frame.setVisible(true);
                             frame.dispose();

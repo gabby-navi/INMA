@@ -107,6 +107,7 @@ public class AdminOverview {
 		panelo.add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -147,9 +148,11 @@ public class AdminOverview {
 		panelo.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -275,6 +278,7 @@ public class AdminOverview {
 		frame.getContentPane().add(edit_employee);
 		
 		cancel_edit = new JButton("Cancel");
+		cancel_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cancel_edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel changes?", "WARNING", JOptionPane.YES_NO_OPTION); {
@@ -314,22 +318,34 @@ public class AdminOverview {
 				
 				String selected = model.getValueAt(selectedRow, 0).toString();
 				
-				String sqlQuery = "DELETE FROM Cinemas WHERE MovieTitle='" + selected + "'";
-				String sqlQuery2 = "DELETE FROM SchedMovies WHERE MovieTitle='" + selected + "'";
-				
-				try (Connection connection = DriverManager.getConnection(connectionUrl);) {            
+				try (Connection connection = DriverManager.getConnection(connectionUrl);) {  
 					
-					PreparedStatement ps = connection.prepareStatement(sqlQuery);
-					PreparedStatement pst = connection.prepareStatement(sqlQuery2);
+					String sqlSelect = "SELECT MovieID FROM SchedMovies WHERE MovieTitle='" + selected + "'";
 					
+					PreparedStatement ps = connection.prepareStatement(sqlSelect);
+					ResultSet rs = ps.executeQuery();
+					
+					String id = "";
+			        while (rs.next()) {
+			        	id = rs.getString("MovieID");
+			        }
+					
+			        String sqlQuery = "DELETE FROM Cinemas WHERE MovieID='" + id + "'"; 
+					
+					ps = connection.prepareStatement(sqlQuery);
+			        
 					int deleteItem = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this movie?", "WARNING", JOptionPane.YES_NO_OPTION); {
 						if (deleteItem == JOptionPane.YES_OPTION) {
 							ps.executeUpdate();
-							pst.executeUpdate();
 							JOptionPane.showMessageDialog(null, "Deleted successfully.");
 							SchedMovies.updateDB();
 						}
 					}
+					
+					SchedMovies sm = new SchedMovies();
+					sm.user_account.setText("Admin");
+					sm.frame.setVisible(true);
+					frame.dispose();
 				}
 				
 				catch(HeadlessException | SQLException ex){
@@ -390,6 +406,7 @@ public class AdminOverview {
 					SchedMovies.updateDB();
 					
 					SchedMovies sm = new SchedMovies();
+					sm.user_account.setText("Admin");
 	                sm.frame.setVisible(true);
 	                frame.dispose();
 				
@@ -575,6 +592,7 @@ public class AdminOverview {
         panelw.add(times2);
         
         cancel_addcine = new JButton("Cancel");
+        cancel_addcine.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cancel_addcine.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel changes?", "WARNING", JOptionPane.YES_NO_OPTION); {
@@ -602,6 +620,7 @@ public class AdminOverview {
         panelw.add(cancel_addcine);
         
         add_cinema = new JButton("Add Cinema");
+        add_cinema.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add_cinema.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {        
 			        java.util.Date startD = startDate.getDate();
@@ -689,6 +708,7 @@ public class AdminOverview {
         panelw.add(add_cine);
         
         JLabel lblrectangle = new JLabel("");
+        lblrectangle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblrectangle.setBounds(0, 0, 1010, 539);
         lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("/images/background.png")));
         frame.getContentPane().add(lblrectangle);

@@ -117,6 +117,7 @@ public class SchedMovies {
 		frame.getContentPane().add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -168,6 +169,7 @@ public class SchedMovies {
 		panel.setLayout(null);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_reservations.setForeground(Color.WHITE);
 		btn_reservations.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -278,6 +280,7 @@ public class SchedMovies {
 		frame.getContentPane().add(add_movie);
 		
 		view_deets = new JButton("View Details");
+		view_deets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		view_deets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = table.getSelectedRow();
@@ -353,6 +356,7 @@ public class SchedMovies {
 		frame.getContentPane().add(view_deets);
 		
 		remove_btn = new JButton("Remove");
+		remove_btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		remove_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -404,6 +408,7 @@ public class SchedMovies {
 		frame.getContentPane().add(remove_btn);
 		
 		JLabel bg = new JLabel("");
+		bg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);

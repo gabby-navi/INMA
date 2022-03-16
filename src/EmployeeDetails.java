@@ -153,6 +153,7 @@ public class EmployeeDetails {
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_employees.setForeground(Color.WHITE);
 		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -163,9 +164,11 @@ public class EmployeeDetails {
 		panel.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -279,6 +282,7 @@ public class EmployeeDetails {
 		));
 		
 		JButton remove = new JButton("Remove");
+		remove.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		remove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel)tableE.getModel();
@@ -315,6 +319,7 @@ public class EmployeeDetails {
 		frame.getContentPane().add(remove);
 		
 		view_deets = new JButton("View Details");
+		view_deets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		view_deets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = tableE.getSelectedRow();
@@ -381,6 +386,7 @@ public class EmployeeDetails {
 		frame.getContentPane().add(view_deets);
 		
 		JLabel bg = new JLabel("");
+		bg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);

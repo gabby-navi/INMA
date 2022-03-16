@@ -86,6 +86,8 @@ public class ForgotPass {
 						JOptionPane.showMessageDialog(null, "Password did not match!");
 					}
 					
+					frame.dispose();
+					
 				}
 				catch (SQLException x) {
 					x.printStackTrace();

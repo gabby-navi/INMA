@@ -171,6 +171,7 @@ public class SignIn {
                             ed.user_account.setText(NameD);
                             ed.frame.setVisible(true);
                             frame.dispose();
+                            
                         }
                     }
 					else {

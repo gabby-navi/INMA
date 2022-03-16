@@ -117,6 +117,7 @@ public class EmployeeDeetsOverview {
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_employees.setForeground(Color.WHITE);
 		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -127,9 +128,11 @@ public class EmployeeDeetsOverview {
 		panel.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -324,6 +327,7 @@ public class EmployeeDeetsOverview {
 		white_bg.add(textFieldPass);
 		
 		cancel_edit = new JButton("Cancel");
+		cancel_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cancel_edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel changes?", "WARNING", JOptionPane.YES_NO_OPTION); {
@@ -375,6 +379,7 @@ public class EmployeeDeetsOverview {
 					}
 					
 					EmployeeDetails empDeets = new EmployeeDetails();
+					empDeets.user_account.setText("Admin");
 					empDeets.frame.setVisible(true);
 					frame.dispose();
 				}
@@ -393,6 +398,7 @@ public class EmployeeDeetsOverview {
 		frame.getContentPane().add(remove_employee);
 		
 		save_edit = new JButton("Save");
+		save_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		save_edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel)EmployeeDetails.tableE.getModel();
@@ -456,6 +462,7 @@ public class EmployeeDeetsOverview {
 		frame.getContentPane().add(edit_employee);
 		
 		JLabel bg = new JLabel("");
+		bg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);

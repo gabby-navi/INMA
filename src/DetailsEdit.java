@@ -97,6 +97,7 @@ public class DetailsEdit {
 		panelo.add(btn_sched);
 		
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,9 +138,11 @@ public class DetailsEdit {
 		panelo.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -297,6 +300,7 @@ public class DetailsEdit {
 					}
 					
 					SchedMovies sm = new SchedMovies();
+					sm.user_account.setText("Admin");
 	                sm.frame.setVisible(true);
 	                frame.dispose();
 					
@@ -326,6 +330,7 @@ public class DetailsEdit {
 					if (input == JOptionPane.YES_OPTION) {
 						JOptionPane.showMessageDialog(null, "No movie was added.");
 						SchedMovies sm = new SchedMovies();
+						sm.user_account.setText("Admin");
 		                sm.frame.setVisible(true);
 		                frame.dispose();
 					}
@@ -463,6 +468,7 @@ public class DetailsEdit {
 		panelw.add(times);
 		
 		JLabel lblrectangle = new JLabel("");
+		lblrectangle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblrectangle.setBounds(0, 0, 1010, 539);
 		lblrectangle.setIcon(new ImageIcon (this.getClass().getResource("/images/background.png")));
 		frame.getContentPane().add(lblrectangle);

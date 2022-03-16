@@ -121,6 +121,7 @@ public class EmployeeNew {
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_employees.setForeground(Color.WHITE);
 		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -131,9 +132,11 @@ public class EmployeeNew {
 		panel.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -326,7 +329,7 @@ public class EmployeeNew {
 				if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
 					File selectedImageFile = browseImageFile.getSelectedFile();
 					selectedImagePath = selectedImageFile.getAbsolutePath();
-					JOptionPane.showMessageDialog(null, selectedImagePath);
+					JOptionPane.showMessageDialog(null, "Uploaded picture successfully!");
 					
 					ImageIcon icon = new ImageIcon(selectedImagePath);
 					Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -372,6 +375,20 @@ public class EmployeeNew {
 		white_bg.add(txt_email);
 		
 		JButton cancel_btn = new JButton("Cancel");
+		cancel_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel adding movie?", "WARNING", JOptionPane.YES_NO_OPTION); {
+					if (input == JOptionPane.YES_OPTION) {
+						JOptionPane.showMessageDialog(null, "No employee was added.");
+						EmployeeDetails empD = new EmployeeDetails();
+						empD.user_account.setText("Admin");
+		                empD.frame.setVisible(true);
+		                frame.dispose();
+					}
+				}
+			}
+		});
+		cancel_btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cancel_btn.setFocusPainted(false);
 		cancel_btn.setForeground(new Color(17, 34, 44));
 		cancel_btn.setFont(new Font("Poppins", Font.BOLD, 10));
@@ -381,6 +398,7 @@ public class EmployeeNew {
 		frame.getContentPane().add(cancel_btn);
 		
 		JLabel bg = new JLabel("");
+		bg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);

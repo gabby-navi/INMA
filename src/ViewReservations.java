@@ -132,6 +132,7 @@ public class ViewReservations {
 		panel.add(btn_sched);
 			
 		JButton btn_employees = new JButton("Employees");
+		btn_employees.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_employees.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_employees.setForeground(Color.WHITE);
 		btn_employees.setFont(new Font("Poppins Medium", Font.PLAIN, 15));
@@ -142,9 +143,11 @@ public class ViewReservations {
 		panel.add(btn_employees);
 		
 		JButton btn_reservations = new JButton("Reservations");
+		btn_reservations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_reservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reservations r = new Reservations();
+				r.user_account.setText("Admin");
 				r.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -178,9 +181,9 @@ public class ViewReservations {
 					}
 					
 					if(user_account.getText().equals(NameD)){
-						EmployeeDetails empDeets = new EmployeeDetails();
-						empDeets.user_account.setText(NameD);
-		                empDeets.frame.setVisible(true);
+						Reservations r = new Reservations();
+						r.user_account.setText(NameD);
+		                r.frame.setVisible(true);
 		                frame.dispose();
 					}
 				}
@@ -344,6 +347,7 @@ public class ViewReservations {
 		white_bg.add(dnt);
 		
 		JLabel bg = new JLabel("");
+		bg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bg.setIcon(new ImageIcon(this.getClass().getResource("/images/background.png")));
 		bg.setBounds(0, 0, 1008, 537);
 		frame.getContentPane().add(bg);
